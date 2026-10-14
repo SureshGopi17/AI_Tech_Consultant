@@ -1,0 +1,12 @@
+[00:00:05] Elena Rostova (Consultant): Hello Marcus, welcome to our discovery call for BioTech Supply Hub!
+[00:00:15] Marcus Thorne (Client): Hello Elena, glad to be here. We are building a specialized supplier directory for certified biotechnology lab equipment, reagents, and cleanroom consumables across North America.
+[00:00:30] Elena: Wonderful. Tell me about the vendors and how they interact with the portal.
+[00:00:36] Marcus: We have about 650 pre-screened biotech vendors. We want three membership tiers: Free Bronze, Silver ($199/month), and Gold ($499/month). Gold vendors get featured placement on the homepage, ability to upload 50 product catalogs, and direct inquiry forms.
+[00:00:58] Elena: That aligns cleanly with Brilliant Directories' native Membership Plans and Photo/Product Album feature. We can configure the plan restrictions, pricing, and album limits directly in the admin panel with no custom code required.
+[00:01:14] Marcus: Great. Now, for buyer inquiries, biotech buyers often need a formal Request For Quote (RFQ) sent to multiple vendors simultaneously based on equipment category (e.g. Centrifuges, PCR machines).
+[00:01:31] Elena: Brilliant Directories has a built-in Lead Match and Distribution system where a single buyer RFQ can automatically route to all active Gold & Silver vendors in that specific sub-category. We just need to configure the lead category rules.
+[00:01:48] Marcus: What about compliance badges? Biotech buyers need to know if a vendor is ISO 9001 or ISO 13485 certified, or FDA registered.
+[00:01:59] Elena: We can add custom checkbox fields for ISO 9001, ISO 13485, and FDA registration in the BD Member Profile form, and display visual certification badges right below the vendor title using custom HTML/CSS badge snippets. That is roughly 6 to 8 hours of frontend template customization.
+[00:02:22] Marcus: Excellent. And we need our corporate brand colors: sterile lab teal (#008080) and crisp slate gray (#2F4F4F).
+[00:02:34] Elena: Perfect, that's standard Theme Settings and CSS styling, about 12 hours. We can also handle the bulk import of your 650 vendor records via CSV.
+[00:02:46] Marcus: Terrific, let's put together the proposal!
