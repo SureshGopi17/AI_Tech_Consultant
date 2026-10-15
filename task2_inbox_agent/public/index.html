@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Inbox Agent - Autonomous & Self-Improving Email Assistant</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Top Bar -->
+    <header class="top-nav">
+      <div class="brand">
+        <div class="brand-icon">📬</div>
+        <div>
+          <h1>The Inbox Agent</h1>
+          <p class="subtitle">Drafts powered by Knowledge Brain &bull; Learns from every sent reply</p>
+        </div>
+      </div>
+      <div class="nav-metrics">
+        <div class="metric-pill">
+          <span class="label">Prompt Version</span>
+          <span class="val" id="metric-prompt-ver">v1.0</span>
+        </div>
+        <div class="metric-pill">
+          <span class="label">Improvement</span>
+          <span class="val text-green" id="metric-improvement">+29.0%</span>
+        </div>
+        <button id="btn-batch-process" class="btn btn-secondary">⚡ Auto-Process Batch</button>
+      </div>
+    </header>
+
+    <!-- Main Container: 3 Columns -->
+    <main class="inbox-container">
+      <!-- Left: Email List & Filters -->
+      <aside class="inbox-sidebar">
+        <div class="sidebar-header">
+          <h3>Customer Inbox (<span id="total-emails">50</span>)</h3>
+          <div class="filter-group">
+            <select id="filter-category" class="select-filter">
+              <option value="">All Categories</option>
+              <option value="how_to">How-To</option>
+              <option value="new_project">New Project</option>
+              <option value="refund">Refund / Billing</option>
+              <option value="complaint">Complaint</option>
+              <option value="quote">Quote</option>
+              <option value="follow_up">Follow-Up</option>
+            </select>
+            <select id="filter-status" class="select-filter">
+              <option value="">All Statuses</option>
+              <option value="unread">Unread</option>
+              <option value="drafted">Drafted</option>
+              <option value="approved">Approved</option>
+              <option value="edited_and_sent">Edited & Sent</option>
+              <option value="auto_sent">Auto-Sent</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="email-list" id="email-list">
+          <!-- Rendered dynamically -->
+        </div>
+      </aside>
+
+      <!-- Center: Selected Email & Drafting Desk -->
+      <section class="email-detail-view" id="email-detail-view">
+        <div class="empty-detail" id="empty-detail-state">
+          <div class="empty-icon">✉️</div>
+          <h3>Select an email to view details</h3>
+          <p>The Inbox Agent will fetch verified facts from the Knowledge Brain and draft a response in the company voice.</p>
+        </div>
+
+        <div class="detail-content" id="detail-content" style="display: none;">
+          <!-- Email Header -->
+          <div class="email-meta-card">
+            <div class="meta-row">
+              <h2 id="email-subject">Subject</h2>
+              <span class="badge" id="email-category-badge">Category</span>
+            </div>
+            <div class="meta-sub">
+              <div><strong>From:</strong> <span id="email-from">Name</span> &lt;<span id="email-sender">email</span>&gt;</div>
+              <div><strong>Company:</strong> <span id="email-company">Company</span></div>
+              <div><strong>Urgency:</strong> <span id="email-urgency">Medium</span></div>
+            </div>
+            <div class="email-body-text" id="email-body">Email body text...</div>
+          </div>
+
+          <!-- Draft Section -->
+          <div class="draft-card">
+            <div class="draft-header">
+              <div class="draft-title">
+                <h3>🤖 AI Drafted Reply</h3>
+                <span class="conf-tag" id="draft-conf-tag">Confidence: 94%</span>
+              </div>
+              <div class="draft-tools">
+                <button id="btn-redraft" class="btn btn-secondary btn-sm">🔄 Regenerate Draft</button>
+              </div>
+            </div>
+
+            <!-- Citations from Task 1 -->
+            <div class="kb-evidence" id="draft-citations">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <!-- Draft Editor / Viewer -->
+            <div class="draft-body-box">
+              <textarea id="draft-textarea" rows="12"></textarea>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="action-bar">
+              <button id="btn-approve" class="btn btn-success">✅ Approve & Send (1-Click)</button>
+              <button id="btn-edit-send" class="btn btn-primary">✏️ Edit & Send (Agent Learns)</button>
+              <button id="btn-custom-reply" class="btn btn-secondary">✍️ Custom Reply</button>
+            </div>
+            <p class="learning-hint">💡 Every time you edit a draft, the agent measures your edit distance, learns your style rules, and updates future drafts.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right: Autonomous Graduation & Learning Monitor -->
+      <aside class="right-monitor">
+        <!-- Graduation Widget -->
+        <div class="monitor-card">
+          <div class="monitor-header">
+            <h3>🎓 Autonomous Graduation</h3>
+            <span class="hint-tag">Goal: 20 in a row</span>
+          </div>
+          <p class="monitor-desc">Categories with 20 consecutive unchanged sends unlock auto-send freedom. Negative feedback triggers immediate demotion.</p>
+          <div class="graduation-list" id="graduation-list">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Self-Improving Rules Widget -->
+        <div class="monitor-card" style="margin-top: 1rem;">
+          <div class="monitor-header">
+            <h3>🧠 Learned Rules & Feedback</h3>
+            <span class="pill-count" id="rules-count">0</span>
+          </div>
+          <p class="monitor-desc">Guidelines extracted from your edits. Click 'Undo' to revert any rule and roll back the prompt.</p>
+          <div class="rules-list" id="rules-list">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
