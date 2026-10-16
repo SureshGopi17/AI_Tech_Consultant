@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meeting to Scope of Work - Multi-Agent AI Consultant</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Header -->
+    <header class="top-nav">
+      <div class="brand">
+        <div class="brand-icon">📑</div>
+        <div>
+          <h1>Meeting to Scope of Work</h1>
+          <p class="subtitle">Multi-Agent AI Team &bull; Native Feature Checks via Knowledge Brain &bull; Scope Creep Engine</p>
+        </div>
+      </div>
+      <div class="nav-metrics">
+        <div class="metric-pill">
+          <span class="label">Consulting Rate</span>
+          <span class="val">$95 / hr</span>
+        </div>
+        <div class="metric-pill">
+          <span class="label">Human Approval</span>
+          <span class="val text-amber" id="metric-approval-status">Pending Review</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2 Column Workspace -->
+    <main class="sow-workspace">
+      <!-- Left: Transcripts & Inputs -->
+      <section class="transcript-pane card">
+        <div class="card-header">
+          <h2>🎙️ Client Meeting Transcripts</h2>
+          <div class="transcript-selectors">
+            <button class="selector-btn active" id="btn-m1" onclick="loadTranscript('meeting_1')">Meeting 1 (Discovery)</button>
+            <button class="selector-btn" id="btn-m2" onclick="loadTranscript('meeting_2')">Meeting 2 (Changes & Creep)</button>
+            <button class="selector-btn" id="btn-m3" onclick="loadTranscript('meeting_3')">Meeting 3 (BioTech)</button>
+          </div>
+        </div>
+
+        <div class="transcript-box">
+          <label class="input-label" id="transcript-label">Meeting 1 Dialogue (Initial Discovery)</label>
+          <textarea id="transcript-text" rows="14" placeholder="Paste or view client transcript..."></textarea>
+        </div>
+
+        <!-- Follow-up meeting toggle -->
+        <div class="followup-box">
+          <label class="checkbox-container">
+            <input type="checkbox" id="check-followup" checked>
+            <span class="checkmark"></span>
+            <strong>Compare against Follow-up Meeting 2 (Delta & Scope Creep Analysis)</strong>
+          </label>
+          <div id="followup-preview-wrapper" style="margin-top: 0.5rem;">
+            <label class="input-label" style="font-size: 0.7rem;">Meeting 2 Follow-up Dialogue</label>
+            <textarea id="followup-text" rows="8" placeholder="Follow-up transcript..."></textarea>
+          </div>
+        </div>
+
+        <div class="run-action-bar">
+          <button id="btn-run-pipeline" class="btn btn-primary btn-block">🚀 Run Multi-Agent Analysis</button>
+        </div>
+      </section>
+
+      <!-- Right: Multi-Agent Analysis & Deliverables -->
+      <section class="results-pane card">
+        <!-- Agent Pipeline Progress -->
+        <div class="pipeline-tracker">
+          <div class="agent-step" id="step-consultant">
+            <div class="step-num">1</div>
+            <div class="step-info"><span class="step-title">Consultant Agent</span><span class="step-sub">Extract Needs</span></div>
+          </div>
+          <div class="step-arrow">&rarr;</div>
+          <div class="agent-step" id="step-solution">
+            <div class="step-num">2</div>
+            <div class="step-info"><span class="step-title">Architect Agent</span><span class="step-sub">Check KB API</span></div>
+          </div>
+          <div class="step-arrow">&rarr;</div>
+          <div class="agent-step" id="step-estimator">
+            <div class="step-num">3</div>
+            <div class="step-info"><span class="step-title">Estimator Agent</span><span class="step-sub">Hours & Cost</span></div>
+          </div>
+          <div class="step-arrow">&rarr;</div>
+          <div class="agent-step" id="step-proposal">
+            <div class="step-num">4</div>
+            <div class="step-info"><span class="step-title">Proposal Agent</span><span class="step-sub">Client Pitch</span></div>
+          </div>
+        </div>
+
+        <!-- Output Tabs Navigation -->
+        <div class="tabs-nav">
+          <button class="tab-btn active" data-tab="tab-sow">📋 Scope of Work</button>
+          <button class="tab-btn" data-tab="tab-tasks">⏱️ Task Breakdown</button>
+          <button class="tab-btn" data-tab="tab-proposal">📄 Client Proposal</button>
+          <button class="tab-btn" data-tab="tab-delta" id="btn-tab-delta">⚡ Scope Creep Delta</button>
+        </div>
+
+        <div class="tab-content-area">
+          <!-- Tab 1: SOW -->
+          <div class="tab-pane active" id="tab-sow">
+            <div class="savings-banner" id="savings-banner">
+              <div>
+                <span class="savings-label">ESTIMATED CLIENT SAVINGS VIA NATIVE FEATURES</span>
+                <h3 id="savings-amount">$7,125.00 Saved</h3>
+              </div>
+              <p class="savings-desc" id="savings-desc">3 requirements solved with out-of-the-box Brilliant Directories settings without custom code.</p>
+            </div>
+            <div class="section-title">Functional Requirements</div>
+            <div id="requirements-list" class="items-container"></div>
+          </div>
+
+          <!-- Tab 2: Task Breakdown -->
+          <div class="tab-pane" id="tab-tasks">
+            <div class="cost-summary-card">
+              <div class="cost-row">
+                <span>Total Engineering Hours:</span>
+                <strong id="stat-total-hours">--</strong>
+              </div>
+              <div class="cost-row">
+                <span>QA Verification Buffer (15%):</span>
+                <span id="stat-qa-hours">--</span>
+              </div>
+              <div class="cost-row">
+                <span>Project Management (10%):</span>
+                <span id="stat-pm-hours">--</span>
+              </div>
+              <div class="cost-row total-row">
+                <span>Total Project Investment ($95/hr):</span>
+                <strong class="text-green" id="stat-total-cost">--</strong>
+              </div>
+            </div>
+            <div class="section-title" style="margin-top: 1rem;">Modular Task Items</div>
+            <div id="tasks-list" class="items-container"></div>
+          </div>
+
+          <!-- Tab 3: Client Proposal -->
+          <div class="tab-pane" id="tab-proposal">
+            <div class="proposal-paper" id="proposal-paper">
+              <div class="prop-header">
+                <h2 id="prop-title">Client Proposal</h2>
+                <span class="prop-id" id="prop-id">PROP-XXXXXX</span>
+              </div>
+              <div class="prop-meta">
+                <div><strong>Client:</strong> <span id="prop-client">Client</span></div>
+                <div><strong>Company:</strong> <span id="prop-company">Company</span></div>
+                <div><strong>Target Timeline:</strong> <span id="prop-timeline">3-4 Weeks</span></div>
+              </div>
+              <div class="prop-section">
+                <h4>Executive Strategy</h4>
+                <p id="prop-executive">Summary...</p>
+              </div>
+              <div class="prop-section">
+                <h4>Native Zero-Code Solutions Utilized</h4>
+                <ul id="prop-native-list"></ul>
+              </div>
+              <div class="prop-section">
+                <h4>Custom Engineering Deliverables</h4>
+                <ul id="prop-custom-list"></ul>
+              </div>
+              <div class="approval-card" id="approval-card">
+                <div class="appr-info">
+                  <h4>Human Consultant Gatekeeper</h4>
+                  <p id="appr-status-text">Nothing reaches the client until a human consultant signs off.</p>
+                </div>
+                <button id="btn-approve-proposal" class="btn btn-success">✍️ Approve & Sign-off Proposal</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 4: Scope Delta & Scope Creep -->
+          <div class="tab-pane" id="tab-delta">
+            <div class="delta-summary-box">
+              <h3>⚡ Meeting 1 vs Meeting 2 Scope Evolution</h3>
+              <p id="delta-summary-text">Detects what changed, what was dropped, and flags scope creep.</p>
+            </div>
+            
+            <div class="creep-warning-card">
+              <div class="creep-badge">🚨 SCOPE CREEP DETECTED</div>
+              <h4>Items Outside Original Scope (Quoted as Separate Add-Ons)</h4>
+              <p>The client introduced major requirements (Mobile Apps & QuickBooks Sync) during follow-up. Our engine itemized them separately so Phase 1 web launch stays on track.</p>
+              <div id="creep-items-list" class="items-container" style="margin-top: 0.75rem;"></div>
+              <div class="creep-total-line">
+                <span>Add-on Change Order Quote:</span>
+                <strong id="creep-total-quote">$10,450.00 (110.0 hrs)</strong>
+              </div>
+            </div>
+
+            <div class="section-title" style="margin-top: 1.25rem;">Modified & Dropped Requirements</div>
+            <div id="delta-items-list" class="items-container"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
