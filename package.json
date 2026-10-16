@@ -1,0 +1,12 @@
+{
+  "name": "ai-tech-consultant",
+  "version": "1.0.0",
+  "description": "Enterprise AI Tech Consultant Monorepo across Python & TypeScript",
+  "scripts": {
+    "start": "python run_all.py",
+    "test": "python run_evals.py",
+    "test:task1": "python -m pytest task1_knowledge_brain/tests/test_task1_evals.py -v",
+    "test:task2": "cd task2_inbox_agent && npm test",
+    "test:task3": "python -m pytest task3_meeting_sow/tests/test_task3_evals.py -v"
+  }
+}

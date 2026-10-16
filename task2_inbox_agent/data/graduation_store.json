@@ -4,11 +4,11 @@
     "category_label": "How-To & Technical Inquiries",
     "consecutive_unchanged": 0,
     "threshold": 20,
-    "total_approved": 21,
+    "total_approved": 63,
     "total_auto_sent": 0,
     "auto_send_eligible": false,
     "status": "HUMAN_REVIEW_REQUIRED",
-    "last_updated": "2026-10-16T04:27:35.481Z",
+    "last_updated": "2026-10-16T04:40:16.316Z",
     "last_demotion_reason": "Human edited draft (similarity 70.0% < 95%). Reset streak from 20 to 0."
   },
   {

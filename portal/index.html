@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tech Consultant - Unified Control Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #070a12;
+      --bg-card: #0f1524;
+      --border-color: #1c263d;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --accent-green: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .portal-header {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .brand-icon {
+      font-size: 2.2rem;
+      background: rgba(59, 130, 246, 0.1);
+      padding: 0.5rem;
+      border-radius: 12px;
+    }
+    .brand-group h1 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .brand-group p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .header-badge {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      padding: 0.4rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+    }
+    .portal-main {
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .architecture-banner {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.5rem 2rem;
+    }
+    .arch-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .arch-header h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .arch-flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border-color);
+      padding: 1.25rem;
+      border-radius: 10px;
+    }
+    .arch-node {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .arch-node.core {
+      border-color: rgba(59, 130, 246, 0.4);
+      background: rgba(59, 130, 246, 0.08);
+    }
+    .node-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .node-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .node-lang {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+    .lang-python { background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
+    .lang-ts { background: rgba(59, 130, 246, 0.25); color: #60a5fa; border: 1px solid #3b82f6; }
+    .arch-arrow {
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    /* Tasks 3 Cards Grid */
+    .tasks-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .task-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .task-card:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+      transform: translateY(-2px);
+    }
+    .card-top {
+      margin-bottom: 1.25rem;
+    }
+    .task-badge-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .task-num {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .status-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 12px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #6ee7b7;
+    }
+    .task-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .task-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+    }
+    .feature-list li::before {
+      content: "✓ ";
+      color: var(--accent-green);
+      font-weight: bold;
+    }
+    .card-actions {
+      border-top: 1px solid var(--border-color);
+      padding-top: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .port-info {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-primary { background: var(--accent-blue); color: white; }
+    .btn-primary:hover { background: #2563eb; }
+    .btn-secondary { background: rgba(255, 255, 255, 0.05); color: var(--text-primary); border: 1px solid var(--border-color); }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+  </style>
+</head>
+<body>
+  <header class="portal-header">
+    <div class="brand-group">
+      <div class="brand-icon">🤖</div>
+      <div>
+        <h1>AI Tech Consultant</h1>
+        <p>Enterprise AI Consulting Monorepo &bull; BusinessLabs &bull; Anthropic Applied AI</p>
+      </div>
+    </div>
+    <div class="header-badge">
+      <div class="pulse-dot"></div>
+      <span>All 3 Services Active</span>
+    </div>
+  </header>
+
+  <main class="portal-main">
+    <!-- Architecture Flow Diagram -->
+    <section class="architecture-banner">
+      <div class="arch-header">
+        <h2>System Architecture & Clean API Coupling</h2>
+        <span style="font-size: 0.8rem; color: var(--text-muted);">Tasks 2 & 3 call Task 1 strictly via REST API (No shared code)</span>
+      </div>
+      <div class="arch-flow">
+        <div class="arch-node">
+          <div class="node-title">Task 2: Inbox Agent</div>
+          <div class="node-sub">Email Drafter & Self-Improvement</div>
+          <span class="node-lang lang-ts">TypeScript Strict</span>
+        </div>
+        <div class="arch-arrow">
+          <span>HTTP POST</span><br/>
+          <span>/api/v1/search &rarr;</span>
+        </div>
+        <div class="arch-node core">
+          <div class="node-title">Task 1: Knowledge Brain</div>
+          <div class="node-sub">Brilliant Directories RAG & Daily Sync</div>
+          <span class="node-lang lang-python">Python FastAPI</span>
+        </div>
+        <div class="arch-arrow">
+          <span>&larr; HTTP POST</span><br/>
+          <span>/api/v1/search</span>
+        </div>
+        <div class="arch-node">
+          <div class="node-title">Task 3: Meeting to SOW</div>
+          <div class="node-sub">Multi-Agent Team & Scope Creep</div>
+          <span class="node-lang lang-python">Python FastAPI</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 Tasks Grid -->
+    <section class="tasks-grid">
+      <!-- Task 1 Card -->
+      <div class="task-card">
+        <div class="card-top">
+          <div class="task-badge-row">
+            <span class="task-num">TASK 1</span>
+            <span class="status-badge">PORT 8001</span>
+          </div>
+          <h3 class="task-title">The Knowledge Brain</h3>
+          <p class="task-desc">Self-evolving help center memory built from the public Brilliant Directories Solution Center. Keeps fresh daily from the sitemap.</p>
+          <ul class="feature-list">
+            <li>Polite crawler with checkpoint resume</li>
+            <li>Multimodal screenshot understanding</li>
+            <li>Daily differential sitemap sync & purge</li>
+            <li>Honest "I don't know" rejection</li>
+            <li>Human expert escalation feedback loop</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <div class="port-info">http://localhost:8001</div>
+          <a href="http://localhost:8001" target="_blank" class="btn btn-primary">Open Knowledge Brain UI &rarr;</a>
+          <a href="http://localhost:8001/docs" target="_blank" class="btn btn-secondary">OpenAPI Documentation</a>
+        </div>
+      </div>
+
+      <!-- Task 2 Card -->
+      <div class="task-card">
+        <div class="card-top">
+          <div class="task-badge-row">
+            <span class="task-num">TASK 2</span>
+            <span class="status-badge">PORT 8002</span>
+          </div>
+          <h3 class="task-title">The Inbox Agent</h3>
+          <p class="task-desc">Customer email agent that drafts replies using Knowledge Brain facts and gets better with every email a human edits or sends.</p>
+          <ul class="feature-list">
+            <li>Strict TypeScript typed end-to-end</li>
+            <li>50 preloaded realistic customer emails</li>
+            <li>Levenshtein self-improving learning loop</li>
+            <li>20-streak Autonomous Graduation engine</li>
+            <li>Quality demotion guardrails & undo</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <div class="port-info">http://localhost:8002</div>
+          <a href="http://localhost:8002" target="_blank" class="btn btn-primary">Open Inbox Agent UI &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Task 3 Card -->
+      <div class="task-card">
+        <div class="card-top">
+          <div class="task-badge-row">
+            <span class="task-num">TASK 3</span>
+            <span class="status-badge">PORT 8003</span>
+          </div>
+          <h3 class="task-title">Meeting to SOW</h3>
+          <p class="task-desc">Turns messy client transcripts into an actionable Scope of Work, hour estimates, client proposals, and scope creep change orders.</p>
+          <ul class="feature-list">
+            <li>Multi-agent pipeline (Consultant, Architect, Estimator, Proposal)</li>
+            <li>Queries KB API for native BD settings ($7,125 savings)</li>
+            <li>Scope Differ: detects changes, drops & creep</li>
+            <li>Itemizes Mobile App & QB Add-On Quote</li>
+            <li>Human Consultant sign-off gatekeeper</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <div class="port-info">http://localhost:8003</div>
+          <a href="http://localhost:8003" target="_blank" class="btn btn-primary">Open Meeting to SOW UI &rarr;</a>
+          <a href="http://localhost:8003/docs" target="_blank" class="btn btn-secondary">OpenAPI Documentation</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
