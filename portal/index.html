@@ -263,153 +263,256 @@
   </header>
 
   <main class="portal-main">
-    <!-- Public Tunnel Notice Banner -->
-    <section id="public-banner" style="display:none; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 14px; padding: 1.25rem 1.75rem;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-        <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <span style="font-size: 1.2rem;">🌐</span>
-          <h2 style="font-size: 1.05rem; font-weight: 700; color: #34d399;">Public Cloudflare Tunnels Live</h2>
-        </div>
-        <span style="font-size: 0.75rem; background: rgba(16,185,129,0.2); color: #6ee7b7; padding: 0.2rem 0.6rem; border-radius: 12px; font-weight: 700;">Remote Access Ready</span>
-      </div>
-      <p style="font-size: 0.825rem; color: var(--text-secondary); margin-bottom: 1rem;">
-        These microservices are published to the web via secure Cloudflare tunnels. Any remote reviewer can click the links below or use the task buttons below.
-      </p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.75rem; font-family: var(--font-mono); font-size: 0.8rem;">
-        <div style="background: rgba(0,0,0,0.3); padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid var(--border-color);">
-          <span style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 0.2rem;">PORTAL (MASTER)</span>
-          <a id="pub-portal-url" href="#" target="_blank" style="color: #60a5fa; text-decoration: none; word-break: break-all;">Loading...</a>
-        </div>
-        <div style="background: rgba(0,0,0,0.3); padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid var(--border-color);">
-          <span style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 0.2rem;">TASK 1 (BRAIN)</span>
-          <a id="pub-t1-url" href="#" target="_blank" style="color: #34d399; text-decoration: none; word-break: break-all;">Loading...</a>
-        </div>
-        <div style="background: rgba(0,0,0,0.3); padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid var(--border-color);">
-          <span style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 0.2rem;">TASK 2 (INBOX)</span>
-          <a id="pub-t2-url" href="#" target="_blank" style="color: #a78bfa; text-decoration: none; word-break: break-all;">Loading...</a>
-        </div>
-        <div style="background: rgba(0,0,0,0.3); padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid var(--border-color);">
-          <span style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 0.2rem;">TASK 3 (SOW)</span>
-          <a id="pub-t3-url" href="#" target="_blank" style="color: #f59e0b; text-decoration: none; word-break: break-all;">Loading...</a>
-        </div>
-      </div>
-    </section>
+    <!-- Top Microservice Navigation Bar -->
+    <nav class="portal-nav" style="display: flex; gap: 0.5rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 0.4rem; flex-wrap: wrap;">
+      <button class="nav-tab" onclick="switchView('dashboard')" id="tab-dashboard" style="flex: 1; min-width: 160px; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.5); background: rgba(59, 130, 246, 0.25); color: #93c5fd; font-weight: 700; cursor: pointer; transition: all 0.2s; font-size: 0.85rem;">
+        📊 Master Dashboard
+      </button>
+      <button class="nav-tab" onclick="switchView('task1')" id="tab-task1" style="flex: 1; min-width: 160px; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid transparent; background: transparent; color: var(--text-secondary); font-weight: 700; cursor: pointer; transition: all 0.2s; font-size: 0.85rem;">
+        🧠 Task 1: Knowledge Brain
+      </button>
+      <button class="nav-tab" onclick="switchView('task2')" id="tab-task2" style="flex: 1; min-width: 160px; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid transparent; background: transparent; color: var(--text-secondary); font-weight: 700; cursor: pointer; transition: all 0.2s; font-size: 0.85rem;">
+        📥 Task 2: Inbox Agent
+      </button>
+      <button class="nav-tab" onclick="switchView('task3')" id="tab-task3" style="flex: 1; min-width: 160px; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid transparent; background: transparent; color: var(--text-secondary); font-weight: 700; cursor: pointer; transition: all 0.2s; font-size: 0.85rem;">
+        📝 Task 3: Meeting to SOW
+      </button>
+    </nav>
 
-    <!-- Architecture Flow Diagram -->
-    <section class="architecture-banner">
-      <div class="arch-header">
-        <h2>System Architecture & Clean API Coupling</h2>
-        <span style="font-size: 0.8rem; color: var(--text-muted);">Tasks 2 & 3 call Task 1 strictly via REST API (No shared code)</span>
-      </div>
-      <div class="arch-flow">
-        <div class="arch-node">
-          <div class="node-title">Task 2: Inbox Agent</div>
-          <div class="node-sub">Email Drafter & Self-Improvement</div>
-          <span class="node-lang lang-ts">TypeScript Strict</span>
+    <!-- Embedded Interactive Microservice Frame -->
+    <div id="iframe-view" style="display: none; flex-direction: column; gap: 0.75rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 0.65rem 1.25rem;">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span id="frame-active-title" style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary);">Microservice</span>
+          <span style="font-size: 0.7rem; background: rgba(16,185,129,0.15); color: #34d399; padding: 0.15rem 0.5rem; border-radius: 10px; font-weight: 700;">Embedded Live</span>
         </div>
-        <div class="arch-arrow">
-          <span>HTTP POST</span><br/>
-          <span>/api/v1/search &rarr;</span>
-        </div>
-        <div class="arch-node core">
-          <div class="node-title">Task 1: Knowledge Brain</div>
-          <div class="node-sub">Brilliant Directories RAG & Daily Sync</div>
-          <span class="node-lang lang-python">Python FastAPI</span>
-        </div>
-        <div class="arch-arrow">
-          <span>&larr; HTTP POST</span><br/>
-          <span>/api/v1/search</span>
-        </div>
-        <div class="arch-node">
-          <div class="node-title">Task 3: Meeting to SOW</div>
-          <div class="node-sub">Multi-Agent Team & Scope Creep</div>
-          <span class="node-lang lang-python">Python FastAPI</span>
+        <div style="display: flex; gap: 0.6rem;">
+          <button onclick="reloadActiveFrame()" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border-color); color: var(--text-secondary); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">🔄 Reload</button>
+          <a id="frame-external-link" href="#" target="_blank" style="background: var(--accent-blue); color: white; padding: 0.4rem 0.85rem; border-radius: 6px; font-size: 0.75rem; text-decoration: none; font-weight: 600;">↗ Open Fullscreen</a>
         </div>
       </div>
-    </section>
+      <iframe id="embedded-frame" src="about:blank" style="width: 100%; height: 82vh; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-card);"></iframe>
+    </div>
 
-    <!-- 3 Tasks Grid -->
-    <section class="tasks-grid">
-      <!-- Task 1 Card -->
-      <div class="task-card">
-        <div class="card-top">
-          <div class="task-badge-row">
-            <span class="task-num">TASK 1</span>
-            <span class="status-badge" id="badge-t1">PORT 8001</span>
+    <!-- Dashboard Main View -->
+    <div id="dashboard-view" style="display: flex; flex-direction: column; gap: 2rem;">
+      <!-- Public Tunnel Notice Banner -->
+      <section id="public-banner" style="display:none; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 14px; padding: 1.25rem 1.75rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span style="font-size: 1.2rem;">🌐</span>
+            <h2 style="font-size: 1.05rem; font-weight: 700; color: #34d399;">Public Cloudflare Tunnels Live</h2>
           </div>
-          <h3 class="task-title">The Knowledge Brain</h3>
-          <p class="task-desc">Self-evolving help center memory built from the public Brilliant Directories Solution Center. Keeps fresh daily from the sitemap.</p>
-          <ul class="feature-list">
-            <li>Polite crawler with checkpoint resume</li>
-            <li>Multimodal screenshot understanding</li>
-            <li>Daily differential sitemap sync & purge</li>
-            <li>Honest "I don't know" rejection</li>
-            <li>Human expert escalation feedback loop</li>
-          </ul>
+          <span style="font-size: 0.75rem; background: rgba(16,185,129,0.2); color: #6ee7b7; padding: 0.2rem 0.6rem; border-radius: 12px; font-weight: 700;">Remote Access Ready</span>
         </div>
-        <div class="card-actions">
-          <div class="port-info" id="port-info-t1">http://localhost:8001</div>
-          <a id="btn-t1" href="http://localhost:8001" target="_blank" class="btn btn-primary">Open Knowledge Brain UI &rarr;</a>
-          <a id="btn-t1-docs" href="http://localhost:8001/docs" target="_blank" class="btn btn-secondary">OpenAPI Documentation</a>
-        </div>
-      </div>
-
-      <!-- Task 2 Card -->
-      <div class="task-card">
-        <div class="card-top">
-          <div class="task-badge-row">
-            <span class="task-num">TASK 2</span>
-            <span class="status-badge" id="badge-t2">PORT 8002</span>
+        <p style="font-size: 0.825rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          These microservices are published to the web via secure Cloudflare tunnels. Any remote reviewer can click the links below or use the task buttons below.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.75rem; font-family: var(--font-mono); font-size: 0.8rem;">
+          <div style="background: rgba(0,0,0,0.3); padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid var(--border-color);">
+            <span style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 0.2rem;">PORTAL (MASTER)</span>
+            <a id="pub-portal-url" href="#" target="_blank" style="color: #60a5fa; text-decoration: none; word-break: break-all;">Loading...</a>
           </div>
-          <h3 class="task-title">The Inbox Agent</h3>
-          <p class="task-desc">Customer email agent that drafts replies using Knowledge Brain facts and gets better with every email a human edits or sends.</p>
-          <ul class="feature-list">
-            <li>Strict TypeScript typed end-to-end</li>
-            <li>50 preloaded realistic customer emails</li>
-            <li>Levenshtein self-improving learning loop</li>
-            <li>20-streak Autonomous Graduation engine</li>
-            <li>Quality demotion guardrails & undo</li>
-          </ul>
-        </div>
-        <div class="card-actions">
-          <div class="port-info" id="port-info-t2">http://localhost:8002</div>
-          <a id="btn-t2" href="http://localhost:8002" target="_blank" class="btn btn-primary">Open Inbox Agent UI &rarr;</a>
-        </div>
-      </div>
-
-      <!-- Task 3 Card -->
-      <div class="task-card">
-        <div class="card-top">
-          <div class="task-badge-row">
-            <span class="task-num">TASK 3</span>
-            <span class="status-badge" id="badge-t3">PORT 8003</span>
+          <div style="background: rgba(0,0,0,0.3); padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid var(--border-color);">
+            <span style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 0.2rem;">TASK 1 (BRAIN)</span>
+            <a id="pub-t1-url" href="#" target="_blank" style="color: #34d399; text-decoration: none; word-break: break-all;">Loading...</a>
           </div>
-          <h3 class="task-title">Meeting to SOW</h3>
-          <p class="task-desc">Turns messy client transcripts into an actionable Scope of Work, hour estimates, client proposals, and scope creep change orders.</p>
-          <ul class="feature-list">
-            <li>Multi-agent pipeline (Consultant, Architect, Estimator, Proposal)</li>
-            <li>Queries KB API for native BD settings ($7,125 savings)</li>
-            <li>Scope Differ: detects changes, drops & creep</li>
-            <li>Itemizes Mobile App & QB Add-On Quote</li>
-            <li>Human Consultant sign-off gatekeeper</li>
-          </ul>
+          <div style="background: rgba(0,0,0,0.3); padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid var(--border-color);">
+            <span style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 0.2rem;">TASK 2 (INBOX)</span>
+            <a id="pub-t2-url" href="#" target="_blank" style="color: #a78bfa; text-decoration: none; word-break: break-all;">Loading...</a>
+          </div>
+          <div style="background: rgba(0,0,0,0.3); padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid var(--border-color);">
+            <span style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 0.2rem;">TASK 3 (SOW)</span>
+            <a id="pub-t3-url" href="#" target="_blank" style="color: #f59e0b; text-decoration: none; word-break: break-all;">Loading...</a>
+          </div>
         </div>
-        <div class="card-actions">
-          <div class="port-info" id="port-info-t3">http://localhost:8003</div>
-          <a id="btn-t3" href="http://localhost:8003" target="_blank" class="btn btn-primary">Open Meeting to SOW UI &rarr;</a>
-          <a id="btn-t3-docs" href="http://localhost:8003/docs" target="_blank" class="btn btn-secondary">OpenAPI Documentation</a>
+      </section>
+
+      <!-- Architecture Flow Diagram -->
+      <section class="architecture-banner">
+        <div class="arch-header">
+          <h2>System Architecture & Clean API Coupling</h2>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Tasks 2 & 3 call Task 1 strictly via REST API (No shared code)</span>
         </div>
-      </div>
-    </section>
+        <div class="arch-flow">
+          <div class="arch-node">
+            <div class="node-title">Task 2: Inbox Agent</div>
+            <div class="node-sub">Email Drafter & Self-Improvement</div>
+            <span class="node-lang lang-ts">TypeScript Strict</span>
+          </div>
+          <div class="arch-arrow">
+            <span>HTTP POST</span><br/>
+            <span>/api/v1/search &rarr;</span>
+          </div>
+          <div class="arch-node core">
+            <div class="node-title">Task 1: Knowledge Brain</div>
+            <div class="node-sub">Brilliant Directories RAG & Daily Sync</div>
+            <span class="node-lang lang-python">Python FastAPI</span>
+          </div>
+          <div class="arch-arrow">
+            <span>&larr; HTTP POST</span><br/>
+            <span>/api/v1/search</span>
+          </div>
+          <div class="arch-node">
+            <div class="node-title">Task 3: Meeting to SOW</div>
+            <div class="node-sub">Multi-Agent Team & Scope Creep</div>
+            <span class="node-lang lang-python">Python FastAPI</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 Tasks Grid -->
+      <section class="tasks-grid">
+        <!-- Task 1 Card -->
+        <div class="task-card">
+          <div class="card-top">
+            <div class="task-badge-row">
+              <span class="task-num">TASK 1</span>
+              <span class="status-badge" id="badge-t1">PORT 8001</span>
+            </div>
+            <h3 class="task-title">The Knowledge Brain</h3>
+            <p class="task-desc">Self-evolving help center memory built from the public Brilliant Directories Solution Center. Keeps fresh daily from the sitemap.</p>
+            <ul class="feature-list">
+              <li>Polite crawler with checkpoint resume</li>
+              <li>Multimodal screenshot understanding</li>
+              <li>Daily differential sitemap sync & purge</li>
+              <li>Honest "I don't know" rejection</li>
+              <li>Human expert escalation feedback loop</li>
+            </ul>
+          </div>
+          <div class="card-actions">
+            <div class="port-info" id="port-info-t1">http://localhost:8001</div>
+            <div style="display:flex; gap:0.4rem;">
+              <button onclick="switchView('task1')" class="btn btn-primary" style="flex:1;">Interactive Tab</button>
+              <a id="btn-t1" href="http://localhost:8001" target="_blank" class="btn btn-secondary" style="padding:0.65rem;">↗</a>
+            </div>
+            <a id="btn-t1-docs" href="http://localhost:8001/docs" target="_blank" class="btn btn-secondary">OpenAPI Documentation</a>
+          </div>
+        </div>
+
+        <!-- Task 2 Card -->
+        <div class="task-card">
+          <div class="card-top">
+            <div class="task-badge-row">
+              <span class="task-num">TASK 2</span>
+              <span class="status-badge" id="badge-t2">PORT 8002</span>
+            </div>
+            <h3 class="task-title">The Inbox Agent</h3>
+            <p class="task-desc">Customer email agent that drafts replies using Knowledge Brain facts and gets better with every email a human edits or sends.</p>
+            <ul class="feature-list">
+              <li>Strict TypeScript typed end-to-end</li>
+              <li>50 preloaded realistic customer emails</li>
+              <li>Levenshtein self-improving learning loop</li>
+              <li>20-streak Autonomous Graduation engine</li>
+              <li>Quality demotion guardrails & undo</li>
+            </ul>
+          </div>
+          <div class="card-actions">
+            <div class="port-info" id="port-info-t2">http://localhost:8002</div>
+            <div style="display:flex; gap:0.4rem;">
+              <button onclick="switchView('task2')" class="btn btn-primary" style="flex:1;">Interactive Tab</button>
+              <a id="btn-t2" href="http://localhost:8002" target="_blank" class="btn btn-secondary" style="padding:0.65rem;">↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task 3 Card -->
+        <div class="task-card">
+          <div class="card-top">
+            <div class="task-badge-row">
+              <span class="task-num">TASK 3</span>
+              <span class="status-badge" id="badge-t3">PORT 8003</span>
+            </div>
+            <h3 class="task-title">Meeting to SOW</h3>
+            <p class="task-desc">Turns messy client transcripts into an actionable Scope of Work, hour estimates, client proposals, and scope creep change orders.</p>
+            <ul class="feature-list">
+              <li>Multi-agent pipeline (Consultant, Architect, Estimator, Proposal)</li>
+              <li>Queries KB API for native BD settings ($7,125 savings)</li>
+              <li>Scope Differ: detects changes, drops & creep</li>
+              <li>Itemizes Mobile App & QB Add-On Quote</li>
+              <li>Human Consultant sign-off gatekeeper</li>
+            </ul>
+          </div>
+          <div class="card-actions">
+            <div class="port-info" id="port-info-t3">http://localhost:8003</div>
+            <div style="display:flex; gap:0.4rem;">
+              <button onclick="switchView('task3')" class="btn btn-primary" style="flex:1;">Interactive Tab</button>
+              <a id="btn-t3" href="http://localhost:8003" target="_blank" class="btn btn-secondary" style="padding:0.65rem;">↗</a>
+            </div>
+            <a id="btn-t3-docs" href="http://localhost:8003/docs" target="_blank" class="btn btn-secondary">OpenAPI Documentation</a>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 
   <script>
+    let appUrls = {
+      task1: 'http://localhost:8001',
+      task2: 'http://localhost:8002',
+      task3: 'http://localhost:8003'
+    };
+
+    function switchView(viewName) {
+      const tabs = ['dashboard', 'task1', 'task2', 'task3'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('tab-' + t);
+        if (btn) {
+          if (t === viewName) {
+            btn.style.background = 'rgba(59, 130, 246, 0.25)';
+            btn.style.color = '#93c5fd';
+            btn.style.borderColor = 'rgba(59, 130, 246, 0.5)';
+          } else {
+            btn.style.background = 'transparent';
+            btn.style.color = 'var(--text-secondary)';
+            btn.style.borderColor = 'transparent';
+          }
+        }
+      });
+
+      const dash = document.getElementById('dashboard-view');
+      const frameContainer = document.getElementById('iframe-view');
+      const frame = document.getElementById('embedded-frame');
+      const frameTitle = document.getElementById('frame-active-title');
+      const frameExternal = document.getElementById('frame-external-link');
+
+      if (viewName === 'dashboard') {
+        dash.style.display = 'flex';
+        frameContainer.style.display = 'none';
+      } else {
+        dash.style.display = 'none';
+        frameContainer.style.display = 'flex';
+        const targetUrl = appUrls[viewName];
+        if (frame.src !== targetUrl) {
+          frame.src = targetUrl;
+        }
+        const titles = {
+          task1: '🧠 Task 1: The Knowledge Brain',
+          task2: '📥 Task 2: The Inbox Agent',
+          task3: '📝 Task 3: Meeting to Scope of Work'
+        };
+        frameTitle.textContent = titles[viewName] || viewName;
+        frameExternal.href = targetUrl;
+      }
+    }
+
+    function reloadActiveFrame() {
+      const frame = document.getElementById('embedded-frame');
+      if (frame && frame.src) {
+        frame.src = frame.src;
+      }
+    }
+
     async function loadConfig() {
       try {
         const res = await fetch('config.json?t=' + Date.now());
         if (!res.ok) return;
         const config = await res.json();
         if (config && config.public_mode) {
+          if (config.task1) appUrls.task1 = config.task1;
+          if (config.task2) appUrls.task2 = config.task2;
+          if (config.task3) appUrls.task3 = config.task3;
+
           const headerBadge = document.getElementById('header-status-badge');
           const headerText = document.getElementById('header-status-text');
           if (headerText) headerText.textContent = "🌐 Public Cloudflare Tunnels Live";
