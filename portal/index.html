@@ -256,13 +256,45 @@
         <p>Enterprise AI Consulting Monorepo &bull; BusinessLabs &bull; Anthropic Applied AI</p>
       </div>
     </div>
-    <div class="header-badge">
+    <div class="header-badge" id="header-status-badge">
       <div class="pulse-dot"></div>
-      <span>All 3 Services Active</span>
+      <span id="header-status-text">All 3 Services Active</span>
     </div>
   </header>
 
   <main class="portal-main">
+    <!-- Public Tunnel Notice Banner -->
+    <section id="public-banner" style="display:none; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 14px; padding: 1.25rem 1.75rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span style="font-size: 1.2rem;">🌐</span>
+          <h2 style="font-size: 1.05rem; font-weight: 700; color: #34d399;">Public Cloudflare Tunnels Live</h2>
+        </div>
+        <span style="font-size: 0.75rem; background: rgba(16,185,129,0.2); color: #6ee7b7; padding: 0.2rem 0.6rem; border-radius: 12px; font-weight: 700;">Remote Access Ready</span>
+      </div>
+      <p style="font-size: 0.825rem; color: var(--text-secondary); margin-bottom: 1rem;">
+        These microservices are published to the web via secure Cloudflare tunnels. Any remote reviewer can click the links below or use the task buttons below.
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.75rem; font-family: var(--font-mono); font-size: 0.8rem;">
+        <div style="background: rgba(0,0,0,0.3); padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid var(--border-color);">
+          <span style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 0.2rem;">PORTAL (MASTER)</span>
+          <a id="pub-portal-url" href="#" target="_blank" style="color: #60a5fa; text-decoration: none; word-break: break-all;">Loading...</a>
+        </div>
+        <div style="background: rgba(0,0,0,0.3); padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid var(--border-color);">
+          <span style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 0.2rem;">TASK 1 (BRAIN)</span>
+          <a id="pub-t1-url" href="#" target="_blank" style="color: #34d399; text-decoration: none; word-break: break-all;">Loading...</a>
+        </div>
+        <div style="background: rgba(0,0,0,0.3); padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid var(--border-color);">
+          <span style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 0.2rem;">TASK 2 (INBOX)</span>
+          <a id="pub-t2-url" href="#" target="_blank" style="color: #a78bfa; text-decoration: none; word-break: break-all;">Loading...</a>
+        </div>
+        <div style="background: rgba(0,0,0,0.3); padding: 0.6rem 0.9rem; border-radius: 8px; border: 1px solid var(--border-color);">
+          <span style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 0.2rem;">TASK 3 (SOW)</span>
+          <a id="pub-t3-url" href="#" target="_blank" style="color: #f59e0b; text-decoration: none; word-break: break-all;">Loading...</a>
+        </div>
+      </div>
+    </section>
+
     <!-- Architecture Flow Diagram -->
     <section class="architecture-banner">
       <div class="arch-header">
@@ -303,7 +335,7 @@
         <div class="card-top">
           <div class="task-badge-row">
             <span class="task-num">TASK 1</span>
-            <span class="status-badge">PORT 8001</span>
+            <span class="status-badge" id="badge-t1">PORT 8001</span>
           </div>
           <h3 class="task-title">The Knowledge Brain</h3>
           <p class="task-desc">Self-evolving help center memory built from the public Brilliant Directories Solution Center. Keeps fresh daily from the sitemap.</p>
@@ -316,9 +348,9 @@
           </ul>
         </div>
         <div class="card-actions">
-          <div class="port-info">http://localhost:8001</div>
-          <a href="http://localhost:8001" target="_blank" class="btn btn-primary">Open Knowledge Brain UI &rarr;</a>
-          <a href="http://localhost:8001/docs" target="_blank" class="btn btn-secondary">OpenAPI Documentation</a>
+          <div class="port-info" id="port-info-t1">http://localhost:8001</div>
+          <a id="btn-t1" href="http://localhost:8001" target="_blank" class="btn btn-primary">Open Knowledge Brain UI &rarr;</a>
+          <a id="btn-t1-docs" href="http://localhost:8001/docs" target="_blank" class="btn btn-secondary">OpenAPI Documentation</a>
         </div>
       </div>
 
@@ -327,7 +359,7 @@
         <div class="card-top">
           <div class="task-badge-row">
             <span class="task-num">TASK 2</span>
-            <span class="status-badge">PORT 8002</span>
+            <span class="status-badge" id="badge-t2">PORT 8002</span>
           </div>
           <h3 class="task-title">The Inbox Agent</h3>
           <p class="task-desc">Customer email agent that drafts replies using Knowledge Brain facts and gets better with every email a human edits or sends.</p>
@@ -340,8 +372,8 @@
           </ul>
         </div>
         <div class="card-actions">
-          <div class="port-info">http://localhost:8002</div>
-          <a href="http://localhost:8002" target="_blank" class="btn btn-primary">Open Inbox Agent UI &rarr;</a>
+          <div class="port-info" id="port-info-t2">http://localhost:8002</div>
+          <a id="btn-t2" href="http://localhost:8002" target="_blank" class="btn btn-primary">Open Inbox Agent UI &rarr;</a>
         </div>
       </div>
 
@@ -350,7 +382,7 @@
         <div class="card-top">
           <div class="task-badge-row">
             <span class="task-num">TASK 3</span>
-            <span class="status-badge">PORT 8003</span>
+            <span class="status-badge" id="badge-t3">PORT 8003</span>
           </div>
           <h3 class="task-title">Meeting to SOW</h3>
           <p class="task-desc">Turns messy client transcripts into an actionable Scope of Work, hour estimates, client proposals, and scope creep change orders.</p>
@@ -363,12 +395,73 @@
           </ul>
         </div>
         <div class="card-actions">
-          <div class="port-info">http://localhost:8003</div>
-          <a href="http://localhost:8003" target="_blank" class="btn btn-primary">Open Meeting to SOW UI &rarr;</a>
-          <a href="http://localhost:8003/docs" target="_blank" class="btn btn-secondary">OpenAPI Documentation</a>
+          <div class="port-info" id="port-info-t3">http://localhost:8003</div>
+          <a id="btn-t3" href="http://localhost:8003" target="_blank" class="btn btn-primary">Open Meeting to SOW UI &rarr;</a>
+          <a id="btn-t3-docs" href="http://localhost:8003/docs" target="_blank" class="btn btn-secondary">OpenAPI Documentation</a>
         </div>
       </div>
     </section>
   </main>
+
+  <script>
+    async function loadConfig() {
+      try {
+        const res = await fetch('config.json?t=' + Date.now());
+        if (!res.ok) return;
+        const config = await res.json();
+        if (config && config.public_mode) {
+          const headerBadge = document.getElementById('header-status-badge');
+          const headerText = document.getElementById('header-status-text');
+          if (headerText) headerText.textContent = "🌐 Public Cloudflare Tunnels Live";
+          
+          const banner = document.getElementById('public-banner');
+          if (banner) {
+            banner.style.display = 'block';
+            if (config.portal) {
+              const el = document.getElementById('pub-portal-url');
+              el.textContent = config.portal;
+              el.href = config.portal;
+            }
+            if (config.task1) {
+              const el = document.getElementById('pub-t1-url');
+              el.textContent = config.task1;
+              el.href = config.task1;
+            }
+            if (config.task2) {
+              const el = document.getElementById('pub-t2-url');
+              el.textContent = config.task2;
+              el.href = config.task2;
+            }
+            if (config.task3) {
+              const el = document.getElementById('pub-t3-url');
+              el.textContent = config.task3;
+              el.href = config.task3;
+            }
+          }
+
+          if (config.task1) {
+            document.getElementById('port-info-t1').textContent = config.task1;
+            document.getElementById('btn-t1').href = config.task1;
+            document.getElementById('btn-t1-docs').href = config.task1 + '/docs';
+            document.getElementById('badge-t1').textContent = "PUBLIC LIVE";
+          }
+          if (config.task2) {
+            document.getElementById('port-info-t2').textContent = config.task2;
+            document.getElementById('btn-t2').href = config.task2;
+            document.getElementById('badge-t2').textContent = "PUBLIC LIVE";
+          }
+          if (config.task3) {
+            document.getElementById('port-info-t3').textContent = config.task3;
+            document.getElementById('btn-t3').href = config.task3;
+            document.getElementById('btn-t3-docs').href = config.task3 + '/docs';
+            document.getElementById('badge-t3').textContent = "PUBLIC LIVE";
+          }
+        }
+      } catch (err) {
+        // Fallback gracefully
+      }
+    }
+    document.addEventListener('DOMContentLoaded', loadConfig);
+  </script>
 </body>
 </html>

@@ -73,21 +73,29 @@ cp .env.example .env
 
 ### Run with One Command
 ```bash
-# Windows
+# Windows (Local Only)
 run.bat
 
-# Linux / Mac
+# Linux / Mac (Local Only)
 bash run.sh
 
-# Or directly via Python
+# Or directly via Python (Local Only)
 python run_all.py
+
+# Run with Free Live Public HTTPS Tunnels (Remote Access)
+python run_public.py
 ```
 
 ### Access Portals
+
+**Local Access:**
 - **Master Unified Control Portal**: [http://localhost:8000](http://localhost:8000)
 - **Task 1 Knowledge Brain UI**: [http://localhost:8001](http://localhost:8001) (API Docs: `/docs`)
 - **Task 2 Inbox Agent UI**: [http://localhost:8002](http://localhost:8002)
 - **Task 3 Meeting to SOW UI**: [http://localhost:8003](http://localhost:8003) (API Docs: `/docs`)
+
+**Live Public Remote Access:**
+When running `python run_public.py`, Cloudflare tunnels provide free instant HTTPS public URLs (recorded in `PUBLIC_URLS.md`). See [PUBLIC_URLS.md](file:///d:/Applications/AI%20Tech%20consultant/PUBLIC_URLS.md) for current live URLs.
 
 ---
 
