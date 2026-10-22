@@ -5,7 +5,7 @@
 **Author:** Suresh Gopi  
 **Date:** October 2026  
 **Status:** Completed & Production Verified (69/69 Automated Tests Passing)  
-**Live Public URL:** [https://delaware-defend-comm-sector.trycloudflare.com](https://delaware-defend-comm-sector.trycloudflare.com)  
+**Live Public URL:** [https://lbs-assisted-friendship-alpha.trycloudflare.com](https://lbs-assisted-friendship-alpha.trycloudflare.com)  
 **GitHub Repository:** [https://github.com/SureshGopi17/AI_Tech_Consultant](https://github.com/SureshGopi17/AI_Tech_Consultant)
 
 ---
