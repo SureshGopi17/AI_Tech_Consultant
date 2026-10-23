@@ -1,0 +1,33 @@
+{
+  "dash-bd-prod-01": {
+    "id": "dash-bd-prod-01",
+    "user_id": "user-demo-suresh",
+    "name": "Production Help Center",
+    "website_name": "Brilliant Directories",
+    "sitemap_urls": [
+      "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "https://support.brilliantdirectories.com/support/solutions/articles/sitemap_index.xml"
+    ],
+    "child_sitemaps": [
+      "https://support.brilliantdirectories.com/support/solutions/articles/sitemap_part1.xml",
+      "https://support.brilliantdirectories.com/support/solutions/articles/sitemap_part2.xml"
+    ],
+    "description": "Primary customer documentation and administration manuals for Brilliant Directories.",
+    "consecutive_failure_threshold": 3,
+    "quarantine_action_rule": "quarantine_404_and_301",
+    "status": "LIVE / SYNCHRONIZED",
+    "created_at": "2026-10-23 08:21:39 UTC",
+    "last_crawl_datetime": "2026-10-23 08:21:39 UTC",
+    "website_summary": "Comprehensive directory software suite documentation covering member billing, Stripe gateway integration, lead routing, geocoding radius settings, custom forms, webhook automations, and review moderation.",
+    "main_topics": [
+      "Member Management & Signup Forms",
+      "Stripe & Recurring Invoicing Setup",
+      "Geocoding & Kilometer/Miles Distance Radius",
+      "Automated Lead Distribution",
+      "Bulk CSV Member & Category Import",
+      "Google Tag Manager & GA4 Integration",
+      "Member Review Moderation & Approvals",
+      "Outbound Webhooks & Zapier Sync"
+    ]
+  }
+}

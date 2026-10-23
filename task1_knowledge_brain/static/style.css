@@ -486,3 +486,104 @@ body {
   font-size: 0.725rem;
   color: var(--text-muted);
 }
+
+/* AI Thinking & Trace details */
+.thinking-details {
+  margin-top: 0.75rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.75rem;
+}
+.thinking-details summary {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  color: #93c5fd;
+  font-weight: 600;
+  background: rgba(59, 130, 246, 0.08);
+  user-select: none;
+}
+.thinking-details summary:hover {
+  background: rgba(59, 130, 246, 0.15);
+}
+.thinking-box {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+.thinking-box h4 {
+  font-size: 0.75rem;
+  color: #f1f5f9;
+  margin-bottom: 0.2rem;
+}
+.thinking-box pre {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.5rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #cbd5e1;
+}
+
+/* Sitemap URL Card */
+.url-card {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.65rem;
+  transition: border-color 0.15s;
+}
+.url-card:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+}
+.url-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+.url-card-title {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+.url-card-link {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #60a5fa;
+  text-decoration: none;
+  word-break: break-all;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.url-card-summary {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 0.4rem;
+}
+.url-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}

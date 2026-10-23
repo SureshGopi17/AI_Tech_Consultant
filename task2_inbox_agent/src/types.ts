@@ -36,6 +36,8 @@ export interface CustomerEmail {
   customer_email: string;
   company_name: string;
   category: EmailCategory;
+  label_name?: string;
+  parent_setting_type?: string;
   subject: string;
   body: string;
   urgency: UrgencyLevel;
@@ -53,6 +55,8 @@ export interface CustomerEmail {
 
 export interface ClassificationResult {
   category: EmailCategory;
+  label_name: string;
+  parent_setting_type: string;
   confidence: number;
   intent_summary: string;
   urgency: UrgencyLevel;
@@ -100,4 +104,17 @@ export interface LearningMetrics {
   current_avg_similarity: number;
   improvement_percentage: number;
   active_rules_count: number;
+}
+
+export interface GmailConfig {
+  mode: 'demo' | 'live';
+  gmail_address: string;
+  auth_type: 'app_password' | 'oauth';
+  app_password?: string;
+  client_id?: string;
+  client_secret?: string;
+  imap_host: string;
+  smtp_host: string;
+  is_connected: boolean;
+  last_sync: string;
 }

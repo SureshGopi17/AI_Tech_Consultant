@@ -3,150 +3,377 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Inbox Agent - Autonomous & Self-Improving Email Assistant</title>
+  <title>Gmail - AI Inbox Agent (Knowledge Brain Powered)</title>
   <link rel="stylesheet" href="/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
-<body>
-  <div class="app-layout">
-    <!-- Top Bar -->
-    <header class="top-nav">
-      <div class="brand">
-        <div class="brand-icon">📬</div>
-        <div>
-          <h1>The Inbox Agent</h1>
-          <p class="subtitle">Drafts powered by Knowledge Brain &bull; Learns from every sent reply</p>
+<body class="gmail-body">
+  <div class="gmail-app">
+    <!-- Top Gmail Header -->
+    <header class="gmail-header">
+      <div class="header-left">
+        <button class="icon-btn-round" title="Main menu">☰</button>
+        <div class="gmail-brand">
+          <div class="gmail-m-logo">
+            <svg width="28" height="24" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M1.5 5.5v13a2 2 0 0 0 2 2h3v-9.5L1.5 7.5z"/>
+              <path fill="#34A853" d="M22.5 5.5v13a2 2 0 0 1-2 2h-3v-9.5L22.5 7.5z"/>
+              <path fill="#EA4335" d="M6.5 11V5.5l5.5 4.5 5.5-4.5V11L12 15z"/>
+              <path fill="#FBBC05" d="M1.5 5.5L12 13.5 22.5 5.5 12 1z"/>
+            </svg>
+          </div>
+          <span class="gmail-title">Gmail</span>
+          <span class="ai-agent-chip">AI Inbox Agent</span>
         </div>
       </div>
-      <div class="nav-metrics">
-        <div class="metric-pill">
-          <span class="label">Prompt Version</span>
-          <span class="val" id="metric-prompt-ver">v1.0</span>
+
+      <!-- Gmail Search Bar -->
+      <div class="gmail-search-container">
+        <div class="gmail-search-bar">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="gmail-search-input" placeholder="Search mail, customers, or Knowledge Brain topics..." />
+          <button class="search-options-btn" title="Show search options">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/>
+            </svg>
+          </button>
         </div>
-        <div class="metric-pill">
-          <span class="label">Improvement</span>
-          <span class="val text-green" id="metric-improvement">+29.0%</span>
+      </div>
+
+      <!-- Header Right: Quick Indicators & Settings Cog -->
+      <div class="header-right">
+        <div class="sync-status-badge" id="gmail-sync-badge" title="Gmail Live Connection Status">
+          <span class="sync-dot"></span>
+          <span id="sync-status-text">Gmail Live Sync</span>
         </div>
-        <button id="btn-batch-process" class="btn btn-secondary">⚡ Auto-Process Batch</button>
+        <button id="btn-open-settings" class="icon-btn-round" title="Inbox & Auto-Send Settings">⚙️</button>
+        <button id="btn-open-analytics" class="icon-btn-round" title="Learning Performance Dashboard">📊</button>
+        <div class="google-apps-icon" title="Google apps">⠿</div>
+        <div class="user-avatar-circle" title="Suresh Gopi (consultant.demo@gmail.com)">SG</div>
       </div>
     </header>
 
-    <!-- Main Container: 3 Columns -->
-    <main class="inbox-container">
-      <!-- Left: Email List & Filters -->
-      <aside class="inbox-sidebar">
-        <div class="sidebar-header">
-          <h3>Customer Inbox (<span id="total-emails">50</span>)</h3>
-          <div class="filter-group">
-            <select id="filter-category" class="select-filter">
-              <option value="">All Categories</option>
-              <option value="how_to">How-To</option>
-              <option value="new_project">New Project</option>
-              <option value="refund">Refund / Billing</option>
-              <option value="complaint">Complaint</option>
-              <option value="quote">Quote</option>
-              <option value="follow_up">Follow-Up</option>
-            </select>
-            <select id="filter-status" class="select-filter">
-              <option value="">All Statuses</option>
-              <option value="unread">Unread</option>
-              <option value="drafted">Drafted</option>
-              <option value="approved">Approved</option>
-              <option value="edited_and_sent">Edited & Sent</option>
-              <option value="auto_sent">Auto-Sent</option>
-            </select>
+    <!-- Main 3-Column Gmail Layout -->
+    <div class="gmail-main-layout">
+      <!-- Left Sidebar: Compose Button & Folders & Parent Categories -->
+      <aside class="gmail-sidebar">
+        <!-- Google Compose Button -->
+        <button class="gmail-compose-btn" id="btn-compose">
+          <svg width="24" height="24" viewBox="0 0 24 24">
+            <path fill="#EA4335" d="M6 12h12v2H6z"/>
+            <path fill="#4285F4" d="M12 6h2v12h-2z"/>
+            <path fill="#FBBC05" d="M6 12h6v2H6z"/>
+            <path fill="#34A853" d="M12 12h6v2h-6z"/>
+          </svg>
+          <span>Compose</span>
+        </button>
+
+        <!-- Standard Gmail Folders Navigation -->
+        <nav class="gmail-folder-nav">
+          <a href="#" class="nav-item active" data-folder="inbox">
+            <span class="nav-icon">📥</span>
+            <span class="nav-label">Inbox</span>
+            <span class="nav-count" id="inbox-unread-count">50</span>
+          </a>
+          <a href="#" class="nav-item" data-folder="starred">
+            <span class="nav-icon">⭐</span>
+            <span class="nav-label">Starred</span>
+            <span class="nav-count" id="starred-count">3</span>
+          </a>
+          <a href="#" class="nav-item" data-folder="auto_sent">
+            <span class="nav-icon">🤖</span>
+            <span class="nav-label">Auto-Sent (Graduated)</span>
+            <span class="nav-count highlight-green" id="autosent-count">0</span>
+          </a>
+          <a href="#" class="nav-item" data-folder="drafts">
+            <span class="nav-icon">📝</span>
+            <span class="nav-label">Drafts</span>
+            <span class="nav-count" id="drafts-count">12</span>
+          </a>
+          <a href="#" class="nav-item" data-folder="sent">
+            <span class="nav-icon">📤</span>
+            <span class="nav-label">Sent</span>
+          </a>
+        </nav>
+
+        <!-- Collapsible Labels & Parent Setting Types (Requirement 7) -->
+        <div class="sidebar-labels-section">
+          <div class="labels-header">
+            <span>LABELS & PARENT SETTINGS</span>
+          </div>
+          <div class="labels-list">
+            <div class="label-item" data-category="how_to">
+              <span class="label-color-dot dot-blue"></span>
+              <span class="label-text">Member & Directory Settings</span>
+              <span class="label-count" id="lbl-count-howto">15</span>
+            </div>
+            <div class="label-item" data-category="refund">
+              <span class="label-color-dot dot-purple"></span>
+              <span class="label-text">Financial & Invoicing Settings</span>
+              <span class="label-count" id="lbl-count-refund">8</span>
+            </div>
+            <div class="label-item" data-category="complaint">
+              <span class="label-color-dot dot-red"></span>
+              <span class="label-text">Platform Infrastructure & Uptime</span>
+              <span class="label-count" id="lbl-count-complaint">6</span>
+            </div>
+            <div class="label-item" data-category="new_project">
+              <span class="label-color-dot dot-green"></span>
+              <span class="label-text">Commercial & Scoping Contracts</span>
+              <span class="label-count" id="lbl-count-project">9</span>
+            </div>
+            <div class="label-item" data-category="quote">
+              <span class="label-color-dot dot-amber"></span>
+              <span class="label-text">Quotes & Retainers</span>
+              <span class="label-count" id="lbl-count-quote">5</span>
+            </div>
+            <div class="label-item" data-category="follow_up">
+              <span class="label-color-dot dot-teal"></span>
+              <span class="label-text">Support & Work Tracking</span>
+              <span class="label-count" id="lbl-count-followup">7</span>
+            </div>
           </div>
         </div>
 
-        <div class="email-list" id="email-list">
-          <!-- Rendered dynamically -->
+        <!-- Quick Status Card at Bottom -->
+        <div class="sidebar-footer-card">
+          <div class="footer-metric">
+            <span>Prompt Version:</span>
+            <strong id="metric-prompt-ver">v1.0</strong>
+          </div>
+          <div class="footer-metric">
+            <span>Edit Learning:</span>
+            <strong class="text-green" id="metric-improvement">+29.0%</strong>
+          </div>
+          <button id="btn-batch-process" class="btn btn-secondary btn-sm" style="width: 100%; margin-top: 0.5rem;">⚡ Batch Auto-Process</button>
         </div>
       </aside>
 
-      <!-- Center: Selected Email & Drafting Desk -->
-      <section class="email-detail-view" id="email-detail-view">
-        <div class="empty-detail" id="empty-detail-state">
-          <div class="empty-icon">✉️</div>
-          <h3>Select an email to view details</h3>
-          <p>The Inbox Agent will fetch verified facts from the Knowledge Brain and draft a response in the company voice.</p>
+      <!-- Middle: Gmail Email Table List -->
+      <section class="gmail-list-pane">
+        <!-- Gmail List Action Toolbar -->
+        <div class="list-toolbar">
+          <div class="toolbar-left">
+            <input type="checkbox" id="chk-select-all-emails" title="Select" />
+            <button class="icon-action-btn" id="btn-refresh-mail" title="Refresh">🔄</button>
+            <button class="icon-action-btn" id="btn-mark-read" title="Mark as read">✉️</button>
+            <button class="icon-action-btn" id="btn-sync-gmail" title="Sync with Real Gmail">📥 Sync Gmail</button>
+          </div>
+          <div class="toolbar-right">
+            <span class="page-range" id="email-page-range">1–50 of 50</span>
+            <button class="icon-action-btn" title="Previous page">‹</button>
+            <button class="icon-action-btn" title="Next page">›</button>
+          </div>
         </div>
 
-        <div class="detail-content" id="detail-content" style="display: none;">
-          <!-- Email Header -->
-          <div class="email-meta-card">
-            <div class="meta-row">
-              <h2 id="email-subject">Subject</h2>
-              <span class="badge" id="email-category-badge">Category</span>
-            </div>
-            <div class="meta-sub">
-              <div><strong>From:</strong> <span id="email-from">Name</span> &lt;<span id="email-sender">email</span>&gt;</div>
-              <div><strong>Company:</strong> <span id="email-company">Company</span></div>
-              <div><strong>Urgency:</strong> <span id="email-urgency">Medium</span></div>
-            </div>
-            <div class="email-body-text" id="email-body">Email body text...</div>
-          </div>
-
-          <!-- Draft Section -->
-          <div class="draft-card">
-            <div class="draft-header">
-              <div class="draft-title">
-                <h3>🤖 AI Drafted Reply</h3>
-                <span class="conf-tag" id="draft-conf-tag">Confidence: 94%</span>
-              </div>
-              <div class="draft-tools">
-                <button id="btn-redraft" class="btn btn-secondary btn-sm">🔄 Regenerate Draft</button>
-              </div>
-            </div>
-
-            <!-- Citations from Task 1 -->
-            <div class="kb-evidence" id="draft-citations">
-              <!-- Rendered dynamically -->
-            </div>
-
-            <!-- Draft Editor / Viewer -->
-            <div class="draft-body-box">
-              <textarea id="draft-textarea" rows="12"></textarea>
-            </div>
-
-            <!-- Action Bar -->
-            <div class="action-bar">
-              <button id="btn-approve" class="btn btn-success">✅ Approve & Send (1-Click)</button>
-              <button id="btn-edit-send" class="btn btn-primary">✏️ Edit & Send (Agent Learns)</button>
-              <button id="btn-custom-reply" class="btn btn-secondary">✍️ Custom Reply</button>
-            </div>
-            <p class="learning-hint">💡 Every time you edit a draft, the agent measures your edit distance, learns your style rules, and updates future drafts.</p>
-          </div>
+        <!-- Gmail Table Rows -->
+        <div class="gmail-table-container" id="gmail-table-container">
+          <!-- Rendered dynamically -->
         </div>
       </section>
 
-      <!-- Right: Autonomous Graduation & Learning Monitor -->
-      <aside class="right-monitor">
-        <!-- Graduation Widget -->
-        <div class="monitor-card">
-          <div class="monitor-header">
-            <h3>🎓 Autonomous Graduation</h3>
-            <span class="hint-tag">Goal: 20 in a row</span>
+      <!-- Right: Gmail Thread Detail View & AI Draft Composer -->
+      <section class="gmail-thread-pane" id="gmail-thread-pane">
+        <!-- Empty State -->
+        <div class="empty-thread-state" id="empty-thread-state">
+          <div class="empty-envelope-icon">✉️</div>
+          <h3>Select an email to view conversation</h3>
+          <p>The Inbox Agent will classify the email, ground a draft in the Knowledge Brain, and track your edits to improve future responses.</p>
+        </div>
+
+        <!-- Thread Content View -->
+        <div class="thread-content" id="thread-content" style="display: none;">
+          <!-- Thread Action Header -->
+          <div class="thread-action-bar">
+            <button class="icon-action-btn" id="btn-back-to-list" title="Back to inbox">←</button>
+            <button class="icon-action-btn" title="Archive">📥</button>
+            <button class="icon-action-btn" title="Report spam">⚠️</button>
+            <button class="icon-action-btn" title="Delete">🗑️</button>
+            <div style="flex: 1;"></div>
+            <span class="badge" id="thread-parent-setting-badge">Financial & Invoicing Settings</span>
+            <span class="badge" id="thread-category-badge">Stripe Member Billing Setup</span>
           </div>
-          <p class="monitor-desc">Categories with 20 consecutive unchanged sends unlock auto-send freedom. Negative feedback triggers immediate demotion.</p>
-          <div class="graduation-list" id="graduation-list">
-            <!-- Rendered dynamically -->
+
+          <!-- Thread Message Card -->
+          <div class="message-card">
+            <div class="message-header">
+              <h2 id="thread-subject" class="thread-subject">How to set up Stripe billing?</h2>
+            </div>
+            <div class="sender-row">
+              <div class="sender-avatar" id="thread-sender-avatar">JD</div>
+              <div class="sender-details">
+                <div class="sender-name-line">
+                  <strong id="thread-sender-name">John Doe</strong>
+                  <span class="sender-email" id="thread-sender-email">&lt;john@wellness.com&gt;</span>
+                </div>
+                <div class="recipient-line">to <span id="thread-recipient-email">me</span> <span class="time-stamp" id="thread-timestamp">10:45 AM (2 hours ago)</span></div>
+                <div class="company-tag">Company: <strong id="thread-company-name">Denver Wellness</strong> | Urgency: <span id="thread-urgency-badge">Medium</span></div>
+              </div>
+            </div>
+            <div class="message-body" id="thread-body-text">
+              Where do we enter our Stripe secret keys for monthly recurring renewals?
+            </div>
+          </div>
+
+          <!-- AI Assistant Grounded Draft Reply Card (Gmail Reply Box) -->
+          <div class="ai-draft-card">
+            <div class="draft-card-header">
+              <div class="draft-branding">
+                <span class="bot-emoji">🤖</span>
+                <strong>AI Assistant Draft (v2.1)</strong>
+                <span class="conf-pill" id="draft-confidence-badge">Confidence: 94%</span>
+                <span class="kb-grounded-tag">✓ Grounded in Knowledge Brain</span>
+              </div>
+              <div class="draft-header-tools">
+                <button id="btn-regenerate-draft" class="btn btn-secondary btn-sm">🔄 Regenerate</button>
+              </div>
+            </div>
+
+            <!-- Citations from Knowledge Brain -->
+            <div class="draft-citations-box" id="draft-citations-box">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <!-- Rich Reply Composer Textarea -->
+            <div class="draft-editor-wrapper">
+              <textarea id="draft-reply-textarea" rows="10" placeholder="AI draft appears here. You can edit this message before sending..."></textarea>
+            </div>
+
+            <!-- Human Edit Difference Visualizer (Levenshtein Distance & Rule Learned) -->
+            <div id="diff-learning-card" style="display: none; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 0.75rem; margin-top: 0.5rem; font-size: 0.75rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;">
+                <strong style="color: #93c5fd;">🧠 Self-Improving Learning Loop Active:</strong>
+                <span id="diff-similarity-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 0.15rem 0.5rem; border-radius: 10px; font-weight: 700;">Similarity: 88.4%</span>
+              </div>
+              <div>Levenshtein Edit Distance: <strong id="diff-distance-val">24 characters modified</strong></div>
+              <div style="margin-top: 0.3rem; color: #cbd5e1;">Learned Rule: <em id="diff-rule-text">Always specify 2-hour SLA for critical outages.</em></div>
+            </div>
+
+            <!-- Gmail Send Toolbar -->
+            <div class="draft-send-toolbar">
+              <div class="primary-send-buttons">
+                <button id="btn-send-unchanged" class="btn btn-success" title="Approve draft as-is (1 click send)">
+                  🚀 Send (Unchanged)
+                </button>
+                <button id="btn-send-edited" class="btn btn-primary" title="Send edited reply and train agent">
+                  ✏️ Save & Send (Edited)
+                </button>
+                <button id="btn-custom-send" class="btn btn-secondary">
+                  ✍️ Custom Reply
+                </button>
+              </div>
+              <button class="icon-action-btn" id="btn-discard-draft" title="Discard draft">🗑️</button>
+            </div>
+            <p class="send-hint-note">💡 Unchanged sends increment your label's consecutive approval streak toward auto-send. Edits immediately train future drafts.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- MODAL: Settings & Configurable Auto-Send Threshold X & Live Gmail -->
+  <div id="modal-settings" class="modal-backdrop" style="display: none;">
+    <div class="settings-modal-card">
+      <div class="settings-modal-header">
+        <h3>⚙️ Inbox Agent Settings & Gmail Integration</h3>
+        <button id="btn-close-settings" class="modal-close-btn">✕</button>
+      </div>
+
+      <div class="settings-tabs">
+        <button class="settings-tab-btn active" data-stab="stab-threshold">Auto-Send Threshold X</button>
+        <button class="settings-tab-btn" data-stab="stab-gmail">Live Gmail Account</button>
+      </div>
+
+      <!-- Tab 1: Threshold X Setting (Requirement 7) -->
+      <div class="settings-tab-content active" id="stab-threshold">
+        <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.75rem;">
+          Track consecutive unedited approvals per label. Once a label reaches threshold <strong>X</strong>, replies for that label are sent automatically without human review.
+        </p>
+        <div style="background: rgba(0,0,0,0.25); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.85rem; margin-bottom: 1rem;">
+          <label style="display: block; font-size: 0.78rem; font-weight: 600; color: #f8fafc; margin-bottom: 0.35rem;">Consecutive Unedited Approval Threshold (X):</label>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <input type="number" id="input-threshold-x" min="1" max="50" value="3" style="width: 100px; background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 0.4rem; border-radius: 6px; font-weight: 700; font-size: 0.9rem;" />
+            <button id="btn-save-threshold" class="btn btn-primary btn-sm">Save Threshold X</button>
+            <span style="font-size: 0.75rem; color: #94a3b8;">(e.g. 3 consecutive approvals unlocks auto-send)</span>
           </div>
         </div>
 
-        <!-- Self-Improving Rules Widget -->
-        <div class="monitor-card" style="margin-top: 1rem;">
-          <div class="monitor-header">
-            <h3>🧠 Learned Rules & Feedback</h3>
-            <span class="pill-count" id="rules-count">0</span>
-          </div>
-          <p class="monitor-desc">Guidelines extracted from your edits. Click 'Undo' to revert any rule and roll back the prompt.</p>
-          <div class="rules-list" id="rules-list">
-            <!-- Rendered dynamically -->
-          </div>
+        <strong style="display: block; font-size: 0.8rem; color: #f8fafc; margin-bottom: 0.4rem;">Per-Label Streak & Auto-Send Status:</strong>
+        <div id="settings-graduation-table" style="max-height: 220px; overflow-y: auto;">
+          <!-- Rendered dynamically -->
         </div>
-      </aside>
-    </main>
+      </div>
+
+      <!-- Tab 2: Live Gmail Account Integration (Requirement 8) -->
+      <div class="settings-tab-content" id="stab-gmail">
+        <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.75rem;">
+          Connect the inbox agent to your real Gmail account to read incoming emails, classify them, draft replies, and send them directly.
+        </p>
+
+        <form id="form-gmail-config" style="display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.8rem;">
+          <div>
+            <label style="display: block; color: #94a3b8; margin-bottom: 0.2rem;">Integration Mode:</label>
+            <select id="gmail-mode-select" style="width: 100%; background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 0.4rem; border-radius: 6px;">
+              <option value="demo">Demo Sandbox (Zero Google Cloud Setup Needed)</option>
+              <option value="live">Live Gmail Account (IMAP/SMTP TLS)</option>
+            </select>
+          </div>
+          <div>
+            <label style="display: block; color: #94a3b8; margin-bottom: 0.2rem;">Gmail Email Address:</label>
+            <input type="email" id="gmail-email-input" value="consultant.demo@gmail.com" placeholder="your-email@gmail.com" required style="width: 100%; background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 0.4rem; border-radius: 6px;" />
+          </div>
+          <div>
+            <label style="display: block; color: #94a3b8; margin-bottom: 0.2rem;">Google App Password (16 Characters):</label>
+            <input type="password" id="gmail-password-input" value="••••••••••••••••" placeholder="abcd efgh ijkl mnop" style="width: 100%; background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 0.4rem; border-radius: 6px;" />
+            <small style="color: #64748b; font-size: 0.7rem;">Generate in Google Account -> Security -> 2-Step Verification -> App Passwords</small>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+            <div>
+              <label style="display: block; color: #94a3b8; margin-bottom: 0.2rem;">Incoming Host (IMAP):</label>
+              <input type="text" id="gmail-imap-host" value="imap.gmail.com:993" readonly style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); color: #94a3b8; padding: 0.35rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.75rem;" />
+            </div>
+            <div>
+              <label style="display: block; color: #94a3b8; margin-bottom: 0.2rem;">Outgoing Host (SMTP):</label>
+              <input type="text" id="gmail-smtp-host" value="smtp.gmail.com:587" readonly style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); color: #94a3b8; padding: 0.35rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.75rem;" />
+            </div>
+          </div>
+          <div id="gmail-test-feedback" style="display: none; padding: 0.5rem; border-radius: 6px; font-size: 0.75rem;"></div>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+            <button type="button" id="btn-test-gmail-conn" class="btn btn-secondary btn-sm" style="flex: 1;">⚡ Test Connection</button>
+            <button type="submit" class="btn btn-primary btn-sm" style="flex: 1;">Save Gmail Config</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Learning Performance Analytics -->
+  <div id="modal-analytics" class="modal-backdrop" style="display: none;">
+    <div class="settings-modal-card" style="max-width: 650px;">
+      <div class="settings-modal-header">
+        <h3>🧠 Self-Improving Learning Loop Performance</h3>
+        <button id="btn-close-analytics" class="modal-close-btn">✕</button>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1rem;">
+        <div class="metric-pill">
+          <span class="label">Improvement Rate</span>
+          <span class="val text-green" id="analytics-improvement">+29.0%</span>
+        </div>
+        <div class="metric-pill">
+          <span class="label">Active Learned Rules</span>
+          <span class="val text-blue" id="analytics-rules-count">3</span>
+        </div>
+        <div class="metric-pill">
+          <span class="label">Prompt Version</span>
+          <span class="val text-purple" id="analytics-prompt-ver">v1.0</span>
+        </div>
+      </div>
+      <strong style="display: block; font-size: 0.82rem; color: #f8fafc; margin-bottom: 0.5rem;">Extracted Rules from Human Edits (Click Undo to Rollback):</strong>
+      <div id="analytics-rules-list" style="max-height: 250px; overflow-y: auto;">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
   </div>
 
   <script src="/app.js"></script>

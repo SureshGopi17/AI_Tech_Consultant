@@ -15,7 +15,7 @@ import { EmailCategory, GraduationState } from './types';
 export class GraduationEngine {
   private filePath: string;
   private states: Map<EmailCategory, GraduationState> = new Map();
-  private readonly GRADUATION_THRESHOLD = 20;
+  private graduationThreshold: number = 20;
   private readonly SIMILARITY_THRESHOLD = 0.95;
 
   constructor(storageDir: string = path.join(__dirname, '..', 'data')) {
@@ -25,6 +25,24 @@ export class GraduationEngine {
     this.filePath = path.join(storageDir, 'graduation_store.json');
     this.initializeDefaultStates();
     this.load();
+  }
+
+  public setThreshold(newThreshold: number): number {
+    this.graduationThreshold = Math.max(1, newThreshold);
+    for (const state of this.states.values()) {
+      state.threshold = this.graduationThreshold;
+      if (state.consecutive_unchanged >= this.graduationThreshold) {
+        state.auto_send_eligible = true;
+        state.status = 'AUTO_SEND_ELIGIBLE';
+      }
+    }
+    this.save();
+    console.log(`[GraduationEngine] ⚙️ Updated consecutive unedited threshold X to: ${this.graduationThreshold}`);
+    return this.graduationThreshold;
+  }
+
+  public getThreshold(): number {
+    return this.graduationThreshold;
   }
 
   private initializeDefaultStates(): void {
@@ -42,7 +60,7 @@ export class GraduationEngine {
         category: cat,
         category_label: label,
         consecutive_unchanged: 0,
-        threshold: this.GRADUATION_THRESHOLD,
+        threshold: this.graduationThreshold,
         total_approved: 0,
         total_auto_sent: 0,
         auto_send_eligible: false,
@@ -98,8 +116,8 @@ export class GraduationEngine {
       // Increment consecutive unchanged counter
       state.consecutive_unchanged += 1;
 
-      // Check for graduation
-      if (state.consecutive_unchanged >= this.GRADUATION_THRESHOLD) {
+      // Check for graduation against configurable threshold X
+      if (state.consecutive_unchanged >= state.threshold) {
         if (!state.auto_send_eligible) {
           console.log(`[GraduationEngine] 🎓 CATEGORY GRADUATED! ${category} reached ${state.consecutive_unchanged} consecutive unchanged approvals. Status: AUTO_SEND_ELIGIBLE.`);
         }

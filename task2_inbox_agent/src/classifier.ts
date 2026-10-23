@@ -77,10 +77,56 @@ export class EmailClassifier {
     // Confidence
     const confidence = Math.min(0.96, 0.70 + (maxScore * 0.08));
 
+    // Determine Label and Parent Setting Type
+    let label_name = 'General How-To Inquiry';
+    let parent_setting_type = 'Member & Directory Settings';
+
+    if (category === 'how_to') {
+      if (combined.includes('stripe') || combined.includes('billing') || combined.includes('payment')) {
+        label_name = 'Stripe Member Billing Setup';
+        parent_setting_type = 'Financial & Invoicing Settings';
+      } else if (combined.includes('radius') || combined.includes('kilometer') || combined.includes('miles') || combined.includes('distance')) {
+        label_name = 'Search Distance & Radius Metric';
+        parent_setting_type = 'Member & Directory Settings';
+      } else if (combined.includes('custom field') || combined.includes('form') || combined.includes('registration')) {
+        label_name = 'Custom Registration Form Fields';
+        parent_setting_type = 'Member & Directory Settings';
+      } else if (combined.includes('lead')) {
+        label_name = 'Automated Lead Routing Rules';
+        parent_setting_type = 'Member & Directory Settings';
+      } else if (combined.includes('webhook')) {
+        label_name = 'Outbound Webhooks & CRM Sync';
+        parent_setting_type = 'Integrations & API Settings';
+      }
+    } else if (category === 'refund') {
+      label_name = combined.includes('double') || combined.includes('twice') 
+        ? 'Duplicate Transaction Refund' 
+        : 'Subscription Cancellation & Refund';
+      parent_setting_type = 'Financial & Invoicing Settings';
+    } else if (category === 'complaint') {
+      label_name = combined.includes('down') || combined.includes('outage') || combined.includes('504')
+        ? 'Platform Outage & Downtime Incident'
+        : 'Email Delivery & SPF/DKIM Configuration';
+      parent_setting_type = 'Platform Infrastructure & Reliability';
+    } else if (category === 'new_project') {
+      label_name = combined.includes('mobile') || combined.includes('ios')
+        ? 'Mobile Application Development (iOS/Android)'
+        : 'Custom RFQ Bidding Marketplace';
+      parent_setting_type = 'Commercial & Scoping Contracts';
+    } else if (category === 'quote') {
+      label_name = 'Data Migration & Retainer Quote';
+      parent_setting_type = 'Commercial & Scoping Contracts';
+    } else if (category === 'follow_up') {
+      label_name = 'Support Ticket Status Follow-Up';
+      parent_setting_type = 'Support & Work Tracking';
+    }
+
     return {
       category,
+      label_name,
+      parent_setting_type,
       confidence: Math.round(confidence * 100) / 100,
-      intent_summary: `Detected intent: ${category.replace('_', ' ').toUpperCase()} (${urgency} urgency)`,
+      intent_summary: `Detected intent: ${label_name} (${urgency} urgency)`,
       urgency
     };
   }

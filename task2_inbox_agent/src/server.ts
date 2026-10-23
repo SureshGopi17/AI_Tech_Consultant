@@ -10,9 +10,11 @@ import * as path from 'path';
 import * as dotenv from 'dotenv';
 import { CustomerEmail, EmailCategory } from './types';
 import { loadSeedEmails } from './seedData';
+import { emailClassifier } from './classifier';
 import { emailDrafter } from './drafter';
 import { learningStore } from './learningStore';
 import { graduationEngine } from './graduation';
+import { gmailService } from './gmailService';
 
 dotenv.config();
 
@@ -22,8 +24,13 @@ const PORT = parseInt(process.env.PORT_TASK2 || '8002', 10);
 app.use(cors());
 app.use(express.json());
 
-// In-memory email repository initialized with 50 seed emails
-let emails: CustomerEmail[] = loadSeedEmails();
+// In-memory email repository initialized with 50 seed emails enriched with labels & parent settings
+let emails: CustomerEmail[] = loadSeedEmails().map(e => {
+  const cl = emailClassifier.classify(e.subject, e.body);
+  e.label_name = e.label_name || cl.label_name;
+  e.parent_setting_type = e.parent_setting_type || cl.parent_setting_type;
+  return e;
+});
 
 // Serve static frontend
 const publicDir = path.join(__dirname, '..', 'public');
@@ -325,6 +332,60 @@ app.post('/api/v1/emails/auto-process', async (_req: Request, res: Response) => 
     auto_sent_count: autoSentCount,
     drafted_count: draftedCount,
     total_processed: autoSentCount + draftedCount
+  });
+});
+
+/**
+ * User-Configurable Threshold X for Consecutive Unedited Approvals (Requirement 7)
+ */
+app.get('/api/v1/settings/threshold', (_req: Request, res: Response) => {
+  res.json({
+    threshold_x: graduationEngine.getThreshold()
+  });
+});
+
+app.post('/api/v1/settings/threshold', (req: Request, res: Response) => {
+  const threshold = parseInt(req.body.threshold_x || req.body.threshold || '3', 10);
+  const updated = graduationEngine.setThreshold(threshold);
+  res.json({
+    success: true,
+    threshold_x: updated,
+    message: `Auto-send threshold X updated to ${updated} consecutive unedited approvals.`
+  });
+});
+
+/**
+ * Gmail Integration Settings & Test Connection (Requirement 8)
+ */
+app.get('/api/v1/settings/gmail', (_req: Request, res: Response) => {
+  res.json(gmailService.getConfig());
+});
+
+app.post('/api/v1/settings/gmail', (req: Request, res: Response) => {
+  const updated = gmailService.saveConfig(req.body);
+  res.json({
+    success: true,
+    config: updated,
+    message: 'Gmail settings updated successfully.'
+  });
+});
+
+app.post('/api/v1/gmail/test-connection', async (req: Request, res: Response) => {
+  const result = await gmailService.testConnection(req.body);
+  res.json(result);
+});
+
+app.post('/api/v1/gmail/sync', async (_req: Request, res: Response) => {
+  const result = await gmailService.syncInbox(emails);
+  for (const newEmail of result.new_emails) {
+    emails.unshift(newEmail);
+  }
+  res.json({
+    success: true,
+    new_count: result.new_emails.length,
+    auto_sent_count: result.auto_sent_count,
+    total_emails: emails.length,
+    message: result.message
   });
 });
 

@@ -19,6 +19,27 @@ from app.config import settings
 from app.models import Article, ArticleImage, SearchResultItem, Citation
 from app.seed_data import SEED_ARTICLES
 
+# Canonical Synonym Dictionary for robust term matching
+SYNONYM_CLUSTERS = [
+    {"custom", "customize", "customise", "customization", "customisation", "customized", "customised", "user-defined", "bespoke"},
+    {"setup", "set up", "configure", "configuration", "config", "install", "installation"},
+    {"billing", "payment", "payments", "stripe", "invoice", "invoicing", "charge", "charges"},
+    {"member", "members", "user", "users", "subscriber", "subscribers", "account", "accounts"},
+    {"distance", "radius", "mile", "miles", "kilometer", "kilometers", "km", "proximity", "location"},
+    {"category", "categories", "taxonomy", "classification"},
+    {"delete", "remove", "purge", "discard", "erase"},
+    {"verify", "verification", "validate", "validation", "check", "checking", "audit"},
+    {"outage", "down", "offline", "incident", "failure", "broken"},
+    {"refund", "cancellation", "cancel", "dispute", "reversal"}
+]
+
+# Map each word to its cluster canonical root
+SYNONYM_MAP = {}
+for cluster in SYNONYM_CLUSTERS:
+    canonical = sorted(list(cluster), key=len)[0]
+    for term in cluster:
+        SYNONYM_MAP[term] = canonical
+
 class HybridKnowledgeStore:
     def __init__(self, storage_path: str = settings.ARTICLES_FILE):
         self.storage_path = storage_path
@@ -27,10 +48,23 @@ class HybridKnowledgeStore:
         self.expert_qa_memory: List[Dict] = []
         self.load_store()
 
-    def tokenize(self, text: str) -> List[str]:
-        """Simple, fast tokenization with lowercasing and punctuation removal."""
+    def tokenize(self, text: str, expand_synonyms: bool = False) -> List[str]:
+        """Simple, fast tokenization with lowercasing, punctuation removal, and optional synonym normalization."""
         cleaned = re.sub(r'[^\w\s]', ' ', text.lower())
         tokens = [t for t in cleaned.split() if len(t) > 2]
+        if expand_synonyms:
+            expanded = []
+            for t in tokens:
+                expanded.append(t)
+                if t in SYNONYM_MAP:
+                    canonical = SYNONYM_MAP[t]
+                    expanded.append(canonical)
+                    # Add cluster siblings for maximal recall
+                    for cluster in SYNONYM_CLUSTERS:
+                        if t in cluster:
+                            expanded.extend(list(cluster))
+                            break
+            return list(set(expanded))
         return tokens
 
     def load_store(self):
@@ -173,8 +207,8 @@ class HybridKnowledgeStore:
         print(f"[KnowledgeStore] Learned new expert Q&A: '{question[:40]}...'")
 
     def search(self, query: str, top_k: int = 5, category: Optional[str] = None) -> List[SearchResultItem]:
-        """Hybrid BM25 keyword matching + semantic token overlap search."""
-        query_tokens = set(self.tokenize(query))
+        """Hybrid BM25 keyword matching + semantic token overlap search with synonym robustness."""
+        query_tokens = set(self.tokenize(query, expand_synonyms=True))
         if not query_tokens:
             return []
 
