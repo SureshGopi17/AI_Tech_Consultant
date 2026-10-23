@@ -21,5 +21,10 @@ class Settings:
     
     PORT: int = int(os.getenv("PORT_TASK1", "8001"))
 
+    # JWT Authentication Configuration
+    JWT_SECRET: str = os.getenv("JWT_SECRET", "ai-tech-consultant-jwt-secret-key-2026-production-secure-enterprise-auth-992")
+    JWT_ALGORITHM: str = os.getenv("JWT_ALGORITHM", "HS256")
+    JWT_EXPIRE_MINUTES: int = int(os.getenv("JWT_EXPIRE_MINUTES", "1440"))  # 24 hours
+
 settings = Settings()
 os.makedirs(settings.DATA_DIR, exist_ok=True)

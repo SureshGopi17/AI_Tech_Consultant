@@ -2,12 +2,44 @@
 
 const API_BASE = window.location.origin;
 
+// Auto-inject JWT Bearer Token into all API requests
+const originalFetch = window.fetch;
+window.fetch = function(url, options = {}) {
+  const token = localStorage.getItem("kb_jwt_token");
+  if (token && typeof url === "string" && url.includes("/api/v1/")) {
+    options = options || {};
+    options.headers = options.headers || {};
+    if (options.headers instanceof Headers) {
+      if (!options.headers.has("Authorization")) {
+        options.headers.set("Authorization", `Bearer ${token}`);
+      }
+    } else {
+      if (!options.headers["Authorization"]) {
+        options.headers["Authorization"] = `Bearer ${token}`;
+      }
+    }
+  }
+  return originalFetch(url, options);
+};
+
+// Global helper for populating example sitemap URLs
+window.setExampleSitemap = function(url) {
+  const input = document.getElementById("input-new-sitemap-url");
+  if (input) {
+    input.value = url;
+    input.focus();
+    input.style.borderColor = "#3b82f6";
+    setTimeout(() => { input.style.borderColor = ""; }, 1500);
+  }
+};
+
 let activeDashboardId = "dash-bd-prod-01";
 let currentInventoryUrls = [];
 let selectedUrls = new Set();
 let currentFilter = "all";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  await initSession();
   setupAuth();
   setupDashboardSwitcher();
   setupTabs();
@@ -24,6 +56,38 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial Load
   loadDashboardData();
 });
+
+async function initSession() {
+  const token = localStorage.getItem("kb_jwt_token");
+  if (token) {
+    try {
+      const res = await fetch(`${API_BASE}/api/v1/auth/me`);
+      if (res.ok) {
+        const user = await res.json();
+        document.getElementById("session-user").innerText = user.name;
+        document.getElementById("session-role").innerText = `${user.role} (JWT Active)`;
+        activeDashboardId = user.active_dashboard_id || "dash-bd-prod-01";
+        return;
+      }
+    } catch (e) {
+      console.warn("Could not resume saved JWT session, renewing...", e);
+    }
+  }
+
+  // Auto initialize demo session with JWT
+  try {
+    const res = await fetch(`${API_BASE}/api/v1/auth/demo-login`, { method: "POST" });
+    const data = await res.json();
+    if (data.success && data.token) {
+      localStorage.setItem("kb_jwt_token", data.token);
+      document.getElementById("session-user").innerText = data.user.name;
+      document.getElementById("session-role").innerText = `${data.user.role} (JWT Active)`;
+      activeDashboardId = data.user.active_dashboard_id || "dash-bd-prod-01";
+    }
+  } catch (err) {
+    console.error("Auto demo login error:", err);
+  }
+}
 
 // =====================================================================
 // 1. User Authentication & Demo Credentials
@@ -48,8 +112,11 @@ function setupAuth() {
       const res = await fetch(`${API_BASE}/api/v1/auth/demo-login`, { method: "POST" });
       const data = await res.json();
       if (data.success) {
+        if (data.token) {
+          localStorage.setItem("kb_jwt_token", data.token);
+        }
         document.getElementById("session-user").innerText = data.user.name;
-        document.getElementById("session-role").innerText = `${data.user.role} (Demo Session)`;
+        document.getElementById("session-role").innerText = `${data.user.role} (JWT Active)`;
         activeDashboardId = data.user.active_dashboard_id || "dash-bd-prod-01";
         authModal.style.display = "none";
         loadDashboardData();
@@ -72,8 +139,11 @@ function setupAuth() {
       });
       const data = await res.json();
       if (res.ok && data.success) {
+        if (data.token) {
+          localStorage.setItem("kb_jwt_token", data.token);
+        }
         document.getElementById("session-user").innerText = data.user.name;
-        document.getElementById("session-role").innerText = data.user.role;
+        document.getElementById("session-role").innerText = `${data.user.role} (JWT Active)`;
         activeDashboardId = data.user.active_dashboard_id || "dash-bd-prod-01";
         authModal.style.display = "none";
         loadDashboardData();

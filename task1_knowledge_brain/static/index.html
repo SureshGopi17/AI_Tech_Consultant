@@ -44,13 +44,17 @@
           <span id="stat-sync">Live</span>
         </div>
 
-        <!-- User Authentication Pill -->
+        <!-- User Authentication Pill & JWT Badge -->
         <div id="btn-user-auth-modal" class="user-session-pill" style="cursor: pointer; display: flex; align-items: center; gap: 0.5rem; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.75rem;" title="Click to view login details or switch accounts">
           <span style="font-size: 1rem;">👤</span>
           <div>
             <strong id="session-user" style="color: #93c5fd;">Suresh Gopi</strong>
-            <span id="session-role" style="display: block; font-size: 0.65rem; color: #94a3b8;">Lead AI Consultant (Demo Login)</span>
+            <span id="session-role" style="display: block; font-size: 0.65rem; color: #94a3b8;">Lead AI Consultant (JWT Active)</span>
           </div>
+        </div>
+
+        <div id="jwt-badge-nav" style="font-family: var(--font-mono); font-size: 0.7rem; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; padding: 0.25rem 0.6rem; border-radius: 12px; display: flex; align-items: center; gap: 0.3rem;" title="JWT HS256 Authenticated Session">
+          <span>🔒</span> JWT: <strong id="jwt-session-label">HS256 Active</strong>
         </div>
 
         <button id="btn-sync" class="btn btn-secondary">⚡ Run Sync</button>
@@ -194,7 +198,13 @@
 
           <!-- Add Sitemap Input Form -->
           <div style="background: rgba(0,0,0,0.25); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.85rem; margin-bottom: 1rem;">
-            <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #f8fafc; margin-bottom: 0.35rem;">Add New Sitemap URL:</label>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+              <label style="font-size: 0.75rem; font-weight: 600; color: #f8fafc;">Add New Sitemap URL:</label>
+              <div style="display: flex; gap: 0.35rem;">
+                <button type="button" class="btn btn-secondary btn-sm" style="font-size: 0.68rem; padding: 0.15rem 0.45rem;" onclick="setExampleSitemap('https://support.brilliantdirectories.com/support/solutions/sitemap.xml')">📋 Example: BD Solutions</button>
+                <button type="button" class="btn btn-secondary btn-sm" style="font-size: 0.68rem; padding: 0.15rem 0.45rem;" onclick="setExampleSitemap('https://support.brilliantdirectories.com/support/solutions/articles/sitemap_index.xml')">📋 Example: Articles Index</button>
+              </div>
+            </div>
             <div style="display: flex; gap: 0.5rem;">
               <input type="url" id="input-new-sitemap-url" placeholder="https://example.com/sitemap.xml" style="flex: 1; background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 0.45rem 0.65rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.78rem;" />
               <button id="btn-add-sitemap" class="btn btn-primary btn-sm">Add & Validate</button>

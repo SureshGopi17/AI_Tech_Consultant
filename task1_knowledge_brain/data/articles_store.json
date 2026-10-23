@@ -36,8 +36,8 @@
       ],
       "lastmod": "2026-10-01T00:00:00Z",
       "hash": "hash_stripe_001",
-      "created_at": "2026-10-23T10:56:58.548575+00:00",
-      "updated_at": "2026-10-23T10:56:58.548590+00:00",
+      "created_at": "2026-10-23T11:25:30.384070+00:00",
+      "updated_at": "2026-10-23T11:25:30.384082+00:00",
       "is_deleted": false
     },
     {
@@ -65,8 +65,8 @@
       ],
       "lastmod": "2026-10-01T00:00:00Z",
       "hash": "hash_search_radius_002",
-      "created_at": "2026-10-23T10:56:58.548610+00:00",
-      "updated_at": "2026-10-23T10:56:58.548619+00:00",
+      "created_at": "2026-10-23T11:25:30.384093+00:00",
+      "updated_at": "2026-10-23T11:25:30.384096+00:00",
       "is_deleted": false
     },
     {
@@ -94,8 +94,8 @@
       ],
       "lastmod": "2026-10-02T00:00:00Z",
       "hash": "hash_custom_fields_003",
-      "created_at": "2026-10-23T10:56:58.548633+00:00",
-      "updated_at": "2026-10-23T10:56:58.548637+00:00",
+      "created_at": "2026-10-23T11:25:30.384104+00:00",
+      "updated_at": "2026-10-23T11:25:30.384105+00:00",
       "is_deleted": false
     },
     {
@@ -122,8 +122,8 @@
       ],
       "lastmod": "2026-10-03T00:00:00Z",
       "hash": "hash_leads_004",
-      "created_at": "2026-10-23T10:56:58.548652+00:00",
-      "updated_at": "2026-10-23T10:56:58.548655+00:00",
+      "created_at": "2026-10-23T11:25:30.384113+00:00",
+      "updated_at": "2026-10-23T11:25:30.384115+00:00",
       "is_deleted": false
     },
     {
@@ -151,8 +151,8 @@
       ],
       "lastmod": "2026-10-04T00:00:00Z",
       "hash": "hash_csv_categories_005",
-      "created_at": "2026-10-23T10:56:58.548668+00:00",
-      "updated_at": "2026-10-23T10:56:58.548673+00:00",
+      "created_at": "2026-10-23T11:25:30.384121+00:00",
+      "updated_at": "2026-10-23T11:25:30.384123+00:00",
       "is_deleted": false
     },
     {
@@ -180,8 +180,8 @@
       ],
       "lastmod": "2026-10-04T00:00:00Z",
       "hash": "hash_member_import_006",
-      "created_at": "2026-10-23T10:56:58.548685+00:00",
-      "updated_at": "2026-10-23T10:56:58.548689+00:00",
+      "created_at": "2026-10-23T11:25:30.384131+00:00",
+      "updated_at": "2026-10-23T11:25:30.384133+00:00",
       "is_deleted": false
     },
     {
@@ -210,8 +210,8 @@
       ],
       "lastmod": "2026-10-05T00:00:00Z",
       "hash": "hash_gtm_007",
-      "created_at": "2026-10-23T10:56:58.548703+00:00",
-      "updated_at": "2026-10-23T10:56:58.548707+00:00",
+      "created_at": "2026-10-23T11:25:30.384140+00:00",
+      "updated_at": "2026-10-23T11:25:30.384143+00:00",
       "is_deleted": false
     },
     {
@@ -238,8 +238,8 @@
       ],
       "lastmod": "2026-10-05T00:00:00Z",
       "hash": "hash_reviews_008",
-      "created_at": "2026-10-23T10:56:58.548719+00:00",
-      "updated_at": "2026-10-23T10:56:58.548722+00:00",
+      "created_at": "2026-10-23T11:25:30.384150+00:00",
+      "updated_at": "2026-10-23T11:25:30.384151+00:00",
       "is_deleted": false
     },
     {
@@ -266,8 +266,8 @@
       ],
       "lastmod": "2026-10-06T00:00:00Z",
       "hash": "hash_emails_009",
-      "created_at": "2026-10-23T10:56:58.548733+00:00",
-      "updated_at": "2026-10-23T10:56:58.548737+00:00",
+      "created_at": "2026-10-23T11:25:30.384157+00:00",
+      "updated_at": "2026-10-23T11:25:30.384159+00:00",
       "is_deleted": false
     },
     {
@@ -294,8 +294,8 @@
       ],
       "lastmod": "2026-10-06T00:00:00Z",
       "hash": "hash_claim_010",
-      "created_at": "2026-10-23T10:56:58.548750+00:00",
-      "updated_at": "2026-10-23T10:56:58.548754+00:00",
+      "created_at": "2026-10-23T11:25:30.384165+00:00",
+      "updated_at": "2026-10-23T11:25:30.384166+00:00",
       "is_deleted": false
     },
     {
@@ -323,8 +323,8 @@
       ],
       "lastmod": "2026-10-07T00:00:00Z",
       "hash": "hash_privacy_011",
-      "created_at": "2026-10-23T10:56:58.548767+00:00",
-      "updated_at": "2026-10-23T10:56:58.548770+00:00",
+      "created_at": "2026-10-23T11:25:30.384173+00:00",
+      "updated_at": "2026-10-23T11:25:30.384175+00:00",
       "is_deleted": false
     },
     {
@@ -352,8 +352,8 @@
       ],
       "lastmod": "2026-10-07T00:00:00Z",
       "hash": "hash_webhooks_012",
-      "created_at": "2026-10-23T10:56:58.548784+00:00",
-      "updated_at": "2026-10-23T10:56:58.548788+00:00",
+      "created_at": "2026-10-23T11:25:30.384182+00:00",
+      "updated_at": "2026-10-23T11:25:30.384184+00:00",
       "is_deleted": false
     },
     {
@@ -381,8 +381,8 @@
       ],
       "lastmod": "2026-10-08T00:00:00Z",
       "hash": "hash_coupons_013",
-      "created_at": "2026-10-23T10:56:58.548802+00:00",
-      "updated_at": "2026-10-23T10:56:58.548805+00:00",
+      "created_at": "2026-10-23T11:25:30.384190+00:00",
+      "updated_at": "2026-10-23T11:25:30.384193+00:00",
       "is_deleted": false
     },
     {
@@ -410,8 +410,8 @@
       ],
       "lastmod": "2026-10-09T00:00:00Z",
       "hash": "hash_refund_015",
-      "created_at": "2026-10-23T10:56:58.548833+00:00",
-      "updated_at": "2026-10-23T10:56:58.548838+00:00",
+      "created_at": "2026-10-23T11:25:30.384207+00:00",
+      "updated_at": "2026-10-23T11:25:30.384209+00:00",
       "is_deleted": false
     },
     {
@@ -439,8 +439,8 @@
       ],
       "lastmod": "2026-10-09T00:00:00Z",
       "hash": "hash_design_016",
-      "created_at": "2026-10-23T10:56:58.548849+00:00",
-      "updated_at": "2026-10-23T10:56:58.548853+00:00",
+      "created_at": "2026-10-23T11:25:30.384214+00:00",
+      "updated_at": "2026-10-23T11:25:30.384216+00:00",
       "is_deleted": false
     },
     {
@@ -468,8 +468,8 @@
       ],
       "lastmod": "2026-10-10T00:00:00Z",
       "hash": "hash_maps_017",
-      "created_at": "2026-10-23T10:56:58.548870+00:00",
-      "updated_at": "2026-10-23T10:56:58.548873+00:00",
+      "created_at": "2026-10-23T11:25:30.384222+00:00",
+      "updated_at": "2026-10-23T11:25:30.384223+00:00",
       "is_deleted": false
     },
     {
@@ -497,8 +497,8 @@
       ],
       "lastmod": "2026-10-10T00:00:00Z",
       "hash": "hash_domain_018",
-      "created_at": "2026-10-23T10:56:58.548885+00:00",
-      "updated_at": "2026-10-23T10:56:58.548889+00:00",
+      "created_at": "2026-10-23T11:25:30.384229+00:00",
+      "updated_at": "2026-10-23T11:25:30.384232+00:00",
       "is_deleted": false
     },
     {
@@ -526,8 +526,67 @@
       ],
       "lastmod": "2026-10-15T00:00:00Z",
       "hash": "hash_overview_019",
-      "created_at": "2026-10-23T10:56:58.548902+00:00",
-      "updated_at": "2026-10-23T10:56:58.548905+00:00",
+      "created_at": "2026-10-23T11:25:30.384238+00:00",
+      "updated_at": "2026-10-23T11:25:30.384241+00:00",
+      "is_deleted": false
+    },
+    {
+      "id": "art-sitemap-management-verification",
+      "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558600-add-sitemaps-and-verify-urls-knowledge-brain",
+      "title": "How to Add Sitemaps, Verify Discovered URLs, and Monitor Ingestion in Knowledge Brain",
+      "category": "Knowledge Base Management",
+      "folder": "Sitemap Ingestion",
+      "content": "To add custom sitemaps and verify URLs in your Knowledge Brain dashboard:\n1. Navigate to the Knowledge Base Dashboards panel in the Knowledge Brain UI.\n2. Under 'Custom Sitemap Management', enter one or multiple sitemap URLs (e.g., https://support.brilliantdirectories.com/support/solutions/sitemap.xml).\n3. Pre-Flight Inspection: Click 'Inspect & Analyze Sitemaps'. The system inspects child sitemaps and calculates:\n   - Grand Total Discovered URLs\n   - Ingestion Speed: 240 pages/hour (5,760 pages/day)\n   - Estimated Completion Time (ETA)\n4. User Confirmation Gate: A modal opens showing the breakdown. Click 'Confirm & Begin Ingestion' to approve crawling.\n5. URL Discovery & Verification:\n   - Click 'Verify Discovered URLs' to audit all indexed URLs with checking time in milliseconds.\n   - Filter by All, Active (200 OK), Quarantined, Missing, or Pending.\n   - Inspect individual URLs, metadata, summaries, HTTP codes, and screenshot counts.\n6. URL Count Reconciliation Report:\n   - Compare Discovered, Processed, Successfully Indexed, Skipped, and Failed URLs.\n   - Guaranteed Invariant: No URL is ever marked as successfully indexed unless its indexing operation actually succeeded.",
+      "summary": "Complete guide to adding single or multiple sitemaps, running pre-flight inspection with speed benchmarks, confirming ingest, and verifying URLs with reconciliation reports.",
+      "images": [
+        {
+          "url": "https://support.brilliantdirectories.com/images/sitemap-preflight-modal.png",
+          "caption": "Pre-Flight Sitemap Inspection showing child sitemaps, 240 pgs/hr speed, and user confirmation gate",
+          "alt_text": "Sitemap Preflight Modal",
+          "section": "Knowledge Base Management",
+          "visual_tags": [
+            "sitemap",
+            "urls",
+            "verification",
+            "preflight",
+            "ingest"
+          ]
+        }
+      ],
+      "lastmod": "2026-10-23T00:00:00Z",
+      "hash": "hash_sitemap_020",
+      "created_at": "2026-10-23T11:25:30.384246+00:00",
+      "updated_at": "2026-10-23T11:25:30.384248+00:00",
+      "is_deleted": false
+    },
+    {
+      "id": "art-missing-urls-and-jwt-auth",
+      "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558610-missing-urls-retention-and-jwt-auth-security",
+      "title": "Handling Missing URLs (Never-Deleted Retention) and Secure JWT Authentication",
+      "category": "Security & Retention Architecture",
+      "folder": "System Architecture",
+      "content": "Knowledge Brain features an enterprise retention architecture and cryptographic JWT security:\n1. Secure JWT Authentication:\n   - All user sessions, logins, registrations, and demo logins are secured with cryptographically signed JSON Web Tokens (JWT) using the HS256 algorithm.\n   - Standard claims include subject (sub), user email, full name, role, active dashboard ID, issued-at (iat), and expiration (exp) valid for 24 hours.\n   - JWT tokens are automatically stored in browser localStorage and sent via 'Authorization: Bearer <token>' on all API requests.\n2. Missing URLs & Multi-Level Quarantine:\n   - When a URL returns HTTP 404 or is removed from the sitemap, it is flagged and quarantined after X consecutive refresh checks (configurable threshold X, default 3).\n   - 301 redirects are quarantined and their canonical destination URLs are followed and indexed.\n   - If a URL recovers (returns 200 OK), its consecutive failure count automatically resets to 0.\n3. Archived Retention Store (Never Deleted Invariant):\n   - Missing or deprecated URLs are NEVER permanently deleted from the database.\n   - They are archived in data/archived_store.json with timestamp, consecutive misses, and reason.\n   - Configurable retention periods: Archive immediately, after 2 checks, 15 checks, or 30 checks.\n   - 1-Click Restore: Administrators can restore archived URLs back into the active index at any time with a single click.",
+      "summary": "Overview of JWT authentication (HS256 Bearer tokens), multi-level quarantine for 404/301 URLs, and the never-deleted archived retention store with 1-click restore.",
+      "images": [
+        {
+          "url": "https://support.brilliantdirectories.com/images/archived-urls-restore-panel.png",
+          "caption": "Archived URLs repository showing never-deleted status and 1-click restore button",
+          "alt_text": "Archived URLs Retention Panel",
+          "section": "Security & Retention Architecture",
+          "visual_tags": [
+            "archive",
+            "jwt",
+            "auth",
+            "retention",
+            "quarantine",
+            "restore"
+          ]
+        }
+      ],
+      "lastmod": "2026-10-23T00:00:00Z",
+      "hash": "hash_jwt_arch_021",
+      "created_at": "2026-10-23T11:25:30.384253+00:00",
+      "updated_at": "2026-10-23T11:25:30.384255+00:00",
       "is_deleted": false
     }
   ],

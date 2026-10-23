@@ -158,7 +158,15 @@ class AuthResponse(BaseModel):
     success: bool
     user: UserSession
     token: str
+    token_type: str = "bearer"
+    expires_in: int = 86400
     message: str
+
+class TokenVerifyResponse(BaseModel):
+    valid: bool
+    user: UserSession
+    claims: Dict[str, Any]
+    expires_at: str
 
 # --- Knowledge Base Dashboards Models ---
 class KnowledgeDashboard(BaseModel):

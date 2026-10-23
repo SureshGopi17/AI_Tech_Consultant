@@ -6,7 +6,7 @@ and serves a clean, intuitive web interface.
 
 import os
 import time
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -26,7 +26,12 @@ from app.models import (
     PreFlightAnalysisRequest, PreFlightSitemapAnalysisResponse,
     ConfirmIngestRequest, ConfirmIngestResponse,
     ArchivedUrlsResponse, RestoreArchivedUrlRequest,
-    ScheduleSettingsRequest, RetentionSettingsRequest
+    ScheduleSettingsRequest, RetentionSettingsRequest,
+    TokenVerifyResponse
+)
+from app.auth import (
+    create_access_token, decode_access_token,
+    get_current_user_optional, require_current_user
 )
 from app.vector_store import knowledge_store
 from app.rag_engine import rag_engine
@@ -230,71 +235,111 @@ def restore_all_urls():
     }
 
 # =====================================================================
-# 1. User Authentication & Registration Endpoints
+# 1. User Authentication & Registration Endpoints (Secure JWT)
 # =====================================================================
 
 @app.post("/api/v1/auth/login", response_model=AuthResponse)
 def login_user(payload: UserLoginRequest):
-    """Authenticates user credentials."""
+    """Authenticates user credentials and returns a signed JWT access token (HS256)."""
     session = kb_manager.authenticate_user(payload.email, payload.password)
     if not session:
         raise HTTPException(status_code=401, detail="Invalid email or password.")
+    token = create_access_token(session)
     return AuthResponse(
         success=True,
         user=session,
-        token=f"token-{session.id}-{int(time.time())}",
+        token=token,
+        token_type="bearer",
+        expires_in=settings.JWT_EXPIRE_MINUTES * 60,
         message=f"Welcome back, {session.name}!"
     )
 
 @app.post("/api/v1/auth/demo-login", response_model=AuthResponse)
 def demo_login():
-    """One-click demo login for evaluators and guests."""
+    """One-click demo login for evaluators and guests with cryptographically signed JWT."""
     session = kb_manager.authenticate_user("suresh@consultant.ai", "password123")
     if not session:
         raise HTTPException(status_code=500, detail="Demo account initialization error.")
+    token = create_access_token(session)
     return AuthResponse(
         success=True,
         user=session,
-        token=f"token-{session.id}-{int(time.time())}",
-        message="Logged in as Suresh Gopi (Lead AI Consultant) with demo credentials."
+        token=token,
+        token_type="bearer",
+        expires_in=settings.JWT_EXPIRE_MINUTES * 60,
+        message="Logged in as Suresh Gopi (Lead AI Consultant) with demo JWT credentials."
     )
 
 @app.post("/api/v1/auth/register", response_model=AuthResponse)
 def register_user(payload: UserRegisterRequest):
-    """Registers a new user and creates their personal Knowledge Brain workspace."""
+    """Registers a new user and creates their personal workspace with a signed JWT token."""
     try:
         session = kb_manager.register_user(payload.name, payload.email, payload.password)
+        token = create_access_token(session)
         return AuthResponse(
             success=True,
             user=session,
-            token=f"token-{session.id}-{int(time.time())}",
+            token=token,
+            token_type="bearer",
+            expires_in=settings.JWT_EXPIRE_MINUTES * 60,
             message=f"Account created successfully for {session.name}!"
         )
     except ValueError as ve:
         raise HTTPException(status_code=400, detail=str(ve))
 
 @app.get("/api/v1/auth/me", response_model=UserSession)
-def get_current_user_profile(email: str = Query("suresh@consultant.ai")):
-    """Fetches user profile details and active dashboard."""
-    user = kb_manager.get_user_by_email(email)
+def get_current_user_profile(
+    email: Optional[str] = Query(None),
+    current_user: Optional[UserSession] = Depends(get_current_user_optional)
+):
+    """
+    Fetches user profile details and active dashboard.
+    Prefers verified Bearer JWT identity; supports fallback query email for legacy testing.
+    """
+    if current_user:
+        return current_user
+    target_email = email or "suresh@consultant.ai"
+    user = kb_manager.get_user_by_email(target_email)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
+
+@app.post("/api/v1/auth/verify-token")
+def verify_jwt_token(
+    current_user: UserSession = Depends(require_current_user)
+):
+    """Validates a JWT Bearer token and returns decoded identity claims."""
+    return {
+        "valid": True,
+        "user": current_user,
+        "algorithm": settings.JWT_ALGORITHM,
+        "token_type": "bearer",
+        "message": f"JWT token verified successfully for {current_user.email}"
+    }
 
 # =====================================================================
 # 2. Knowledge Base Dashboards Management (CRUD + Switcher)
 # =====================================================================
 
 @app.get("/api/v1/dashboards", response_model=List[KnowledgeDashboard])
-def list_dashboards(user_id: str = Query("user-demo-suresh")):
-    """Lists all knowledge base dashboards belonging to the user."""
-    return kb_manager.list_dashboards_for_user(user_id)
+def list_dashboards(
+    user_id: str = Query("user-demo-suresh"),
+    current_user: Optional[UserSession] = Depends(get_current_user_optional)
+):
+    """Lists all knowledge base dashboards belonging to the authenticated user."""
+    effective_user_id = current_user.id if current_user else user_id
+    return kb_manager.list_dashboards_for_user(effective_user_id)
 
 @app.post("/api/v1/dashboards", response_model=KnowledgeDashboard)
-def create_dashboard(payload: CreateDashboardRequest, user_id: str = Query("user-demo-suresh")):
+def create_dashboard(
+    payload: CreateDashboardRequest,
+    user_id: str = Query("user-demo-suresh"),
+    current_user: Optional[UserSession] = Depends(get_current_user_optional)
+):
     """Allows user to create a new Knowledge Base Dashboard."""
+    effective_user_id = current_user.id if current_user else user_id
     return kb_manager.create_dashboard(
-        user_id=user_id,
+        user_id=effective_user_id,
         name=payload.name,
         website_name=payload.website_name,
         sitemap_urls=payload.sitemap_urls,

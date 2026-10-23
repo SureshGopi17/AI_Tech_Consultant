@@ -544,5 +544,72 @@ All settings and workflows are managed without writing code through the web-base
         ],
         lastmod="2026-10-15T00:00:00Z",
         hash="hash_overview_019"
+    ),
+    Article(
+        id="art-sitemap-management-verification",
+        url="https://support.brilliantdirectories.com/support/solutions/articles/5000558600-add-sitemaps-and-verify-urls-knowledge-brain",
+        title="How to Add Sitemaps, Verify Discovered URLs, and Monitor Ingestion in Knowledge Brain",
+        category="Knowledge Base Management",
+        folder="Sitemap Ingestion",
+        content="""To add custom sitemaps and verify URLs in your Knowledge Brain dashboard:
+1. Navigate to the Knowledge Base Dashboards panel in the Knowledge Brain UI.
+2. Under 'Custom Sitemap Management', enter one or multiple sitemap URLs (e.g., https://support.brilliantdirectories.com/support/solutions/sitemap.xml).
+3. Pre-Flight Inspection: Click 'Inspect & Analyze Sitemaps'. The system inspects child sitemaps and calculates:
+   - Grand Total Discovered URLs
+   - Ingestion Speed: 240 pages/hour (5,760 pages/day)
+   - Estimated Completion Time (ETA)
+4. User Confirmation Gate: A modal opens showing the breakdown. Click 'Confirm & Begin Ingestion' to approve crawling.
+5. URL Discovery & Verification:
+   - Click 'Verify Discovered URLs' to audit all indexed URLs with checking time in milliseconds.
+   - Filter by All, Active (200 OK), Quarantined, Missing, or Pending.
+   - Inspect individual URLs, metadata, summaries, HTTP codes, and screenshot counts.
+6. URL Count Reconciliation Report:
+   - Compare Discovered, Processed, Successfully Indexed, Skipped, and Failed URLs.
+   - Guaranteed Invariant: No URL is ever marked as successfully indexed unless its indexing operation actually succeeded.""",
+        summary="Complete guide to adding single or multiple sitemaps, running pre-flight inspection with speed benchmarks, confirming ingest, and verifying URLs with reconciliation reports.",
+        images=[
+            ArticleImage(
+                url="https://support.brilliantdirectories.com/images/sitemap-preflight-modal.png",
+                caption="Pre-Flight Sitemap Inspection showing child sitemaps, 240 pgs/hr speed, and user confirmation gate",
+                alt_text="Sitemap Preflight Modal",
+                section="Knowledge Base Management",
+                visual_tags=["sitemap", "urls", "verification", "preflight", "ingest"]
+            )
+        ],
+        lastmod="2026-10-23T00:00:00Z",
+        hash="hash_sitemap_020"
+    ),
+    Article(
+        id="art-missing-urls-and-jwt-auth",
+        url="https://support.brilliantdirectories.com/support/solutions/articles/5000558610-missing-urls-retention-and-jwt-auth-security",
+        title="Handling Missing URLs (Never-Deleted Retention) and Secure JWT Authentication",
+        category="Security & Retention Architecture",
+        folder="System Architecture",
+        content="""Knowledge Brain features an enterprise retention architecture and cryptographic JWT security:
+1. Secure JWT Authentication:
+   - All user sessions, logins, registrations, and demo logins are secured with cryptographically signed JSON Web Tokens (JWT) using the HS256 algorithm.
+   - Standard claims include subject (sub), user email, full name, role, active dashboard ID, issued-at (iat), and expiration (exp) valid for 24 hours.
+   - JWT tokens are automatically stored in browser localStorage and sent via 'Authorization: Bearer <token>' on all API requests.
+2. Missing URLs & Multi-Level Quarantine:
+   - When a URL returns HTTP 404 or is removed from the sitemap, it is flagged and quarantined after X consecutive refresh checks (configurable threshold X, default 3).
+   - 301 redirects are quarantined and their canonical destination URLs are followed and indexed.
+   - If a URL recovers (returns 200 OK), its consecutive failure count automatically resets to 0.
+3. Archived Retention Store (Never Deleted Invariant):
+   - Missing or deprecated URLs are NEVER permanently deleted from the database.
+   - They are archived in data/archived_store.json with timestamp, consecutive misses, and reason.
+   - Configurable retention periods: Archive immediately, after 2 checks, 15 checks, or 30 checks.
+   - 1-Click Restore: Administrators can restore archived URLs back into the active index at any time with a single click.""",
+        summary="Overview of JWT authentication (HS256 Bearer tokens), multi-level quarantine for 404/301 URLs, and the never-deleted archived retention store with 1-click restore.",
+        images=[
+            ArticleImage(
+                url="https://support.brilliantdirectories.com/images/archived-urls-restore-panel.png",
+                caption="Archived URLs repository showing never-deleted status and 1-click restore button",
+                alt_text="Archived URLs Retention Panel",
+                section="Security & Retention Architecture",
+                visual_tags=["archive", "jwt", "auth", "retention", "quarantine", "restore"]
+            )
+        ],
+        lastmod="2026-10-23T00:00:00Z",
+        hash="hash_jwt_arch_021"
     )
 ]

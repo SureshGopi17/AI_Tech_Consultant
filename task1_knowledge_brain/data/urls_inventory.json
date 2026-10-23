@@ -1,7 +1,7 @@
 {
   "first_fetch_time": "2026-10-23 04:00:00 UTC",
-  "last_fetch_time": "2026-10-23 10:57:05 UTC",
-  "total_urls": 22,
+  "last_fetch_time": "2026-10-23 11:25:35 UTC",
+  "total_urls": 24,
   "urls": {
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558350-stripe-payment-gateway-setup": {
       "id": "art-stripe-billing",
@@ -21,7 +21,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
@@ -58,7 +58,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
@@ -95,7 +95,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
@@ -132,7 +132,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -168,7 +168,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -204,7 +204,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -240,7 +240,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -276,7 +276,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -312,7 +312,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -348,7 +348,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -384,7 +384,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -420,7 +420,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -456,7 +456,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -492,7 +492,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -528,7 +528,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -564,7 +564,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -600,7 +600,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -636,7 +636,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -672,7 +672,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -684,6 +684,78 @@
           "timestamp": "2026-10-23 04:00:00 UTC",
           "old_hash": "",
           "new_hash": "hash_overview_019",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://support.brilliantdirectories.com/support/solutions/articles/5000558600-add-sitemaps-and-verify-urls-knowledge-brain": {
+      "id": "art-sitemap-management-verification",
+      "title": "How to Add Sitemaps, Verify Discovered URLs, and Monitor Ingestion in Knowledge Brain",
+      "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558600-add-sitemaps-and-verify-urls-knowledge-brain",
+      "category": "Knowledge Base Management",
+      "folder": "Sitemap Ingestion",
+      "summary": "Complete guide to adding single or multiple sitemaps, running pre-flight inspection with speed benchmarks, confirming ingest, and verifying URLs with reconciliation reports.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23T00:00:00Z",
+      "hash": "hash_sitemap_020",
+      "screenshots_count": 1,
+      "content_length": 1192,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 04:00:00 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
+      "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_sitemap_020",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://support.brilliantdirectories.com/support/solutions/articles/5000558610-missing-urls-retention-and-jwt-auth-security": {
+      "id": "art-missing-urls-and-jwt-auth",
+      "title": "Handling Missing URLs (Never-Deleted Retention) and Secure JWT Authentication",
+      "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558610-missing-urls-retention-and-jwt-auth-security",
+      "category": "Security & Retention Architecture",
+      "folder": "System Architecture",
+      "summary": "Overview of JWT authentication (HS256 Bearer tokens), multi-level quarantine for 404/301 URLs, and the never-deleted archived retention store with 1-click restore.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23T00:00:00Z",
+      "hash": "hash_jwt_arch_021",
+      "screenshots_count": 1,
+      "content_length": 1424,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 04:00:00 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
+      "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_jwt_arch_021",
           "change_type": "INITIAL",
           "summary": "Initial baseline crawl and embedding generated."
         }
@@ -707,8 +779,8 @@
       "quarantine_level": null,
       "is_indexed": false,
       "approved_by_human": false,
-      "discovered_at": "2026-10-23 10:57:05 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "discovered_at": "2026-10-23 11:25:35 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/articles/sitemap_part1.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/articles/sitemap_part1.xml"
@@ -736,7 +808,7 @@
       "is_indexed": false,
       "approved_by_human": false,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
@@ -765,7 +837,7 @@
       "is_indexed": false,
       "approved_by_human": false,
       "discovered_at": "2026-10-20 12:00:00 UTC",
-      "last_checked": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 11:25:35 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"

@@ -271,3 +271,61 @@ def test_27_301_redirect_destination_followed_and_indexed():
     assert item.redirect_target.startswith("https://")
     # Verify target destination is active in inventory
     assert item.redirect_target in kb_manager.url_inventory
+
+# 8. JWT Authentication & Comprehensive RAG Answer Synthesis Evals
+def test_28_jwt_authentication_token_creation_and_claims():
+    from app.auth import create_access_token, decode_access_token
+    from app.models import UserSession
+    session = UserSession(
+        id="user-test-jwt",
+        name="Test Lead Consultant",
+        email="consultant-eval@tech.ai",
+        role="Lead AI Consultant",
+        active_dashboard_id="dash-bd-prod-01",
+        created_at="2026-10-23 00:00:00 UTC"
+    )
+    token = create_access_token(session)
+    assert isinstance(token, str) and len(token) > 50
+    claims = decode_access_token(token)
+    assert claims["sub"] == "user-test-jwt"
+    assert claims["email"] == "consultant-eval@tech.ai"
+    assert claims["role"] == "Lead AI Consultant"
+    assert claims["aud"] == "knowledge-brain-users"
+    assert claims["exp"] > claims["iat"]
+
+def test_29_knowledge_brain_rich_step_by_step_response_synthesis():
+    req = ChatRequest(message="How do I connect Stripe payment gateway and enable recurring billing?")
+    resp = rag_engine.ask(req)
+    assert resp.can_answer is True
+    assert resp.confidence >= 0.85
+    assert len(resp.citations) > 0
+    # Complete un-truncated step-by-step instructions check
+    assert "Settings > General Settings > Payments" in resp.answer
+    assert "Publishable Key" in resp.answer
+    assert "Webhook" in resp.answer
+    # Must have detailed structured Markdown headings
+    assert "### Official Solution:" in resp.answer
+    assert "#### Step-by-Step Instructions:" in resp.answer
+
+def test_30_jwt_auth_api_endpoint_integration():
+    from fastapi.testclient import TestClient
+    from app.main import app
+    client = TestClient(app)
+    
+    # 1. Demo Login returning JWT
+    login_resp = client.post("/api/v1/auth/demo-login")
+    assert login_resp.status_code == 200
+    data = login_resp.json()
+    assert data["success"] is True
+    assert "token" in data
+    assert data["token_type"] == "bearer"
+    token = data["token"]
+    
+    # 2. Authenticated verify-token with Bearer header
+    headers = {"Authorization": f"Bearer {token}"}
+    verify_resp = client.post("/api/v1/auth/verify-token", headers=headers)
+    assert verify_resp.status_code == 200
+    v_data = verify_resp.json()
+    assert v_data["valid"] is True
+    assert v_data["user"]["email"] == "suresh@consultant.ai"
+    assert v_data["algorithm"] == "HS256"
