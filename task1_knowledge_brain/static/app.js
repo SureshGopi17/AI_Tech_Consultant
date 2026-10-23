@@ -281,7 +281,15 @@ function setupDashboardSwitcher() {
     const sitemap = document.getElementById("dash-new-sitemap").value.trim();
     const desc = document.getElementById("dash-new-desc").value.trim();
 
+    const submitBtn = createForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn ? submitBtn.innerText : "Create Dashboard";
+
     try {
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = "⏳ Ingesting Sitemap URLs...";
+      }
+
       const res = await fetch(`${API_BASE}/api/v1/dashboards`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -293,14 +301,28 @@ function setupDashboardSwitcher() {
           consecutive_failure_threshold: 3
         })
       });
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({ detail: "Error creating dashboard" }));
+        throw new Error(errData.detail || "Error creating dashboard");
+      }
       const newDash = await res.json();
       activeDashboardId = newDash.id;
       hideCreate();
       createForm.reset();
       await fetchDashboardsList();
-      loadDashboardData();
+      await loadDashboardData();
+
+      // Automatically switch to Screenshot 2: Refresh Run & URLs tab
+      if (window.switchTab) {
+        window.switchTab("tab-refresh-run");
+      }
     } catch (err) {
       alert("Error creating dashboard: " + err.message);
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerText = originalText;
+      }
     }
   });
 }
@@ -443,7 +465,10 @@ function setupSitemapsHub() {
         feedback.style.color = "#34d399";
         feedback.innerText = `✅ ${data.message}`;
         input.value = "";
-        fetchSitemapsView();
+        await fetchSitemapsView();
+        await fetchRefreshRunData();
+        await fetchDashboardSummary();
+        await fetchReconciliationReport();
       } else {
         feedback.style.color = "#f43f5e";
         feedback.innerText = `❌ ${data.detail || "Validation failed"}`;
@@ -577,7 +602,8 @@ function setupRefreshRun() {
 
 async function fetchRefreshRunData() {
   try {
-    const res = await fetch(`${API_BASE}/api/v1/refresh-run`);
+    const queryParam = activeDashboardId ? `?dash_id=${encodeURIComponent(activeDashboardId)}` : "";
+    const res = await fetch(`${API_BASE}/api/v1/refresh-run${queryParam}`);
     const data = await res.json();
 
     document.getElementById("rr-first-fetch").innerText = data.first_fetch_datetime;
@@ -670,6 +696,7 @@ function renderUrlsTable() {
                 <a href="${u.url}" target="_blank" style="color: #38bdf8; text-decoration: none;">${u.url}</a>
               </div>
               <p style="font-size: 0.72rem; color: #94a3b8; margin: 0.2rem 0;">${u.summary}</p>
+              ${u.parent_sitemap ? `<div style="font-size: 0.68rem; color: #64748b; margin-top: 0.15rem;">📍 Discovered from Sitemap: <span style="font-family: var(--font-mono); color: #93c5fd;">${u.parent_sitemap}</span></div>` : ''}
             </div>
           </div>
           <button class="btn btn-secondary btn-sm" onclick="inspectUrl('${encodeURIComponent(u.url)}')">Inspect</button>
@@ -792,7 +819,8 @@ function setupReconciliationAndHealth() {
 
 async function fetchReconciliationReport() {
   try {
-    const res = await fetch(`${API_BASE}/api/v1/urls/reconciliation-report`);
+    const queryParam = activeDashboardId ? `?dash_id=${encodeURIComponent(activeDashboardId)}` : "";
+    const res = await fetch(`${API_BASE}/api/v1/urls/reconciliation-report${queryParam}`);
     const r = await res.json();
 
     document.getElementById("rec-disc").innerText = r.discovered_count;

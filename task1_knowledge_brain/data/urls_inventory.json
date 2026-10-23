@@ -1,12 +1,13 @@
 {
   "first_fetch_time": "2026-10-23 04:00:00 UTC",
-  "last_fetch_time": "2026-10-23 11:41:58 UTC",
-  "total_urls": 24,
+  "last_fetch_time": "2026-10-23 13:57:56 UTC",
+  "total_urls": 48,
   "urls": {
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558350-stripe-payment-gateway-setup": {
       "id": "art-stripe-billing",
       "title": "How to Connect Stripe Payment Gateway & Enable Recurring Billing",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558350-stripe-payment-gateway-setup",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Finance & Billing",
       "folder": "Payment Gateways",
       "summary": "Guide on connecting Stripe payment gateway API keys, enabling live mode, and configuring webhooks for automatic recurring billing in Brilliant Directories.",
@@ -21,7 +22,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
@@ -44,6 +45,7 @@
       "id": "art-search-radius",
       "title": "Changing Search Distance Radius from Miles to Kilometers",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558355-change-search-radius-miles-kilometers",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Search Settings",
       "folder": "Location Search",
       "summary": "How to switch the directory distance measurement from miles to kilometers in Settings > Localization.",
@@ -58,7 +60,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
@@ -81,6 +83,7 @@
       "id": "art-custom-fields-signup",
       "title": "How to Add Custom Fields to Member Registration and Profile Forms",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558360-add-custom-fields-to-member-forms",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Member Management",
       "folder": "Form Manager",
       "summary": "Use Toolbox > Form Manager to add text, file upload, or dropdown fields to member registration without writing code.",
@@ -95,7 +98,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
@@ -118,6 +121,7 @@
       "id": "art-lead-distribution",
       "title": "Auto Lead Distribution & Lead Matching Rules",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558365-auto-lead-distribution-settings",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Leads & Inquiries",
       "folder": "Lead Management",
       "summary": "Configure Leads > Lead Settings to automatically route inquiries by category and radius, prioritize premium members, or charge per lead.",
@@ -132,7 +136,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -154,6 +158,7 @@
       "id": "art-category-csv-import",
       "title": "How to Import Member Categories and Sub-Categories via CSV File",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558401-how-to-import-categories-via-csv-file",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Members & Content",
       "folder": "Category Management",
       "summary": "Bulk import 3-tier category structures (Top, Sub, Sub-Sub) via My Members > Member Categories using CSV template.",
@@ -168,7 +173,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -190,6 +195,7 @@
       "id": "art-member-csv-import",
       "title": "How to Bulk Import 500+ Members from a CSV Spreadsheet",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558405-bulk-import-members-via-csv",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Member Management",
       "folder": "Import Members",
       "summary": "Use My Members > Import Members to bulk import member records from CSV with automatic address geocoding and duplicate email checks.",
@@ -204,7 +210,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -226,6 +232,7 @@
       "id": "art-google-tag-manager",
       "title": "Connecting Google Tag Manager (GTM) and Google Analytics 4 (GA4)",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558410-connect-google-tag-manager-ga4",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Integrations & Analytics",
       "folder": "Tracking & Scripts",
       "summary": "Insert GTM container code into Settings > Design Settings > Custom CSS/HEAD or GA4 ID into Settings > Integrations.",
@@ -240,7 +247,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -262,6 +269,7 @@
       "id": "art-review-moderation",
       "title": "Enabling Member Review Moderation Before Publishing",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558415-member-review-moderation-settings",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Community & Content",
       "folder": "Member Reviews",
       "summary": "Set Content > Member Reviews > Review Settings to 'Require Admin Approval' to hold all reviews in moderation queue.",
@@ -276,7 +284,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -298,6 +306,7 @@
       "id": "art-email-templates",
       "title": "Customizing Automated Welcome Emails & Notification Templates",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558420-custom-email-templates-welcome-sequence",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Emails & Notifications",
       "folder": "Email Templates",
       "summary": "Edit automated welcome and notification emails in Emails > Email Templates using merge tags like %first_name% and %login_url%.",
@@ -312,7 +321,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -334,6 +343,7 @@
       "id": "art-claim-listing",
       "title": "How Members Claim Existing Listings and Upgrade to Paid Plans",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558425-claim-listing-feature-setup",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Member Management",
       "folder": "Claim Listings",
       "summary": "Enable 'Claim This Listing' button in Membership Plans > Profile Page Settings to let business owners claim profiles and upgrade.",
@@ -348,7 +358,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -370,6 +380,7 @@
       "id": "art-private-directory-permissions",
       "title": "Restricting Member Directory and Search Results to Logged-In Users",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558430-restrict-search-logged-in-members-only",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Privacy & Security",
       "folder": "Access Control",
       "summary": "Make search results or contact details private in Settings > General Settings > Privacy tab or via Membership Plan permissions.",
@@ -384,7 +395,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -406,6 +417,7 @@
       "id": "art-webhooks-zapier",
       "title": "Configuring Outbound Webhooks and Zapier / CRM Integrations",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558435-webhooks-api-integrations-zapier",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Integrations & API",
       "folder": "Webhooks",
       "summary": "Set up outbound webhooks in Settings > Webhooks for Member Signup, Upgrades, Leads, and Reviews to sync with CRMs.",
@@ -420,7 +432,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -442,6 +454,7 @@
       "id": "art-discount-coupons",
       "title": "How to Create Promo Discount Coupon Codes in the Finance Section",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558440-create-discount-coupon-codes",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Finance & Billing",
       "folder": "Promo Codes",
       "summary": "Create percentage or fixed dollar discount codes in Finance > Promo Codes with optional recurring renewal application.",
@@ -456,7 +469,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -478,6 +491,7 @@
       "id": "art-video-reels-profiles",
       "title": "Enabling Video Reels and YouTube/Vimeo Embeds on Member Profiles",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558445-embed-video-reels-youtube-vimeo",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Member Management",
       "folder": "Profile Features",
       "summary": "Enable video embeds in My Members > Membership Plans > Post Publishing to let members display YouTube and Vimeo videos.",
@@ -492,7 +506,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -514,6 +528,7 @@
       "id": "art-cancellation-refund-policy",
       "title": "How Member Cancellations, Prorated Credits, and Refunds are Handled",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558450-handling-member-cancellations-refunds",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Finance & Billing",
       "folder": "Cancellations & Refunds",
       "summary": "Manage member cancellations via My Members or self-service, and issue full or partial Stripe refunds in Finance > Transaction History.",
@@ -528,7 +543,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -550,6 +565,7 @@
       "id": "art-theme-custom-css",
       "title": "Customizing Theme Colors, Typography, and Adding Custom CSS",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558455-design-settings-brand-colors-custom-css",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Design & Branding",
       "folder": "Theme Settings",
       "summary": "Customize brand colors, typography, and custom CSS in Settings > Design Settings without editing core template files.",
@@ -564,7 +580,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -586,6 +602,7 @@
       "id": "art-google-maps-api",
       "title": "Configuring Google Maps API Key & Fixing Location Pin Issues",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558460-google-maps-api-key-configuration",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Integrations & API",
       "folder": "Google Maps",
       "summary": "Set up Google Maps API Key in Settings > Integrations and ensure Geocoding and Places APIs are enabled in Google Cloud Console.",
@@ -600,7 +617,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -622,6 +639,7 @@
       "id": "art-custom-domain-ssl",
       "title": "Connecting a Custom Domain Name and Free SSL Certificate",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558465-connecting-custom-domain-ssl-setup",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Domain & Hosting",
       "folder": "Domain Settings",
       "summary": "Point A and CNAME records to Brilliant Directories IP in your DNS registrar, then click 'Install Free SSL Certificate'.",
@@ -636,7 +654,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -658,6 +676,7 @@
       "id": "art-platform-overview",
       "title": "Overview: How Brilliant Directories Platform and Product Works",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558500-how-the-product-works-platform-overview",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Platform Architecture & Features",
       "folder": "Getting Started",
       "summary": "Comprehensive overview of how the Brilliant Directories platform and product works across member management, search, Stripe monetization, and lead distribution.",
@@ -672,7 +691,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -694,6 +713,7 @@
       "id": "art-sitemap-management-verification",
       "title": "How to Add Sitemaps, Verify Discovered URLs, and Monitor Ingestion in Knowledge Brain",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558600-add-sitemaps-and-verify-urls-knowledge-brain",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Knowledge Base Management",
       "folder": "Sitemap Ingestion",
       "summary": "Complete guide to adding single or multiple sitemaps, running pre-flight inspection with speed benchmarks, confirming ingest, and verifying URLs with reconciliation reports.",
@@ -708,7 +728,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -730,6 +750,7 @@
       "id": "art-missing-urls-and-jwt-auth",
       "title": "Handling Missing URLs (Never-Deleted Retention) and Secure JWT Authentication",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558610-missing-urls-retention-and-jwt-auth-security",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Security & Retention Architecture",
       "folder": "System Architecture",
       "summary": "Overview of JWT authentication (HS256 Bearer tokens), multi-level quarantine for 404/301 URLs, and the never-deleted archived retention store with 1-click restore.",
@@ -744,7 +765,7 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -766,6 +787,7 @@
       "id": "art-pending-01",
       "title": "Beta Mobile Application Push Notifications Setup",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558450-new-beta-mobile-app-sync",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Mobile App",
       "folder": "Beta Features",
       "summary": "Discovered candidate article for upcoming iOS and Android push notification bridges.",
@@ -779,8 +801,8 @@
       "quarantine_level": null,
       "is_indexed": false,
       "approved_by_human": false,
-      "discovered_at": "2026-10-23 11:41:58 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "discovered_at": "2026-10-23 13:56:52 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/articles/sitemap_part1.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/articles/sitemap_part1.xml"
@@ -794,6 +816,7 @@
       "id": "art-skipped-01",
       "title": "Duplicate: How to Connect Stripe Payment Gateway (Old Alias)",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558444-duplicate-stripe-gateway-alias",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Billing & Payments",
       "folder": "Stripe Gateway",
       "summary": "Duplicate legacy URL pointing to primary Stripe documentation. Skipped to prevent vector redundancy.",
@@ -808,7 +831,7 @@
       "is_indexed": false,
       "approved_by_human": false,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
@@ -823,6 +846,7 @@
       "id": "art-quarantine-301",
       "title": "Universal Analytics Integration (Deprecated - Moved to GA4)",
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558430-legacy-google-analytics-universal",
+      "dashboard_id": "dash-bd-prod-01",
       "category": "Integrations",
       "folder": "Analytics",
       "summary": "HTTP 301 Moved Permanently to GA4 article. Followed redirect and re-indexed target destination.",
@@ -837,7 +861,7 @@
       "is_indexed": false,
       "approved_by_human": false,
       "discovered_at": "2026-10-20 12:00:00 UTC",
-      "last_checked": "2026-10-23 11:41:58 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
       "referencing_sitemaps": [
         "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
@@ -851,6 +875,894 @@
           "new_hash": "hash_301_01",
           "change_type": "REDIRECT_FOLLOWED",
           "summary": "HTTP 301 detected. Destination target resolved to GA4 setup article."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://custom-docs.acme.org/docs/getting-started": {
+      "id": "art-7e37b808",
+      "title": "Custom-Docs Getting Started & Quick Setup Guide",
+      "url": "https://custom-docs.acme.org/docs/getting-started",
+      "dashboard_id": "dash-6565ae68",
+      "category": "Getting Started",
+      "folder": "Getting Started",
+      "summary": "Prerequisite verification, installation steps, and rapid environment setup instructions.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "7af5df6cead76445",
+      "screenshots_count": 1,
+      "content_length": 840,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:56:52 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
+      "parent_sitemap": "https://custom-docs.acme.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://custom-docs.acme.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:56:52 UTC",
+          "old_hash": "",
+          "new_hash": "7af5df6cead76445",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://custom-docs.acme.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://custom-docs.acme.org/docs/authentication-and-api-keys": {
+      "id": "art-6f4bf64a",
+      "title": "API Authentication, Bearer Tokens & Secret Keys",
+      "url": "https://custom-docs.acme.org/docs/authentication-and-api-keys",
+      "dashboard_id": "dash-6565ae68",
+      "category": "API & Security",
+      "folder": "API & Security",
+      "summary": "Guide on generating API keys, rotating bearer credentials, and authenticating HTTP requests.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "f3893b181510d8d1",
+      "screenshots_count": 1,
+      "content_length": 860,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:56:52 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
+      "parent_sitemap": "https://custom-docs.acme.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://custom-docs.acme.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:56:52 UTC",
+          "old_hash": "",
+          "new_hash": "f3893b181510d8d1",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://custom-docs.acme.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://custom-docs.acme.org/docs/webhooks-and-event-streaming": {
+      "id": "art-24511a34",
+      "title": "Configuring Webhooks & Real-Time Event Handlers",
+      "url": "https://custom-docs.acme.org/docs/webhooks-and-event-streaming",
+      "dashboard_id": "dash-6565ae68",
+      "category": "Integrations",
+      "folder": "Integrations",
+      "summary": "Setup for receiving real-time webhook payloads, verifying signatures, and automatic retry policies.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "2942c6078d76f006",
+      "screenshots_count": 1,
+      "content_length": 895,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:56:52 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
+      "parent_sitemap": "https://custom-docs.acme.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://custom-docs.acme.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:56:52 UTC",
+          "old_hash": "",
+          "new_hash": "2942c6078d76f006",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://custom-docs.acme.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://custom-docs.acme.org/docs/billing-and-subscription-plans": {
+      "id": "art-4f8006b3",
+      "title": "Billing Models, Stripe Integration & Invoicing",
+      "url": "https://custom-docs.acme.org/docs/billing-and-subscription-plans",
+      "dashboard_id": "dash-6565ae68",
+      "category": "Billing & Payments",
+      "folder": "Billing & Payments",
+      "summary": "Instructions for payment processors, automated invoicing, customer tiers, and recurring billing.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "a6712b2013101d79",
+      "screenshots_count": 1,
+      "content_length": 880,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:56:52 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
+      "parent_sitemap": "https://custom-docs.acme.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://custom-docs.acme.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:56:52 UTC",
+          "old_hash": "",
+          "new_hash": "a6712b2013101d79",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://custom-docs.acme.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://custom-docs.acme.org/docs/user-roles-and-permissions": {
+      "id": "art-adda0905",
+      "title": "RBAC: Managing User Roles, Scopes & Access Control",
+      "url": "https://custom-docs.acme.org/docs/user-roles-and-permissions",
+      "dashboard_id": "dash-6565ae68",
+      "category": "Security & Access",
+      "folder": "Security & Access",
+      "summary": "Granular role-based permissions, admin hierarchies, and member restrictions.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "06340531432e172c",
+      "screenshots_count": 1,
+      "content_length": 780,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:56:52 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
+      "parent_sitemap": "https://custom-docs.acme.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://custom-docs.acme.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:56:52 UTC",
+          "old_hash": "",
+          "new_hash": "06340531432e172c",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://custom-docs.acme.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://custom-docs.acme.org/docs/database-import-and-export": {
+      "id": "art-4ef5c299",
+      "title": "Bulk CSV / JSON Data Import, Export & Schema Mapping",
+      "url": "https://custom-docs.acme.org/docs/database-import-and-export",
+      "dashboard_id": "dash-6565ae68",
+      "category": "Data Management",
+      "folder": "Data Management",
+      "summary": "Importing structured data, field mapping, geocoding validation, and scheduled backups.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "aa9263ff95a915ca",
+      "screenshots_count": 1,
+      "content_length": 830,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:56:52 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
+      "parent_sitemap": "https://custom-docs.acme.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://custom-docs.acme.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:56:52 UTC",
+          "old_hash": "",
+          "new_hash": "aa9263ff95a915ca",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://custom-docs.acme.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://custom-docs.acme.org/docs/search-radius-and-geocoding": {
+      "id": "art-8b1abe9b",
+      "title": "Geocoding Location Search, Radius & Filtering Settings",
+      "url": "https://custom-docs.acme.org/docs/search-radius-and-geocoding",
+      "dashboard_id": "dash-6565ae68",
+      "category": "Search & Filters",
+      "folder": "Search & Filters",
+      "summary": "Setting up geocoding API providers, adjusting radial search in miles or kilometers, and location indexing.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "d706e922100c50b7",
+      "screenshots_count": 1,
+      "content_length": 930,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:56:52 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
+      "parent_sitemap": "https://custom-docs.acme.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://custom-docs.acme.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:56:52 UTC",
+          "old_hash": "",
+          "new_hash": "d706e922100c50b7",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://custom-docs.acme.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://custom-docs.acme.org/docs/notification-and-email-templates": {
+      "id": "art-53d871ee",
+      "title": "Automated Email & SMS Notification Templates",
+      "url": "https://custom-docs.acme.org/docs/notification-and-email-templates",
+      "dashboard_id": "dash-6565ae68",
+      "category": "Communications",
+      "folder": "Communications",
+      "summary": "Customizing dynamic notification emails, merge tags, SMTP relays, and transactional messaging.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "6dcf83ed7a776869",
+      "screenshots_count": 1,
+      "content_length": 870,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:56:52 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
+      "parent_sitemap": "https://custom-docs.acme.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://custom-docs.acme.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:56:52 UTC",
+          "old_hash": "",
+          "new_hash": "6dcf83ed7a776869",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://custom-docs.acme.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://custom-docs.acme.org/docs/third-party-integrations-crm": {
+      "id": "art-df4fa18a",
+      "title": "Connecting CRM, Zapier, HubSpot & External Tools",
+      "url": "https://custom-docs.acme.org/docs/third-party-integrations-crm",
+      "dashboard_id": "dash-6565ae68",
+      "category": "Integrations",
+      "folder": "Integrations",
+      "summary": "Connecting third-party automation tools, two-way contact syncing, and API endpoints.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "c55fe9d31eca50c4",
+      "screenshots_count": 1,
+      "content_length": 820,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:56:52 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
+      "parent_sitemap": "https://custom-docs.acme.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://custom-docs.acme.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:56:52 UTC",
+          "old_hash": "",
+          "new_hash": "c55fe9d31eca50c4",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://custom-docs.acme.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://custom-docs.acme.org/docs/troubleshooting-and-error-codes": {
+      "id": "art-cdd8c686",
+      "title": "Common Error Codes, Debugging & Resolution Matrix",
+      "url": "https://custom-docs.acme.org/docs/troubleshooting-and-error-codes",
+      "dashboard_id": "dash-6565ae68",
+      "category": "Support & Troubleshooting",
+      "folder": "Support & Troubleshooting",
+      "summary": "Reference guide explaining HTTP error codes, rate-limit thresholds, and quick-fix procedures.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "68a28918a3b619fc",
+      "screenshots_count": 1,
+      "content_length": 865,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:56:52 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
+      "parent_sitemap": "https://custom-docs.acme.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://custom-docs.acme.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:56:52 UTC",
+          "old_hash": "",
+          "new_hash": "68a28918a3b619fc",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://custom-docs.acme.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://custom-docs.acme.org/docs/audit-logs-and-compliance": {
+      "id": "art-1c033dbf",
+      "title": "Activity Audit Logging, Compliance & GDPR Retention",
+      "url": "https://custom-docs.acme.org/docs/audit-logs-and-compliance",
+      "dashboard_id": "dash-6565ae68",
+      "category": "Compliance & Audit",
+      "folder": "Compliance & Audit",
+      "summary": "Accessing system audit trails, tracking consultant actions, and automated data retention compliance.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "1e6bde639e997c5f",
+      "screenshots_count": 1,
+      "content_length": 900,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:56:52 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
+      "parent_sitemap": "https://custom-docs.acme.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://custom-docs.acme.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:56:52 UTC",
+          "old_hash": "",
+          "new_hash": "1e6bde639e997c5f",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://custom-docs.acme.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://custom-docs.acme.org/docs/performance-tuning-and-caching": {
+      "id": "art-d3084127",
+      "title": "Performance Optimization, CDN Setup & Fast Caching",
+      "url": "https://custom-docs.acme.org/docs/performance-tuning-and-caching",
+      "dashboard_id": "dash-6565ae68",
+      "category": "Infrastructure",
+      "folder": "Infrastructure",
+      "summary": "Best practices for configuring CDN caching, optimizing asset delivery, and maximizing throughput.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "5dbb3d73080b4c81",
+      "screenshots_count": 1,
+      "content_length": 885,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:56:52 UTC",
+      "last_checked": "2026-10-23 13:56:52 UTC",
+      "parent_sitemap": "https://custom-docs.acme.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://custom-docs.acme.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:56:52 UTC",
+          "old_hash": "",
+          "new_hash": "5dbb3d73080b4c81",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://custom-docs.acme.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://example-docs.org/docs/getting-started": {
+      "id": "art-74441785",
+      "title": "Example-Docs Getting Started & Quick Setup Guide",
+      "url": "https://example-docs.org/docs/getting-started",
+      "dashboard_id": "dash-c6a1f38e",
+      "category": "Getting Started",
+      "folder": "Getting Started",
+      "summary": "Prerequisite verification, installation steps, and rapid environment setup instructions.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "4aba462f382b3e91",
+      "screenshots_count": 1,
+      "content_length": 840,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:57:56 UTC",
+      "last_checked": "2026-10-23 13:57:56 UTC",
+      "parent_sitemap": "https://example-docs.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://example-docs.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:57:56 UTC",
+          "old_hash": "",
+          "new_hash": "4aba462f382b3e91",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://example-docs.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://example-docs.org/docs/authentication-and-api-keys": {
+      "id": "art-f6690a9c",
+      "title": "API Authentication, Bearer Tokens & Secret Keys",
+      "url": "https://example-docs.org/docs/authentication-and-api-keys",
+      "dashboard_id": "dash-c6a1f38e",
+      "category": "API & Security",
+      "folder": "API & Security",
+      "summary": "Guide on generating API keys, rotating bearer credentials, and authenticating HTTP requests.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "82419553bbc0dfde",
+      "screenshots_count": 1,
+      "content_length": 860,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:57:56 UTC",
+      "last_checked": "2026-10-23 13:57:56 UTC",
+      "parent_sitemap": "https://example-docs.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://example-docs.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:57:56 UTC",
+          "old_hash": "",
+          "new_hash": "82419553bbc0dfde",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://example-docs.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://example-docs.org/docs/webhooks-and-event-streaming": {
+      "id": "art-0a5db07d",
+      "title": "Configuring Webhooks & Real-Time Event Handlers",
+      "url": "https://example-docs.org/docs/webhooks-and-event-streaming",
+      "dashboard_id": "dash-c6a1f38e",
+      "category": "Integrations",
+      "folder": "Integrations",
+      "summary": "Setup for receiving real-time webhook payloads, verifying signatures, and automatic retry policies.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "77fcd8255c7ca8c6",
+      "screenshots_count": 1,
+      "content_length": 895,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:57:56 UTC",
+      "last_checked": "2026-10-23 13:57:56 UTC",
+      "parent_sitemap": "https://example-docs.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://example-docs.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:57:56 UTC",
+          "old_hash": "",
+          "new_hash": "77fcd8255c7ca8c6",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://example-docs.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://example-docs.org/docs/billing-and-subscription-plans": {
+      "id": "art-d16123dd",
+      "title": "Billing Models, Stripe Integration & Invoicing",
+      "url": "https://example-docs.org/docs/billing-and-subscription-plans",
+      "dashboard_id": "dash-c6a1f38e",
+      "category": "Billing & Payments",
+      "folder": "Billing & Payments",
+      "summary": "Instructions for payment processors, automated invoicing, customer tiers, and recurring billing.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "a382291af9b6c164",
+      "screenshots_count": 1,
+      "content_length": 880,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:57:56 UTC",
+      "last_checked": "2026-10-23 13:57:56 UTC",
+      "parent_sitemap": "https://example-docs.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://example-docs.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:57:56 UTC",
+          "old_hash": "",
+          "new_hash": "a382291af9b6c164",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://example-docs.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://example-docs.org/docs/user-roles-and-permissions": {
+      "id": "art-53246c74",
+      "title": "RBAC: Managing User Roles, Scopes & Access Control",
+      "url": "https://example-docs.org/docs/user-roles-and-permissions",
+      "dashboard_id": "dash-c6a1f38e",
+      "category": "Security & Access",
+      "folder": "Security & Access",
+      "summary": "Granular role-based permissions, admin hierarchies, and member restrictions.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "2f3a0424360a413a",
+      "screenshots_count": 1,
+      "content_length": 780,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:57:56 UTC",
+      "last_checked": "2026-10-23 13:57:56 UTC",
+      "parent_sitemap": "https://example-docs.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://example-docs.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:57:56 UTC",
+          "old_hash": "",
+          "new_hash": "2f3a0424360a413a",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://example-docs.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://example-docs.org/docs/database-import-and-export": {
+      "id": "art-bc6f3ddc",
+      "title": "Bulk CSV / JSON Data Import, Export & Schema Mapping",
+      "url": "https://example-docs.org/docs/database-import-and-export",
+      "dashboard_id": "dash-c6a1f38e",
+      "category": "Data Management",
+      "folder": "Data Management",
+      "summary": "Importing structured data, field mapping, geocoding validation, and scheduled backups.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "24930eec9e07bbfc",
+      "screenshots_count": 1,
+      "content_length": 830,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:57:56 UTC",
+      "last_checked": "2026-10-23 13:57:56 UTC",
+      "parent_sitemap": "https://example-docs.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://example-docs.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:57:56 UTC",
+          "old_hash": "",
+          "new_hash": "24930eec9e07bbfc",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://example-docs.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://example-docs.org/docs/search-radius-and-geocoding": {
+      "id": "art-9737a1da",
+      "title": "Geocoding Location Search, Radius & Filtering Settings",
+      "url": "https://example-docs.org/docs/search-radius-and-geocoding",
+      "dashboard_id": "dash-c6a1f38e",
+      "category": "Search & Filters",
+      "folder": "Search & Filters",
+      "summary": "Setting up geocoding API providers, adjusting radial search in miles or kilometers, and location indexing.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "d65e0712ecd61815",
+      "screenshots_count": 1,
+      "content_length": 930,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:57:56 UTC",
+      "last_checked": "2026-10-23 13:57:56 UTC",
+      "parent_sitemap": "https://example-docs.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://example-docs.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:57:56 UTC",
+          "old_hash": "",
+          "new_hash": "d65e0712ecd61815",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://example-docs.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://example-docs.org/docs/notification-and-email-templates": {
+      "id": "art-601c94f2",
+      "title": "Automated Email & SMS Notification Templates",
+      "url": "https://example-docs.org/docs/notification-and-email-templates",
+      "dashboard_id": "dash-c6a1f38e",
+      "category": "Communications",
+      "folder": "Communications",
+      "summary": "Customizing dynamic notification emails, merge tags, SMTP relays, and transactional messaging.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "7383c75caadca1fb",
+      "screenshots_count": 1,
+      "content_length": 870,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:57:56 UTC",
+      "last_checked": "2026-10-23 13:57:56 UTC",
+      "parent_sitemap": "https://example-docs.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://example-docs.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:57:56 UTC",
+          "old_hash": "",
+          "new_hash": "7383c75caadca1fb",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://example-docs.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://example-docs.org/docs/third-party-integrations-crm": {
+      "id": "art-8bc8604a",
+      "title": "Connecting CRM, Zapier, HubSpot & External Tools",
+      "url": "https://example-docs.org/docs/third-party-integrations-crm",
+      "dashboard_id": "dash-c6a1f38e",
+      "category": "Integrations",
+      "folder": "Integrations",
+      "summary": "Connecting third-party automation tools, two-way contact syncing, and API endpoints.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "36501cf8ccb9493e",
+      "screenshots_count": 1,
+      "content_length": 820,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:57:56 UTC",
+      "last_checked": "2026-10-23 13:57:56 UTC",
+      "parent_sitemap": "https://example-docs.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://example-docs.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:57:56 UTC",
+          "old_hash": "",
+          "new_hash": "36501cf8ccb9493e",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://example-docs.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://example-docs.org/docs/troubleshooting-and-error-codes": {
+      "id": "art-4c216ddc",
+      "title": "Common Error Codes, Debugging & Resolution Matrix",
+      "url": "https://example-docs.org/docs/troubleshooting-and-error-codes",
+      "dashboard_id": "dash-c6a1f38e",
+      "category": "Support & Troubleshooting",
+      "folder": "Support & Troubleshooting",
+      "summary": "Reference guide explaining HTTP error codes, rate-limit thresholds, and quick-fix procedures.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "cdd8f1e126583e39",
+      "screenshots_count": 1,
+      "content_length": 865,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:57:56 UTC",
+      "last_checked": "2026-10-23 13:57:56 UTC",
+      "parent_sitemap": "https://example-docs.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://example-docs.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:57:56 UTC",
+          "old_hash": "",
+          "new_hash": "cdd8f1e126583e39",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://example-docs.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://example-docs.org/docs/audit-logs-and-compliance": {
+      "id": "art-46b9b8f0",
+      "title": "Activity Audit Logging, Compliance & GDPR Retention",
+      "url": "https://example-docs.org/docs/audit-logs-and-compliance",
+      "dashboard_id": "dash-c6a1f38e",
+      "category": "Compliance & Audit",
+      "folder": "Compliance & Audit",
+      "summary": "Accessing system audit trails, tracking consultant actions, and automated data retention compliance.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "617ee4de2e295f63",
+      "screenshots_count": 1,
+      "content_length": 900,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:57:56 UTC",
+      "last_checked": "2026-10-23 13:57:56 UTC",
+      "parent_sitemap": "https://example-docs.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://example-docs.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:57:56 UTC",
+          "old_hash": "",
+          "new_hash": "617ee4de2e295f63",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://example-docs.org/sitemap.xml."
+        }
+      ],
+      "is_child_sitemap": false
+    },
+    "https://example-docs.org/docs/performance-tuning-and-caching": {
+      "id": "art-91274aaf",
+      "title": "Performance Optimization, CDN Setup & Fast Caching",
+      "url": "https://example-docs.org/docs/performance-tuning-and-caching",
+      "dashboard_id": "dash-c6a1f38e",
+      "category": "Infrastructure",
+      "folder": "Infrastructure",
+      "summary": "Best practices for configuring CDN caching, optimizing asset delivery, and maximizing throughput.",
+      "status": "200 OK (Indexed)",
+      "http_code": 200,
+      "lastmod": "2026-10-23",
+      "hash": "04353b6081105399",
+      "screenshots_count": 1,
+      "content_length": 885,
+      "consecutive_failures": 0,
+      "quarantine_level": null,
+      "is_indexed": true,
+      "approved_by_human": true,
+      "discovered_at": "2026-10-23 13:57:56 UTC",
+      "last_checked": "2026-10-23 13:57:56 UTC",
+      "parent_sitemap": "https://example-docs.org/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://example-docs.org/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 13:57:56 UTC",
+          "old_hash": "",
+          "new_hash": "04353b6081105399",
+          "change_type": "INITIAL",
+          "summary": "Discovered and indexed from sitemap https://example-docs.org/sitemap.xml."
         }
       ],
       "is_child_sitemap": false

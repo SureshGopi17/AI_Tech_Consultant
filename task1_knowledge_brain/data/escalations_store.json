@@ -1,12 +1,12 @@
 [
   {
-    "id": "ESC-2BE0D6",
+    "id": "ESC-30F550",
     "question": "How do we integrate biometric iris scanning into lawyer member checkins?",
     "confidence": 0.338,
-    "created_at": "2026-10-23T11:41:56.782153+00:00",
+    "created_at": "2026-10-23T13:56:49.669621+00:00",
     "status": "RESOLVED",
     "expert_answer": "Iris scanning can be integrated by linking an external WebAuthn FIDO2 biometric endpoint to the BD Custom Header widget.",
-    "resolved_at": "2026-10-23T11:41:56.782575+00:00",
+    "resolved_at": "2026-10-23T13:56:49.669962+00:00",
     "resolved_by": "Chief Security Architect"
   }
 ]

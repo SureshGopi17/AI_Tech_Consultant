@@ -1,0 +1,10 @@
+{
+  "mode": "demo",
+  "gmail_address": "consultant.demo@gmail.com",
+  "auth_type": "app_password",
+  "app_password": "••••••••••••••••",
+  "imap_host": "imap.gmail.com:993",
+  "smtp_host": "smtp.gmail.com:587",
+  "is_connected": true,
+  "last_sync": "2026-10-23T13:22:26.327Z"
+}

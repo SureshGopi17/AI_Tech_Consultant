@@ -339,4 +339,32 @@ class RetentionSettingsRequest(BaseModel):
     retention_rule: str  # Archive immediately, Archive after 2 consecutive checks, Archive after 15 consecutive checks, Archive after 30 consecutive checks
     retention_threshold: int = 2
 
+# --- Real-Time Ingestion & Crawl Stream Models ---
+class CrawlStreamEvent(BaseModel):
+    step_index: int
+    stage: str  # DISCOVERY, FETCH, PARSE, SCREENSHOT, VECTOR_EMBEDDING, REDIRECT, INDEXED
+    url: str
+    title: str
+    category: str
+    http_code: int = 200
+    duration_ms: float = 35.0
+    progress_percent: int
+    eta_remaining_sec: float
+    log_line: str
+    screenshot_count: int = 0
+    visual_tags: List[str] = Field(default_factory=list)
+
+class CrawlStreamResponse(BaseModel):
+    total_urls: int
+    pages_per_hour: int = 240
+    pages_per_day: int = 5760
+    total_duration_sec: float
+    events: List[CrawlStreamEvent]
+    summary: Dict[str, Any]
+    status: str = "STREAM_READY"
+
+class CrawlStreamRequest(BaseModel):
+    dashboard_id: Optional[str] = "dash-bd-prod-01"
+    sitemap_urls: Optional[List[str]] = None
+
 

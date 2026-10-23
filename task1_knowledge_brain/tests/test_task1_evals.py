@@ -329,3 +329,42 @@ def test_30_jwt_auth_api_endpoint_integration():
     assert v_data["valid"] is True
     assert v_data["user"]["email"] == "suresh@consultant.ai"
     assert v_data["algorithm"] == "HS256"
+
+def test_31_dashboard_creation_with_sitemap_shows_all_urls_in_refresh_run():
+    from fastapi.testclient import TestClient
+    from app.main import app
+    from app.kb_manager import kb_manager
+    client = TestClient(app)
+
+    # 1. User enters sitemap URL in Create Dashboard modal (Screenshot 1)
+    custom_sitemap = "https://custom-docs.acme.org/sitemap.xml"
+    create_payload = {
+        "name": "Acme API Hub",
+        "website_name": "Acme Developer Portal",
+        "sitemap_urls": [custom_sitemap],
+        "description": "Acme developer documentation and guides",
+        "consecutive_failure_threshold": 3
+    }
+    resp = client.post("/api/v1/dashboards?user_id=user-demo-suresh", json=create_payload)
+    assert resp.status_code == 200
+    new_dash = resp.json()
+    new_dash_id = new_dash["id"]
+    assert new_dash["name"] == "Acme API Hub"
+
+    # 2. In Refresh Run & URLs (Screenshot 2), all URLs from that sitemap must appear!
+    rr_resp = client.get(f"/api/v1/refresh-run?dash_id={new_dash_id}")
+    assert rr_resp.status_code == 200
+    rr_data = rr_resp.json()
+    assert rr_data["total_fetched_urls"] > 0
+    assert len(rr_data["urls"]) == rr_data["total_fetched_urls"]
+    # Every URL belongs to the sitemap entered in Screenshot 1
+    for u in rr_data["urls"]:
+        assert u["parent_sitemap"] == custom_sitemap
+        assert "custom-docs.acme.org" in u["url"]
+
+    # 3. Default dashboard still retains its distinct inventory
+    default_rr = client.get("/api/v1/refresh-run?dash_id=dash-bd-prod-01")
+    assert default_rr.status_code == 200
+    default_data = default_rr.json()
+    assert default_data["total_fetched_urls"] >= 20
+    assert all("brilliantdirectories" in u["url"] for u in default_data["urls"][:15])

@@ -18,7 +18,7 @@
     "quarantine_action_rule": "quarantine_404_and_301",
     "status": "LIVE / SYNCHRONIZED",
     "created_at": "2026-10-23 08:21:39 UTC",
-    "last_crawl_datetime": "2026-10-23 11:41:58 UTC",
+    "last_crawl_datetime": "2026-10-23 13:56:52 UTC",
     "website_summary": "Comprehensive directory software suite documentation covering member billing, Stripe gateway integration, lead routing, geocoding radius settings, custom forms, webhook automations, and review moderation.",
     "main_topics": [
       "Member Management & Signup Forms",
@@ -29,6 +29,96 @@
       "Google Tag Manager & GA4 Integration",
       "Member Review Moderation & Approvals",
       "Outbound Webhooks & Zapier Sync"
+    ]
+  },
+  "dash-10924861": {
+    "id": "dash-10924861",
+    "user_id": "user-demo-suresh",
+    "name": "FastAPI Enterprise Documentation",
+    "website_name": "FastAPI Web Framework",
+    "sitemap_urls": [
+      "https://fastapi.tiangolo.com/sitemap.xml"
+    ],
+    "child_sitemaps": [],
+    "description": "High-performance asynchronous API architecture, JWT Bearer authentication, and Swagger OpenAPI documentation",
+    "consecutive_failure_threshold": 3,
+    "quarantine_action_rule": "quarantine_404_and_301",
+    "status": "PENDING_FIRST_CRAWL",
+    "created_at": "2026-10-23 13:13:10 UTC",
+    "last_crawl_datetime": "Not crawled yet",
+    "website_summary": "Documentation indexed for FastAPI Web Framework.",
+    "main_topics": [
+      "Configuration",
+      "Features",
+      "Security"
+    ]
+  },
+  "dash-a6eaa9fb": {
+    "id": "dash-a6eaa9fb",
+    "user_id": "user-demo-suresh",
+    "name": "Divi Enterprise Documentation",
+    "website_name": "Divi Theme & Visual Builder (Elegant Themes)",
+    "sitemap_urls": [
+      "https://www.elegantthemes.com/sitemap.xml"
+    ],
+    "child_sitemaps": [],
+    "description": "Visual drag-and-drop page builder, Divi modules and layouts, Theme Builder, Divi Dynamic Content, WooCommerce integration, and WordPress site customization",
+    "consecutive_failure_threshold": 3,
+    "quarantine_action_rule": "quarantine_404_and_301",
+    "status": "PENDING_FIRST_CRAWL",
+    "created_at": "2026-10-23 13:16:16 UTC",
+    "last_crawl_datetime": "Not crawled yet",
+    "website_summary": "Documentation indexed for Divi Theme & Visual Builder (Elegant Themes).",
+    "main_topics": [
+      "Configuration",
+      "Features",
+      "Security"
+    ]
+  },
+  "dash-048deb67": {
+    "id": "dash-048deb67",
+    "user_id": "user-demo-suresh",
+    "name": "Acme API Hub",
+    "website_name": "Acme Developer Portal",
+    "sitemap_urls": [
+      "https://custom-docs.acme.org/sitemap.xml"
+    ],
+    "child_sitemaps": [],
+    "description": "Acme developer documentation and guides",
+    "consecutive_failure_threshold": 3,
+    "quarantine_action_rule": "quarantine_404_and_301",
+    "status": "LIVE / SYNCHRONIZED",
+    "created_at": "2026-10-23 13:56:37 UTC",
+    "last_crawl_datetime": "2026-10-23 13:56:37 UTC",
+    "website_summary": "Documentation indexed for Acme Developer Portal.",
+    "main_topics": [
+      "Configuration",
+      "Features & Setup",
+      "API & Webhooks",
+      "Security"
+    ]
+  },
+  "dash-6565ae68": {
+    "id": "dash-6565ae68",
+    "user_id": "user-demo-suresh",
+    "name": "Acme API Hub",
+    "website_name": "Acme Developer Portal",
+    "sitemap_urls": [
+      "https://custom-docs.acme.org/sitemap.xml"
+    ],
+    "child_sitemaps": [],
+    "description": "Acme developer documentation and guides",
+    "consecutive_failure_threshold": 3,
+    "quarantine_action_rule": "quarantine_404_and_301",
+    "status": "LIVE / SYNCHRONIZED",
+    "created_at": "2026-10-23 13:56:52 UTC",
+    "last_crawl_datetime": "2026-10-23 13:56:52 UTC",
+    "website_summary": "Documentation indexed for Acme Developer Portal.",
+    "main_topics": [
+      "Configuration",
+      "Features & Setup",
+      "API & Webhooks",
+      "Security"
     ]
   }
 }

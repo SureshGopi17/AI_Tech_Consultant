@@ -430,12 +430,16 @@ def confirm_sitemap_ingestion(payload: ConfirmIngestRequest):
 # =====================================================================
 
 @app.get("/api/v1/urls", response_model=List[VerifyUrlItem])
-def list_urls_inventory(filter_type: str = Query("all")):
+def list_urls_inventory(
+    filter_type: str = Query("all"),
+    dash_id: Optional[str] = Query(None)
+):
     """
     Returns discovered URLs with filters:
     all, successful (200), failed (404/500), pending, skipped, indexed, quarantined.
+    Optionally scoped to dashboard.
     """
-    return kb_manager.get_all_urls(filter_type=filter_type)
+    return kb_manager.get_all_urls(filter_type=filter_type, dash_id=dash_id)
 
 @app.get("/api/v1/urls/inspect")
 def inspect_single_url(url: str = Query(...)):
@@ -464,27 +468,27 @@ def approve_urls(payload: ApproveUrlsRequest):
     }
 
 @app.get("/api/v1/urls/reconciliation-report", response_model=ReconciliationReport)
-def get_reconciliation_report():
+def get_reconciliation_report(dash_id: Optional[str] = Query(None)):
     """
     Reconciliation Report comparing discovered, processed, indexed, skipped, and failed URLs.
     Audits invariant: Discovered = Indexed + Pending + Skipped + Failed + Quarantined.
     """
-    return kb_manager.generate_reconciliation_report()
+    return kb_manager.generate_reconciliation_report(dash_id=dash_id)
 
 # =====================================================================
 # 5. Refresh Run & History Section
 # =====================================================================
 
 @app.get("/api/v1/refresh-run", response_model=RefreshRunReport)
-def get_refresh_run_status():
+def get_refresh_run_status(dash_id: Optional[str] = Query(None)):
     """
     Refresh Run section displaying:
     - First fetch date & time
     - Last fetch date & time
     - Total number of fetched URLs at the bottom
-    - Complete expandable URL list
+    - Complete expandable URL list scoped to active dashboard
     """
-    return kb_manager.get_refresh_run_report()
+    return kb_manager.get_refresh_run_report(dash_id=dash_id)
 
 # =====================================================================
 # 6. Health Settings, Threshold X & Multi-Level Quarantine
