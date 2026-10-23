@@ -2,27 +2,40 @@
 
 const API_BASE = window.location.origin;
 
+function getStorageItem(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch (e) {
+    return null;
+  }
+}
+
+function setStorageItem(key, val) {
+  try {
+    localStorage.setItem(key, val);
+  } catch (e) {}
+}
+
 // Auto-inject JWT Bearer Token into all API requests
-const originalFetch = window.fetch;
-window.fetch = function(url, options = {}) {
-  const token = localStorage.getItem("kb_jwt_token");
-  if (token && typeof url === "string" && url.includes("/api/v1/")) {
-    options = options || {};
-    options.headers = options.headers || {};
-    if (options.headers instanceof Headers) {
-      if (!options.headers.has("Authorization")) {
-        options.headers.set("Authorization", `Bearer ${token}`);
+const originalFetch = window.fetch.bind(window);
+window.fetch = function(url, options) {
+  try {
+    const token = getStorageItem("kb_jwt_token");
+    if (token && typeof url === "string" && url.includes("/api/v1/")) {
+      options = options ? Object.assign({}, options) : {};
+      const headers = Object.assign({}, options.headers || {});
+      if (!headers["Authorization"]) {
+        headers["Authorization"] = `Bearer ${token}`;
       }
-    } else {
-      if (!options.headers["Authorization"]) {
-        options.headers["Authorization"] = `Bearer ${token}`;
-      }
+      options.headers = headers;
     }
+  } catch (e) {
+    console.warn("Fetch interceptor warning:", e);
   }
   return originalFetch(url, options);
 };
 
-// Global helper for populating example sitemap URLs
+// Global helpers for modals and controls
 window.setExampleSitemap = function(url) {
   const input = document.getElementById("input-new-sitemap-url");
   if (input) {
@@ -33,13 +46,39 @@ window.setExampleSitemap = function(url) {
   }
 };
 
+window.openCreateDashboardModal = function() {
+  const modal = document.getElementById("modal-create-dashboard");
+  if (modal) modal.style.display = "flex";
+};
+
+window.closeCreateDashboardModal = function() {
+  const modal = document.getElementById("modal-create-dashboard");
+  if (modal) modal.style.display = "none";
+};
+
+window.openAuthModal = function() {
+  const modal = document.getElementById("modal-auth");
+  if (modal) {
+    const displayEl = document.getElementById("jwt-token-display");
+    if (displayEl) {
+      displayEl.innerText = getStorageItem("kb_jwt_token") || "No active JWT token found.";
+    }
+    modal.style.display = "flex";
+  }
+};
+
+window.closeAuthModal = function() {
+  const modal = document.getElementById("modal-auth");
+  if (modal) modal.style.display = "none";
+};
+
 let activeDashboardId = "dash-bd-prod-01";
 let currentInventoryUrls = [];
 let selectedUrls = new Set();
 let currentFilter = "all";
 
-document.addEventListener("DOMContentLoaded", async () => {
-  await initSession();
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. Synchronously bind all event handlers immediately
   setupAuth();
   setupDashboardSwitcher();
   setupTabs();
@@ -53,19 +92,28 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupArchivedSafeStore();
   setupModals();
 
-  // Initial Load
+  // 2. Load dashboard data immediately
   loadDashboardData();
+
+  // 3. Initialize/validate JWT session asynchronously in the background
+  initSession().then(() => {
+    fetchDashboardsList();
+  }).catch(err => {
+    console.warn("Session init warning:", err);
+  });
 });
 
 async function initSession() {
-  const token = localStorage.getItem("kb_jwt_token");
+  const token = getStorageItem("kb_jwt_token");
   if (token) {
     try {
       const res = await fetch(`${API_BASE}/api/v1/auth/me`);
       if (res.ok) {
         const user = await res.json();
-        document.getElementById("session-user").innerText = user.name;
-        document.getElementById("session-role").innerText = `${user.role} (JWT Active)`;
+        const userEl = document.getElementById("session-user");
+        const roleEl = document.getElementById("session-role");
+        if (userEl) userEl.innerText = user.name;
+        if (roleEl) roleEl.innerText = `${user.role} (JWT Active)`;
         activeDashboardId = user.active_dashboard_id || "dash-bd-prod-01";
         return;
       }
@@ -79,9 +127,11 @@ async function initSession() {
     const res = await fetch(`${API_BASE}/api/v1/auth/demo-login`, { method: "POST" });
     const data = await res.json();
     if (data.success && data.token) {
-      localStorage.setItem("kb_jwt_token", data.token);
-      document.getElementById("session-user").innerText = data.user.name;
-      document.getElementById("session-role").innerText = `${data.user.role} (JWT Active)`;
+      setStorageItem("kb_jwt_token", data.token);
+      const userEl = document.getElementById("session-user");
+      const roleEl = document.getElementById("session-role");
+      if (userEl) userEl.innerText = data.user.name;
+      if (roleEl) roleEl.innerText = `${data.user.role} (JWT Active)`;
       activeDashboardId = data.user.active_dashboard_id || "dash-bd-prod-01";
     }
   } catch (err) {
@@ -258,11 +308,15 @@ function setupDashboardSwitcher() {
 async function fetchDashboardsList() {
   try {
     const res = await fetch(`${API_BASE}/api/v1/dashboards`);
+    if (!res.ok) return;
     const dashboards = await res.json();
+    if (!Array.isArray(dashboards)) return;
     const select = document.getElementById("select-active-dashboard");
-    select.innerHTML = dashboards.map(d => `
-      <option value="${d.id}" ${d.id === activeDashboardId ? 'selected' : ''}>${d.name} (${d.website_name})</option>
-    `).join("");
+    if (select) {
+      select.innerHTML = dashboards.map(d => `
+        <option value="${d.id}" ${d.id === activeDashboardId ? 'selected' : ''}>${d.name} (${d.website_name})</option>
+      `).join("");
+    }
   } catch (e) {
     console.error("Failed to fetch dashboards:", e);
   }
@@ -271,23 +325,39 @@ async function fetchDashboardsList() {
 // =====================================================================
 // 3. Tab Navigation & Data Routing
 // =====================================================================
+window.switchTab = function(targetId) {
+  if (!targetId) return;
+  const tabBtns = document.querySelectorAll(".tab-btn");
+  tabBtns.forEach(b => {
+    if (b.getAttribute("data-tab") === targetId) {
+      b.classList.add("active");
+    } else {
+      b.classList.remove("active");
+    }
+  });
+
+  document.querySelectorAll(".tab-pane").forEach(p => {
+    if (p.id === targetId) {
+      p.classList.add("active");
+    } else {
+      p.classList.remove("active");
+    }
+  });
+
+  if (targetId === "tab-dashboard-summary") fetchDashboardSummary();
+  if (targetId === "tab-sitemaps") fetchSitemapsView();
+  if (targetId === "tab-refresh-run") fetchRefreshRunData();
+  if (targetId === "tab-reconciliation") fetchReconciliationReport();
+  if (targetId === "tab-archived") fetchArchivedUrls();
+  if (targetId === "tab-escalations") fetchEscalations();
+};
+
 function setupTabs() {
   const tabBtns = document.querySelectorAll(".tab-btn");
   tabBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-      tabBtns.forEach(b => b.classList.remove("active"));
-      document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
-
-      btn.classList.add("active");
       const targetId = btn.getAttribute("data-tab");
-      document.getElementById(targetId).classList.add("active");
-
-      if (targetId === "tab-dashboard-summary") fetchDashboardSummary();
-      if (targetId === "tab-sitemaps") fetchSitemapsView();
-      if (targetId === "tab-refresh-run") fetchRefreshRunData();
-      if (targetId === "tab-reconciliation") fetchReconciliationReport();
-      if (targetId === "tab-archived") fetchArchivedUrls();
-      if (targetId === "tab-escalations") fetchEscalations();
+      window.switchTab(targetId);
     });
   });
 }
@@ -677,8 +747,6 @@ window.inspectUrl = async function(encodedUrl) {
     modal.style.display = "flex";
   } catch (err) {
     alert("Inspect error: " + err.message);
-  }
-};
   }
 };
 

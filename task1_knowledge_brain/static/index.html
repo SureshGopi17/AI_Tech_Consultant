@@ -28,7 +28,7 @@
           <select id="select-active-dashboard" style="background: transparent; color: #f8fafc; border: none; font-size: 0.75rem; font-weight: 600; cursor: pointer; outline: none;">
             <option value="dash-bd-prod-01">Production Help Center</option>
           </select>
-          <button id="btn-open-create-dash" title="Create New Dashboard" style="background: rgba(59, 130, 246, 0.2); border: 1px solid #3b82f6; color: #93c5fd; border-radius: 4px; padding: 0.1rem 0.4rem; font-size: 0.7rem; cursor: pointer;">+ New</button>
+          <button id="btn-open-create-dash" onclick="window.openCreateDashboardModal()" title="Create New Dashboard" style="background: rgba(59, 130, 246, 0.2); border: 1px solid #3b82f6; color: #93c5fd; border-radius: 4px; padding: 0.1rem 0.4rem; font-size: 0.7rem; cursor: pointer;">+ New</button>
         </div>
 
         <div class="metric-pill">
@@ -93,13 +93,13 @@
       <!-- Right Column: Tabs (Dashboard, Citations, Sitemaps, Refresh Run, Reconciliation, Escalations) -->
       <section class="card info-card">
         <div class="tabs-nav" style="flex-wrap: wrap;">
-          <button class="tab-btn active" data-tab="tab-evidence">📚 Citations & Visuals</button>
-          <button class="tab-btn" data-tab="tab-dashboard-summary">📊 Knowledge Brain Dashboard</button>
-          <button class="tab-btn" data-tab="tab-sitemaps">🌐 Sitemaps (<span id="sitemaps-count">2</span>)</button>
-          <button class="tab-btn" data-tab="tab-refresh-run">🔄 Refresh Run & URLs (<span id="urls-count">22</span>)</button>
-          <button class="tab-btn" data-tab="tab-reconciliation">⚖️ Reconciliation & Health</button>
-          <button class="tab-btn" data-tab="tab-archived">🗄️ Archived Safe Store (<span id="archived-count">1</span>)</button>
-          <button class="tab-btn" data-tab="tab-escalations">🚨 Escalations (<span id="esc-count">0</span>)</button>
+          <button class="tab-btn active" data-tab="tab-evidence" onclick="window.switchTab('tab-evidence')">📚 Citations & Visuals</button>
+          <button class="tab-btn" data-tab="tab-dashboard-summary" onclick="window.switchTab('tab-dashboard-summary')">📊 Knowledge Brain Dashboard</button>
+          <button class="tab-btn" data-tab="tab-sitemaps" onclick="window.switchTab('tab-sitemaps')">🌐 Sitemaps (<span id="sitemaps-count">2</span>)</button>
+          <button class="tab-btn" data-tab="tab-refresh-run" onclick="window.switchTab('tab-refresh-run')">🔄 Refresh Run & URLs (<span id="urls-count">22</span>)</button>
+          <button class="tab-btn" data-tab="tab-reconciliation" onclick="window.switchTab('tab-reconciliation')">⚖️ Reconciliation & Health</button>
+          <button class="tab-btn" data-tab="tab-archived" onclick="window.switchTab('tab-archived')">🗄️ Archived Safe Store (<span id="archived-count">1</span>)</button>
+          <button class="tab-btn" data-tab="tab-escalations" onclick="window.switchTab('tab-escalations')">🚨 Escalations (<span id="esc-count">0</span>)</button>
         </div>
 
         <!-- TAB 1: Citations & Visuals -->
