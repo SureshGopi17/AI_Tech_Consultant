@@ -46,19 +46,31 @@ export class GraduationEngine {
   }
 
   private initializeDefaultStates(): void {
-    const categories: { cat: EmailCategory; label: string }[] = [
-      { cat: 'how_to', label: 'How-To & Technical Inquiries' },
-      { cat: 'new_project', label: 'New Project Scoping' },
-      { cat: 'refund', label: 'Billing, Refunds & Cancellations' },
-      { cat: 'complaint', label: 'Urgent Issues & Complaints' },
-      { cat: 'quote', label: 'Quotes & Pricing' },
-      { cat: 'follow_up', label: 'Ticket & Work Follow-ups' }
+    const categories: { cat: EmailCategory; label: string; conf: number }[] = [
+      // 9 Core Categories from PDF Spec
+      { cat: 'Filters', label: 'Filters & Search Facets', conf: 0.94 },
+      { cat: 'Home Page', label: 'Home Page & Hero Layout', conf: 0.92 },
+      { cat: 'Domain Management', label: 'Domain Management & DNS/SSL', conf: 0.95 },
+      { cat: 'Header', label: 'Header & Logo Navigation', conf: 0.93 },
+      { cat: 'Main Menu', label: 'Main Menu & Navbar Dropdowns', conf: 0.91 },
+      { cat: 'Footer', label: 'Footer & Copyright Widgets', conf: 0.96 },
+      { cat: 'General Settings', label: 'General Settings & Locales', conf: 0.95 },
+      { cat: 'Design Settings', label: 'Design Settings, CSS & Themes', conf: 0.93 },
+      { cat: 'Managers', label: 'Managers & Staff Admin Accounts', conf: 0.90 },
+      // Standard intent clusters
+      { cat: 'how_to', label: 'How-To & Technical Inquiries', conf: 0.92 },
+      { cat: 'new_project', label: 'New Project Scoping', conf: 0.88 },
+      { cat: 'refund', label: 'Billing, Refunds & Cancellations', conf: 0.96 },
+      { cat: 'complaint', label: 'Urgent Issues & Complaints', conf: 0.89 },
+      { cat: 'quote', label: 'Quotes & Pricing', conf: 0.90 },
+      { cat: 'follow_up', label: 'Ticket & Work Follow-ups', conf: 0.91 }
     ];
 
-    for (const { cat, label } of categories) {
+    for (const { cat, label, conf } of categories) {
       this.states.set(cat, {
         category: cat,
         category_label: label,
+        confidence_score: conf,
         consecutive_unchanged: 0,
         threshold: this.graduationThreshold,
         total_approved: 0,
@@ -109,12 +121,16 @@ export class GraduationEngine {
     const state = this.getState(category);
     state.total_approved += 1;
     state.last_updated = new Date().toISOString();
+    if (state.confidence_score === undefined) {
+      state.confidence_score = 0.90;
+    }
 
     const isUnchanged = similarity >= this.SIMILARITY_THRESHOLD;
 
     if (isUnchanged) {
       // Increment consecutive unchanged counter
       state.consecutive_unchanged += 1;
+      state.confidence_score = Math.min(0.99, Number((state.confidence_score + 0.01).toFixed(2)));
 
       // Check for graduation against configurable threshold X
       if (state.consecutive_unchanged >= state.threshold) {
@@ -126,6 +142,7 @@ export class GraduationEngine {
       }
     } else {
       // Quality drop / Human edited the draft -> DEMOTION
+      state.confidence_score = Math.max(0.70, Number((state.confidence_score - 0.03).toFixed(2)));
       if (state.auto_send_eligible || state.consecutive_unchanged > 0) {
         const prevStreak = state.consecutive_unchanged;
         state.consecutive_unchanged = 0;

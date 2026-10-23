@@ -22,7 +22,11 @@ from app.models import (
     UserLoginRequest, UserRegisterRequest, UserSession, AuthResponse,
     KnowledgeDashboard, CreateDashboardRequest, UpdateDashboardRequest,
     ReconciliationReport, RefreshRunReport, HealthSettingsRequest,
-    CrawlUrlsRequest, ApproveUrlsRequest, DashboardSummaryResponse
+    CrawlUrlsRequest, ApproveUrlsRequest, DashboardSummaryResponse,
+    PreFlightAnalysisRequest, PreFlightSitemapAnalysisResponse,
+    ConfirmIngestRequest, ConfirmIngestResponse,
+    ArchivedUrlsResponse, RestoreArchivedUrlRequest,
+    ScheduleSettingsRequest, RetentionSettingsRequest
 )
 from app.vector_store import knowledge_store
 from app.rag_engine import rag_engine
@@ -347,6 +351,35 @@ def add_custom_sitemap(payload: AddSitemapRequest):
         "message": msg
     }
 
+@app.post("/api/v1/sitemaps/analyze", response_model=PreFlightSitemapAnalysisResponse)
+def analyze_sitemaps_preflight(payload: Optional[PreFlightAnalysisRequest] = None):
+    """
+    Pre-Processing Sitemap Inspection:
+    Before knowledge base creation starts, discovers all parent and nested child sitemaps.
+    Returns:
+    - Total sitemaps found
+    - Total URLs found
+    - First URL & Last URL
+    - Breakdown per nested sitemap
+    - Estimated processing time (pages/1hr, pages/hr, pages/day, ETA)
+    - Requires explicit user confirmation before creation starts!
+    """
+    s_urls = payload.sitemap_urls if payload else None
+    d_id = payload.dashboard_id if payload and payload.dashboard_id else "dash-bd-prod-01"
+    return kb_manager.analyze_sitemaps(sitemap_urls=s_urls, dash_id=d_id)
+
+@app.post("/api/v1/sitemaps/confirm-ingest", response_model=ConfirmIngestResponse)
+def confirm_sitemap_ingestion(payload: ConfirmIngestRequest):
+    """
+    User confirmation step:
+    Knowledge base creation ONLY starts after the user confirms.
+    Executes crawling, indexing, and reconciliation with continuous progress.
+    """
+    if not payload.confirmed:
+        raise HTTPException(status_code=400, detail="Ingestion cancelled: user confirmation required.")
+    dash_id = payload.dashboard_id or "dash-bd-prod-01"
+    return kb_manager.confirm_ingestion(dash_id=dash_id, selected_sitemaps=payload.selected_sitemaps)
+
 # =====================================================================
 # 4. URL Discovery, Verification, Filtering & Inspection
 # =====================================================================
@@ -433,6 +466,77 @@ def update_health_settings(payload: HealthSettingsRequest, dash_id: str = Query(
         "quarantine_action_rule": payload.quarantine_action_rule,
         "message": f"Health threshold updated: action applied after {payload.consecutive_failure_threshold} consecutive failed fetches."
     }
+
+@app.get("/api/v1/settings/schedule")
+def get_schedule_settings(dash_id: str = Query("dash-bd-prod-01")):
+    dash = kb_manager.get_dashboard(dash_id)
+    return {
+        "recheck_schedule": dash.recheck_schedule if dash else "Daily",
+        "available_schedules": ["Daily", "Weekly", "Every 15 days", "Every 30 days"]
+    }
+
+@app.post("/api/v1/settings/schedule")
+def update_schedule_settings(payload: ScheduleSettingsRequest):
+    """Sets automatic recheck schedule (Daily, Weekly, Every 15 days, Every 30 days)."""
+    dash_id = payload.dashboard_id or "dash-bd-prod-01"
+    ok = kb_manager.set_recheck_schedule(dash_id, payload.schedule)
+    if not ok:
+        raise HTTPException(status_code=400, detail="Invalid schedule. Must be Daily, Weekly, Every 15 days, or Every 30 days.")
+    return {"success": True, "recheck_schedule": payload.schedule, "message": f"Recheck schedule set to {payload.schedule}."}
+
+@app.get("/api/v1/settings/retention")
+def get_retention_settings(dash_id: str = Query("dash-bd-prod-01")):
+    dash = kb_manager.get_dashboard(dash_id)
+    return {
+        "retention_rule": dash.retention_rule if dash else "Archive after 2 consecutive checks",
+        "retention_threshold": dash.retention_threshold if dash else 2,
+        "available_rules": [
+            "Archive immediately",
+            "Archive after 2 consecutive checks",
+            "Archive after 15 consecutive checks",
+            "Archive after 30 consecutive checks"
+        ],
+        "never_deleted_invariant": True
+    }
+
+@app.post("/api/v1/settings/retention")
+def update_retention_settings(payload: RetentionSettingsRequest):
+    """Configures retention rule for missing sitemap URLs. Note: Missing URLs are NEVER deleted, only archived!"""
+    dash_id = payload.dashboard_id or "dash-bd-prod-01"
+    threshold_map = {
+        "Archive immediately": 1,
+        "Archive after 2 consecutive checks": 2,
+        "Archive after 15 consecutive checks": 15,
+        "Archive after 30 consecutive checks": 30
+    }
+    thresh = threshold_map.get(payload.retention_rule, payload.retention_threshold or 2)
+    ok = kb_manager.set_retention_rule(dash_id, payload.retention_rule, thresh)
+    if not ok:
+        raise HTTPException(status_code=400, detail="Invalid retention rule.")
+    return {
+        "success": True,
+        "retention_rule": payload.retention_rule,
+        "retention_threshold": thresh,
+        "never_deleted_invariant": True,
+        "message": f"Retention rule configured: {payload.retention_rule} (Safe Archived Store)."
+    }
+
+# =====================================================================
+# 6b. Archived Knowledge Base (Safe Store - Never Deleted Invariant)
+# =====================================================================
+
+@app.get("/api/v1/archived-urls", response_model=ArchivedUrlsResponse)
+def list_archived_urls():
+    """
+    Returns all archived URLs in the safe Archived Knowledge Base store.
+    Ensures missing URLs are NEVER permanently deleted and remain auditable and recoverable.
+    """
+    return kb_manager.get_archived_urls()
+
+@app.post("/api/v1/archived-urls/restore")
+def restore_archived_urls_endpoint(payload: RestoreArchivedUrlRequest):
+    """Restores selected archived URLs back to the Active Knowledge Base."""
+    return kb_manager.restore_archived_urls(payload.urls)
 
 @app.post("/api/v1/health-check/run")
 def run_health_check(dash_id: str = Query("dash-bd-prod-01")):

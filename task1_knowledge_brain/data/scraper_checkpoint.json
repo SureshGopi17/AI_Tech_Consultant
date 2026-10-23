@@ -1,0 +1,31 @@
+{
+  "completed_urls": {
+    "https://support.brilliantdirectories.com/support/solutions/articles/12000093661-changelog-february-2017": {
+      "lastmod": "2023-05-09T04:08:02+05:30",
+      "hash": "8b940f8b796d10c1192b1e93e9fa488d",
+      "id": "art-12000093661"
+    },
+    "https://support.brilliantdirectories.com/support/solutions/articles/12000064439-11-01-19-software-updates": {
+      "lastmod": "2019-11-04T21:47:34+05:30",
+      "hash": "b637df8f8ef78a5f991ff032d6cfd836",
+      "id": "art-12000064439"
+    },
+    "https://support.brilliantdirectories.com/support/solutions/articles/12000035550-content-manage-posts": {
+      "lastmod": "2026-07-15T03:08:58+05:30",
+      "hash": "cf748fff55311bf94bcd7b14228633c8",
+      "id": "art-12000035550"
+    },
+    "https://support.brilliantdirectories.com/support/solutions/articles/12000093648-changelog-november-2015": {
+      "lastmod": "2023-05-09T03:57:09+05:30",
+      "hash": "ee2dd88a6345efc119632b90a56c577e",
+      "id": "art-12000093648"
+    },
+    "https://support.brilliantdirectories.com/support/solutions/articles/12000006843-supported-payment-gateways": {
+      "lastmod": "2026-07-15T21:28:04+05:30",
+      "hash": "2b7ae7b8235d81747b8c9cc8af7d0958",
+      "id": "art-12000006843"
+    }
+  },
+  "last_scraped_index": 5,
+  "total_urls": 5
+}

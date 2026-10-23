@@ -76,16 +76,6 @@
             <span class="nav-label">Inbox</span>
             <span class="nav-count" id="inbox-unread-count">50</span>
           </a>
-          <a href="#" class="nav-item" data-folder="starred">
-            <span class="nav-icon">⭐</span>
-            <span class="nav-label">Starred</span>
-            <span class="nav-count" id="starred-count">3</span>
-          </a>
-          <a href="#" class="nav-item" data-folder="auto_sent">
-            <span class="nav-icon">🤖</span>
-            <span class="nav-label">Auto-Sent (Graduated)</span>
-            <span class="nav-count highlight-green" id="autosent-count">0</span>
-          </a>
           <a href="#" class="nav-item" data-folder="drafts">
             <span class="nav-icon">📝</span>
             <span class="nav-label">Drafts</span>
@@ -94,44 +84,80 @@
           <a href="#" class="nav-item" data-folder="sent">
             <span class="nav-icon">📤</span>
             <span class="nav-label">Sent</span>
+            <span class="nav-count" id="sent-count">0</span>
+          </a>
+          <a href="#" class="nav-item" data-folder="spam">
+            <span class="nav-icon">⚠️</span>
+            <span class="nav-label">Spam</span>
+            <span class="nav-count" id="spam-count">0</span>
+          </a>
+          <a href="#" class="nav-item" data-folder="trash">
+            <span class="nav-icon">🗑️</span>
+            <span class="nav-label">Trash</span>
+            <span class="nav-count" id="trash-count">0</span>
+          </a>
+          <a href="#" class="nav-item" data-folder="auto_sent">
+            <span class="nav-icon">🤖</span>
+            <span class="nav-label">Auto-Sent (Graduated)</span>
+            <span class="nav-count highlight-green" id="autosent-count">0</span>
+          </a>
+          <a href="#" class="nav-item" data-folder="starred">
+            <span class="nav-icon">⭐</span>
+            <span class="nav-label">Starred</span>
+            <span class="nav-count" id="starred-count">3</span>
           </a>
         </nav>
 
-        <!-- Collapsible Labels & Parent Setting Types (Requirement 7) -->
+        <!-- Collapsible Labels & Specific 9 Setting Categories (PDF Scope) -->
         <div class="sidebar-labels-section">
           <div class="labels-header">
-            <span>LABELS & PARENT SETTINGS</span>
+            <span>9 CORE SETTING CATEGORIES</span>
           </div>
           <div class="labels-list">
-            <div class="label-item" data-category="how_to">
+            <div class="label-item" data-category="Filters">
               <span class="label-color-dot dot-blue"></span>
-              <span class="label-text">Member & Directory Settings</span>
-              <span class="label-count" id="lbl-count-howto">15</span>
+              <span class="label-text">Filters</span>
+              <span class="label-count" id="lbl-count-filters">94%</span>
             </div>
-            <div class="label-item" data-category="refund">
+            <div class="label-item" data-category="Home Page">
               <span class="label-color-dot dot-purple"></span>
-              <span class="label-text">Financial & Invoicing Settings</span>
-              <span class="label-count" id="lbl-count-refund">8</span>
+              <span class="label-text">Home Page</span>
+              <span class="label-count" id="lbl-count-homepage">92%</span>
             </div>
-            <div class="label-item" data-category="complaint">
-              <span class="label-color-dot dot-red"></span>
-              <span class="label-text">Platform Infrastructure & Uptime</span>
-              <span class="label-count" id="lbl-count-complaint">6</span>
-            </div>
-            <div class="label-item" data-category="new_project">
+            <div class="label-item" data-category="Domain Management">
               <span class="label-color-dot dot-green"></span>
-              <span class="label-text">Commercial & Scoping Contracts</span>
-              <span class="label-count" id="lbl-count-project">9</span>
+              <span class="label-text">Domain Management</span>
+              <span class="label-count" id="lbl-count-domain">95%</span>
             </div>
-            <div class="label-item" data-category="quote">
+            <div class="label-item" data-category="Header">
               <span class="label-color-dot dot-amber"></span>
-              <span class="label-text">Quotes & Retainers</span>
-              <span class="label-count" id="lbl-count-quote">5</span>
+              <span class="label-text">Header</span>
+              <span class="label-count" id="lbl-count-header">93%</span>
             </div>
-            <div class="label-item" data-category="follow_up">
+            <div class="label-item" data-category="Main Menu">
               <span class="label-color-dot dot-teal"></span>
-              <span class="label-text">Support & Work Tracking</span>
-              <span class="label-count" id="lbl-count-followup">7</span>
+              <span class="label-text">Main Menu</span>
+              <span class="label-count" id="lbl-count-mainmenu">91%</span>
+            </div>
+            <div class="label-item" data-category="Footer">
+              <span class="label-color-dot dot-blue"></span>
+              <span class="label-text">Footer</span>
+              <span class="label-count" id="lbl-count-footer">96%</span>
+            </div>
+            <div class="label-item" data-category="General Settings">
+              <span class="label-color-dot dot-green"></span>
+              <span class="label-text">General Settings</span>
+              <span class="label-count" id="lbl-count-general">95%</span>
+            </div>
+            <div class="label-item" data-category="Design Settings">
+              <span class="label-color-dot dot-purple"></span>
+              <span class="label-text">Design Settings</span>
+              <span class="label-count" id="lbl-count-design">93%</span>
+            </div>
+            <div class="label-item" data-category="Managers">
+              <span class="label-color-dot dot-red"></span>
+              <span class="label-text">Managers</span>
+              <span class="label-count" id="lbl-count-managers">90%</span>
             </div>
           </div>
         </div>

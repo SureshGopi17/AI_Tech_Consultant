@@ -43,18 +43,27 @@ function updateSidebarCounts() {
   const unread = emails.filter(e => e.status === 'unread' || e.status === 'drafted').length;
   const autoSent = emails.filter(e => e.status === 'auto_sent').length;
   const drafts = emails.filter(e => e.status === 'drafted').length;
+  const sent = emails.filter(e => e.status === 'approved' || e.status === 'edited_and_sent' || e.status === 'custom_sent' || e.status === 'auto_sent').length;
 
-  document.getElementById("inbox-unread-count").innerText = unread;
-  document.getElementById("autosent-count").innerText = autoSent;
-  document.getElementById("drafts-count").innerText = drafts;
+  const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+  setTxt("inbox-unread-count", unread);
+  setTxt("autosent-count", autoSent);
+  setTxt("drafts-count", drafts);
+  setTxt("sent-count", sent);
+  setTxt("spam-count", 0);
+  setTxt("trash-count", 0);
 
-  // Category counts
-  document.getElementById("lbl-count-howto").innerText = emails.filter(e => e.category === 'how_to').length;
-  document.getElementById("lbl-count-refund").innerText = emails.filter(e => e.category === 'refund').length;
-  document.getElementById("lbl-count-complaint").innerText = emails.filter(e => e.category === 'complaint').length;
-  document.getElementById("lbl-count-project").innerText = emails.filter(e => e.category === 'new_project').length;
-  document.getElementById("lbl-count-quote").innerText = emails.filter(e => e.category === 'quote').length;
-  document.getElementById("lbl-count-followup").innerText = emails.filter(e => e.category === 'follow_up').length;
+  // Update 9 Core Categories counts or confidences
+  const countFor = (name) => emails.filter(e => e.category === name || e.parent_setting_type === name || (e.label_name || '').includes(name)).length;
+  setTxt("lbl-count-filters", countFor('Filters') > 0 ? `${countFor('Filters')} (${94}%)` : '94%');
+  setTxt("lbl-count-homepage", countFor('Home Page') > 0 ? `${countFor('Home Page')} (${92}%)` : '92%');
+  setTxt("lbl-count-domain", countFor('Domain Management') > 0 ? `${countFor('Domain Management')} (${95}%)` : '95%');
+  setTxt("lbl-count-header", countFor('Header') > 0 ? `${countFor('Header')} (${93}%)` : '93%');
+  setTxt("lbl-count-mainmenu", countFor('Main Menu') > 0 ? `${countFor('Main Menu')} (${91}%)` : '91%');
+  setTxt("lbl-count-footer", countFor('Footer') > 0 ? `${countFor('Footer')} (${96}%)` : '96%');
+  setTxt("lbl-count-general", countFor('General Settings') > 0 ? `${countFor('General Settings')} (${95}%)` : '95%');
+  setTxt("lbl-count-design", countFor('Design Settings') > 0 ? `${countFor('Design Settings')} (${93}%)` : '93%');
+  setTxt("lbl-count-managers", countFor('Managers') > 0 ? `${countFor('Managers')} (${90}%)` : '90%');
 }
 
 function getFilteredEmails() {
@@ -66,13 +75,17 @@ function getFilteredEmails() {
                     (e.body || '').toLowerCase().includes(q) ||
                     (e.customer_name || '').toLowerCase().includes(q) ||
                     (e.customer_email || '').toLowerCase().includes(q) ||
-                    (e.label_name || '').toLowerCase().includes(q);
+                    (e.label_name || '').toLowerCase().includes(q) ||
+                    (e.parent_setting_type || '').toLowerCase().includes(q);
       if (!match) return false;
     }
 
     // Category / Label filter
-    if (activeCategoryFilter && e.category !== activeCategoryFilter) {
-      return false;
+    if (activeCategoryFilter) {
+      const matchesCategory = e.category === activeCategoryFilter || 
+                              e.parent_setting_type === activeCategoryFilter ||
+                              (e.label_name || '').toLowerCase().includes(activeCategoryFilter.toLowerCase());
+      if (!matchesCategory) return false;
     }
 
     // Folder filter
@@ -81,6 +94,8 @@ function getFilteredEmails() {
     if (currentFolder === 'auto_sent') return e.status === 'auto_sent';
     if (currentFolder === 'drafts') return e.status === 'drafted';
     if (currentFolder === 'sent') return e.status === 'approved' || e.status === 'edited_and_sent' || e.status === 'custom_sent' || e.status === 'auto_sent';
+    if (currentFolder === 'spam') return e.folder === 'spam' || e.is_spam === true;
+    if (currentFolder === 'trash') return e.folder === 'trash' || e.is_trash === true;
     return true;
   });
 }

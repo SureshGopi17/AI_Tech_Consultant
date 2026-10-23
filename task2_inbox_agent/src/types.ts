@@ -3,6 +3,15 @@
  */
 
 export type EmailCategory = 
+  | 'Filters'
+  | 'Home Page'
+  | 'Domain Management'
+  | 'Header'
+  | 'Main Menu'
+  | 'Footer'
+  | 'General Settings'
+  | 'Design Settings'
+  | 'Managers'
   | 'how_to' 
   | 'new_project' 
   | 'refund' 
@@ -11,6 +20,8 @@ export type EmailCategory =
   | 'follow_up';
 
 export type UrgencyLevel = 'low' | 'medium' | 'high';
+
+export type EmailFolder = 'inbox' | 'drafts' | 'sent' | 'spam' | 'trash' | 'starred' | 'auto_sent';
 
 export type EmailStatus = 
   | 'unread' 
@@ -88,8 +99,9 @@ export interface HumanFeedback {
 export interface GraduationState {
   category: EmailCategory;
   category_label: string;
+  confidence_score: number; // Per-category confidence score (0.0 to 1.0)
   consecutive_unchanged: number;
-  threshold: number; // 20
+  threshold: number; // Configurable threshold X
   total_approved: number;
   total_auto_sent: number;
   auto_send_eligible: boolean;

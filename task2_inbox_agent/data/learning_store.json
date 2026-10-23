@@ -2,6 +2,58 @@
   "prompt_version": 1,
   "feedbacks": [
     {
+      "id": "FB-MVKUV4HB",
+      "email_id": "TEST-004",
+      "category": "refund",
+      "subject": "Test refund",
+      "original_draft": "Thanks for reaching out. We can fix this issue soon.",
+      "edited_reply": "Thanks for reaching out! We have escalated this issue to our senior engineers and will resolve it within 2 hours.",
+      "edit_distance": 67,
+      "similarity_ratio": 0.407,
+      "learned_rule": "State clearly that Stripe refunds process within 3-5 business days and provide the transaction reference ID.",
+      "created_at": "2026-10-23T10:57:06.671Z",
+      "active": false
+    },
+    {
+      "id": "FB-MVKUG1C2",
+      "email_id": "TEST-004",
+      "category": "refund",
+      "subject": "Test refund",
+      "original_draft": "Thanks for reaching out. We can fix this issue soon.",
+      "edited_reply": "Thanks for reaching out! We have escalated this issue to our senior engineers and will resolve it within 2 hours.",
+      "edit_distance": 67,
+      "similarity_ratio": 0.407,
+      "learned_rule": "State clearly that Stripe refunds process within 3-5 business days and provide the transaction reference ID.",
+      "created_at": "2026-10-23T10:45:22.754Z",
+      "active": false
+    },
+    {
+      "id": "FB-MVKUFFM3",
+      "email_id": "TEST-004",
+      "category": "refund",
+      "subject": "Test refund",
+      "original_draft": "Thanks for reaching out. We can fix this issue soon.",
+      "edited_reply": "Thanks for reaching out! We have escalated this issue to our senior engineers and will resolve it within 2 hours.",
+      "edit_distance": 67,
+      "similarity_ratio": 0.407,
+      "learned_rule": "State clearly that Stripe refunds process within 3-5 business days and provide the transaction reference ID.",
+      "created_at": "2026-10-23T10:44:54.603Z",
+      "active": false
+    },
+    {
+      "id": "FB-MVKTV67T",
+      "email_id": "TEST-004",
+      "category": "refund",
+      "subject": "Test refund",
+      "original_draft": "Thanks for reaching out. We can fix this issue soon.",
+      "edited_reply": "Thanks for reaching out! We have escalated this issue to our senior engineers and will resolve it within 2 hours.",
+      "edit_distance": 67,
+      "similarity_ratio": 0.407,
+      "learned_rule": "State clearly that Stripe refunds process within 3-5 business days and provide the transaction reference ID.",
+      "created_at": "2026-10-23T10:29:09.305Z",
+      "active": false
+    },
+    {
       "id": "FB-MVKPUND7",
       "email_id": "TEST-004",
       "category": "refund",
@@ -106,5 +158,5 @@
       "active": false
     }
   ],
-  "last_updated": "2026-10-23T08:36:46.411Z"
+  "last_updated": "2026-10-23T10:57:06.672Z"
 }

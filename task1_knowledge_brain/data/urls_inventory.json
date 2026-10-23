@@ -1,6 +1,6 @@
 {
   "first_fetch_time": "2026-10-23 04:00:00 UTC",
-  "last_fetch_time": "2026-10-23 08:21:39 UTC",
+  "last_fetch_time": "2026-10-23 10:57:05 UTC",
   "total_urls": 22,
   "urls": {
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558350-stripe-payment-gateway-setup": {
@@ -21,8 +21,23 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+        "https://support.brilliantdirectories.com/support/solutions/articles/sitemap_part1.xml"
+      ],
+      "is_duplicate_across_sitemaps": true,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_stripe_001",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558355-change-search-radius-miles-kilometers": {
@@ -43,8 +58,23 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+        "https://support.brilliantdirectories.com/support/solutions/articles/sitemap_part1.xml"
+      ],
+      "is_duplicate_across_sitemaps": true,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_search_radius_002",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558360-add-custom-fields-to-member-forms": {
@@ -65,8 +95,23 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+        "https://support.brilliantdirectories.com/support/solutions/articles/sitemap_part1.xml"
+      ],
+      "is_duplicate_across_sitemaps": true,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_custom_fields_003",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558365-auto-lead-distribution-settings": {
@@ -87,8 +132,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_leads_004",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558401-how-to-import-categories-via-csv-file": {
@@ -109,8 +168,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_csv_categories_005",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558405-bulk-import-members-via-csv": {
@@ -131,8 +204,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_member_import_006",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558410-connect-google-tag-manager-ga4": {
@@ -153,8 +240,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_gtm_007",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558415-member-review-moderation-settings": {
@@ -175,8 +276,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_reviews_008",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558420-custom-email-templates-welcome-sequence": {
@@ -197,8 +312,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_emails_009",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558425-claim-listing-feature-setup": {
@@ -219,8 +348,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_claim_010",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558430-restrict-search-logged-in-members-only": {
@@ -241,8 +384,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_privacy_011",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558435-webhooks-api-integrations-zapier": {
@@ -263,8 +420,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_webhooks_012",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558440-create-discount-coupon-codes": {
@@ -285,8 +456,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_coupons_013",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558445-embed-video-reels-youtube-vimeo": {
@@ -307,8 +492,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_video_014",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558450-handling-member-cancellations-refunds": {
@@ -329,8 +528,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_refund_015",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558455-design-settings-brand-colors-custom-css": {
@@ -351,8 +564,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_design_016",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558460-google-maps-api-key-configuration": {
@@ -373,8 +600,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_maps_017",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558465-connecting-custom-domain-ssl-setup": {
@@ -395,8 +636,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_domain_018",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558500-how-the-product-works-platform-overview": {
@@ -417,8 +672,22 @@
       "is_indexed": true,
       "approved_by_human": true,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [
+        {
+          "timestamp": "2026-10-23 04:00:00 UTC",
+          "old_hash": "",
+          "new_hash": "hash_overview_019",
+          "change_type": "INITIAL",
+          "summary": "Initial baseline crawl and embedding generated."
+        }
+      ],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558450-new-beta-mobile-app-sync": {
@@ -438,9 +707,15 @@
       "quarantine_level": null,
       "is_indexed": false,
       "approved_by_human": false,
-      "discovered_at": "2026-10-23 08:21:39 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "discovered_at": "2026-10-23 10:57:05 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/articles/sitemap_part1.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/articles/sitemap_part1.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": null,
+      "change_history": [],
       "is_child_sitemap": true
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558444-duplicate-stripe-gateway-alias": {
@@ -461,8 +736,15 @@
       "is_indexed": false,
       "approved_by_human": false,
       "discovered_at": "2026-10-23 04:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+        "https://support.brilliantdirectories.com/support/solutions/articles/sitemap_part2.xml"
+      ],
+      "is_duplicate_across_sitemaps": true,
+      "redirect_target": null,
+      "change_history": [],
       "is_child_sitemap": false
     },
     "https://support.brilliantdirectories.com/support/solutions/articles/5000558430-legacy-google-analytics-universal": {
@@ -471,7 +753,7 @@
       "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558430-legacy-google-analytics-universal",
       "category": "Integrations",
       "folder": "Analytics",
-      "summary": "HTTP 301 Moved Permanently to GA4 article. Quarantined pending target redirect re-indexing.",
+      "summary": "HTTP 301 Moved Permanently to GA4 article. Followed redirect and re-indexed target destination.",
       "status": "Quarantined (301 Permanent Redirect)",
       "http_code": 301,
       "lastmod": "2026-05-15",
@@ -483,8 +765,22 @@
       "is_indexed": false,
       "approved_by_human": false,
       "discovered_at": "2026-10-20 12:00:00 UTC",
-      "last_checked": "2026-10-23 08:21:39 UTC",
+      "last_checked": "2026-10-23 10:57:05 UTC",
       "parent_sitemap": "https://support.brilliantdirectories.com/support/solutions/sitemap.xml",
+      "referencing_sitemaps": [
+        "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+      ],
+      "is_duplicate_across_sitemaps": false,
+      "redirect_target": "https://support.brilliantdirectories.com/support/solutions/articles/5000558410-connect-google-tag-manager-ga4",
+      "change_history": [
+        {
+          "timestamp": "2026-10-20 12:00:00 UTC",
+          "old_hash": "hash_301_00",
+          "new_hash": "hash_301_01",
+          "change_type": "REDIRECT_FOLLOWED",
+          "summary": "HTTP 301 detected. Destination target resolved to GA4 setup article."
+        }
+      ],
       "is_child_sitemap": false
     }
   }

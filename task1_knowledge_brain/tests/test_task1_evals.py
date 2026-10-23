@@ -31,6 +31,8 @@ def reset_clean_state():
     knowledge_store.expert_qa_memory = []
     knowledge_store._rebuild_chunks_index()
     escalation_manager.escalations = []
+    from app.kb_manager import kb_manager
+    kb_manager._initialize_url_inventory_from_seeds()
     yield
 
 # 1. Core Knowledge Retrieval Tests (15 domains)
@@ -209,3 +211,63 @@ def test_22_api_contract_and_clean_json_schema():
     cit = resp.citations[0]
     assert cit.url.startswith("https://")
     assert cit.title != ""
+
+# 7. New Scope Evals: Pre-flight Analysis, Archiving (Never Deleted), Multi-sitemap & 301 Follower
+def test_23_preflight_sitemap_analysis_summary():
+    from app.kb_manager import kb_manager
+    pf = kb_manager.analyze_sitemaps()
+    assert pf.total_sitemaps_found >= 1
+    assert pf.total_urls_found >= 15
+    assert pf.first_url is not None and pf.first_url.startswith("http")
+    assert pf.last_url is not None and pf.last_url.startswith("http")
+    assert pf.pages_per_one_hour == 240
+    assert pf.pages_per_hour == 240
+    assert pf.pages_per_day == 5760
+    assert pf.expected_completion_time_sec > 0
+    assert pf.requires_user_confirmation is True
+    assert len(pf.nested_sitemaps) > 0
+    child = pf.nested_sitemaps[0]
+    assert child.url_count >= 0
+    assert child.status == "accessible"
+
+def test_24_confirm_ingest_user_confirmation():
+    from app.kb_manager import kb_manager
+    conf = kb_manager.confirm_ingestion(dash_id="dash-bd-prod-01")
+    assert conf.success is True
+    assert conf.pages_crawled > 0
+    assert conf.pages_indexed > 0
+    assert conf.status == "COMPLETED_AND_SYNCHRONIZED"
+
+def test_25_archived_knowledge_store_never_deleted():
+    from app.kb_manager import kb_manager
+    # 1. Verify archived store has items and invariant is True
+    arch_resp = kb_manager.get_archived_urls()
+    assert arch_resp.never_deleted_invariant is True
+    assert arch_resp.total_archived >= 1
+    sample_arch = arch_resp.archived_urls[0]
+    assert sample_arch.archived_reason != ""
+
+    # 2. Test restore functionality
+    restore_res = kb_manager.restore_archived_urls([sample_arch.url])
+    assert restore_res["success"] is True
+    assert sample_arch.url in kb_manager.url_inventory
+    assert kb_manager.url_inventory[sample_arch.url]["is_indexed"] is True
+
+def test_26_multi_sitemap_duplicate_detection():
+    from app.kb_manager import kb_manager
+    all_urls = kb_manager.get_all_urls(filter_type="all")
+    dups = [u for u in all_urls if u.is_duplicate_across_sitemaps or len(u.referencing_sitemaps) > 1]
+    assert len(dups) > 0
+    for d in dups:
+        assert len(d.referencing_sitemaps) >= 2
+
+def test_27_301_redirect_destination_followed_and_indexed():
+    from app.kb_manager import kb_manager
+    all_urls = kb_manager.get_all_urls(filter_type="all")
+    redir_301 = [u for u in all_urls if u.http_code == 301 or "301" in u.status]
+    assert len(redir_301) > 0
+    item = redir_301[0]
+    assert item.redirect_target is not None
+    assert item.redirect_target.startswith("https://")
+    # Verify target destination is active in inventory
+    assert item.redirect_target in kb_manager.url_inventory

@@ -1,0 +1,17 @@
+{
+  "https://support.brilliantdirectories.com/support/solutions/articles/5000558410-flash-video-player-widget": {
+    "id": "art-archived-01",
+    "url": "https://support.brilliantdirectories.com/support/solutions/articles/5000558410-flash-video-player-widget",
+    "title": "Legacy Adobe Flash Media Player Widget (Deprecated)",
+    "category": "Design & Widgets",
+    "summary": "Legacy Flash player widget documentation archived following removal from documentation sitemap.",
+    "content_snippet": "Historical manual for configuring Adobe Flash FLV video playback. Kept in Archived Knowledge Base for audits and reference.",
+    "archived_at": "2026-10-22 18:00:00 UTC",
+    "archived_reason": "Missing from sitemap for 2 consecutive checks (Retention rule: Archive after 2 consecutive checks)",
+    "consecutive_checks_missed": 2,
+    "last_known_hash": "hash_archived_legacy_flash",
+    "referencing_sitemaps": [
+      "https://support.brilliantdirectories.com/support/solutions/sitemap.xml"
+    ]
+  }
+}

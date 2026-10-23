@@ -121,6 +121,10 @@ class VerifyUrlItem(BaseModel):
     approved_by_human: bool = True
     discovered_at: Optional[str] = None
     parent_sitemap: Optional[str] = None
+    referencing_sitemaps: List[str] = Field(default_factory=list)
+    is_duplicate_across_sitemaps: bool = False
+    redirect_target: Optional[str] = None
+    change_history: List[Dict[str, Any]] = Field(default_factory=list)
 
 class VerifyUrlsResponse(BaseModel):
     total_urls: int
@@ -167,6 +171,9 @@ class KnowledgeDashboard(BaseModel):
     description: str = ""
     consecutive_failure_threshold: int = 3  # Threshold X
     quarantine_action_rule: str = "quarantine_404_and_301"
+    recheck_schedule: str = "Daily"  # Daily, Weekly, Every 15 days, Every 30 days
+    retention_rule: str = "Archive after 2 consecutive checks"  # Archive immediately, Archive after 2 consecutive checks, Archive after 15 consecutive checks, Archive after 30 consecutive checks
+    retention_threshold: int = 2
     status: str = "LIVE / SYNCHRONIZED"
     created_at: str
     last_crawl_datetime: str = ""
@@ -179,6 +186,8 @@ class CreateDashboardRequest(BaseModel):
     sitemap_urls: List[str]
     description: Optional[str] = ""
     consecutive_failure_threshold: int = 3
+    recheck_schedule: Optional[str] = "Daily"
+    retention_rule: Optional[str] = "Archive after 2 consecutive checks"
 
 class UpdateDashboardRequest(BaseModel):
     name: Optional[str] = None
@@ -187,6 +196,9 @@ class UpdateDashboardRequest(BaseModel):
     description: Optional[str] = None
     consecutive_failure_threshold: Optional[int] = None
     quarantine_action_rule: Optional[str] = None
+    recheck_schedule: Optional[str] = None
+    retention_rule: Optional[str] = None
+    retention_threshold: Optional[int] = None
 
 # --- Reconciliation, Refresh Run, and Health Settings Models ---
 class ReconciliationReport(BaseModel):
@@ -233,9 +245,90 @@ class DashboardSummaryResponse(BaseModel):
     failed_urls: int
     skipped_duplicates: int
     quarantined_urls: int
+    archived_urls: int = 0
     consecutive_failure_threshold: int
+    recheck_schedule: str = "Daily"
+    retention_rule: str = "Archive after 2 consecutive checks"
     last_crawl_datetime: str
     current_status: str
     website_summary: str
     main_topics: List[str]
+
+# --- Pre-Flight Sitemap Inspection Models ---
+class SitemapChildDetail(BaseModel):
+    sitemap_url: str
+    is_index: bool = False
+    url_count: int
+    first_url: Optional[str] = None
+    last_url: Optional[str] = None
+    status: str = "accessible"
+
+class PreFlightAnalysisRequest(BaseModel):
+    sitemap_urls: Optional[List[str]] = None
+    dashboard_id: Optional[str] = "dash-bd-prod-01"
+
+class PreFlightSitemapAnalysisResponse(BaseModel):
+    total_sitemaps_found: int
+    total_urls_found: int
+    first_url: Optional[str] = None
+    last_url: Optional[str] = None
+    nested_sitemaps: List[SitemapChildDetail] = Field(default_factory=list)
+    grand_total_urls: int
+    pages_per_one_hour: int = 240
+    pages_per_hour: int = 240
+    pages_per_day: int = 5760
+    expected_completion_time_sec: float
+    expected_completion_time_formatted: str
+    requires_user_confirmation: bool = True
+    analyzed_at: str
+
+class ConfirmIngestRequest(BaseModel):
+    dashboard_id: Optional[str] = "dash-bd-prod-01"
+    confirmed: bool = True
+    selected_sitemaps: Optional[List[str]] = None
+
+class ConfirmIngestResponse(BaseModel):
+    success: bool
+    status: str
+    total_urls_scheduled: int
+    pages_crawled: int
+    pages_indexed: int
+    pages_skipped: int
+    pages_failed: int
+    pages_quarantined: int
+    elapsed_seconds: float
+    message: str
+
+# --- Archived Knowledge Base Models ---
+class ArchivedUrlItem(BaseModel):
+    id: str
+    url: str
+    title: str
+    category: str
+    summary: str
+    content_snippet: str
+    archived_at: str
+    archived_reason: str
+    consecutive_checks_missed: int
+    last_known_hash: str
+    referencing_sitemaps: List[str] = Field(default_factory=list)
+
+class ArchivedUrlsResponse(BaseModel):
+    total_archived: int
+    archived_urls: List[ArchivedUrlItem]
+    retention_policy_active: str
+    never_deleted_invariant: bool = True
+
+class RestoreArchivedUrlRequest(BaseModel):
+    urls: List[str]
+
+class ScheduleSettingsRequest(BaseModel):
+    dashboard_id: Optional[str] = "dash-bd-prod-01"
+    schedule: str  # Daily, Weekly, Every 15 days, Every 30 days
+
+class RetentionSettingsRequest(BaseModel):
+    dashboard_id: Optional[str] = "dash-bd-prod-01"
+    retention_rule: str  # Archive immediately, Archive after 2 consecutive checks, Archive after 15 consecutive checks, Archive after 30 consecutive checks
+    retention_threshold: int = 2
+
 

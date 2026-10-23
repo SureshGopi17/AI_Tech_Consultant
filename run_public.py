@@ -102,7 +102,7 @@ def main():
         print("▶ [1/4] Launching Task 1: The Knowledge Brain (FastAPI on port 8001)...")
         t1_dir = os.path.join(ROOT_DIR, "task1_knowledge_brain")
         p1 = subprocess.Popen(
-            [sys.executable, "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8001"],
+            [sys.executable, "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8001", "--reload"],
             cwd=t1_dir
         )
         service_procs.append(("Task 1 (Knowledge Brain)", p1))
@@ -121,7 +121,7 @@ def main():
         print("▶ [3/4] Launching Task 3: Meeting to Scope of Work (FastAPI on port 8003)...")
         t3_dir = os.path.join(ROOT_DIR, "task3_meeting_sow")
         p3 = subprocess.Popen(
-            [sys.executable, "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8003"],
+            [sys.executable, "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8003", "--reload"],
             cwd=t3_dir
         )
         service_procs.append(("Task 3 (Meeting to SOW)", p3))

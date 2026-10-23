@@ -16,6 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
   setupSitemapsHub();
   setupRefreshRun();
   setupReconciliationAndHealth();
+  setupPreFlightAndConfirmation();
+  setupScheduleAndRetention();
+  setupArchivedSafeStore();
   setupModals();
 
   // Initial Load
@@ -172,6 +175,7 @@ function setupTabs() {
       if (targetId === "tab-sitemaps") fetchSitemapsView();
       if (targetId === "tab-refresh-run") fetchRefreshRunData();
       if (targetId === "tab-reconciliation") fetchReconciliationReport();
+      if (targetId === "tab-archived") fetchArchivedUrls();
       if (targetId === "tab-escalations") fetchEscalations();
     });
   });
@@ -184,6 +188,7 @@ async function loadDashboardData() {
   fetchEscalations();
   fetchRefreshRunData();
   fetchReconciliationReport();
+  fetchArchivedUrls();
 }
 
 async function fetchHealth() {
@@ -459,6 +464,14 @@ function renderUrlsTable() {
       statusBadge = `<span class="badge" style="background: rgba(148, 163, 184, 0.2); color: #cbd5e1;">Skipped (Duplicate)</span>`;
     }
 
+    const isDup = u.is_duplicate_across_sitemaps || (u.referencing_sitemaps && u.referencing_sitemaps.length > 1);
+    const dupBadge = isDup
+      ? `<span class="badge" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;">Multi-Sitemap Duplicate (${u.referencing_sitemaps ? u.referencing_sitemaps.length : 2} Refs)</span>`
+      : '';
+    const redirBadge = u.redirect_target
+      ? `<span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">301 Redirect Target Followed</span>`
+      : '';
+
     return `
       <div class="url-card" style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem; margin-bottom: 0.5rem;">
         <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem;">
@@ -469,6 +482,8 @@ function renderUrlsTable() {
                 <strong style="font-size: 0.82rem; color: #f8fafc;">${u.title}</strong>
                 <span class="badge" style="font-size: 0.65rem;">${u.category}</span>
                 ${statusBadge}
+                ${dupBadge}
+                ${redirBadge}
               </div>
               <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #38bdf8; margin: 0.2rem 0;">
                 <a href="${u.url}" target="_blank" style="color: #38bdf8; text-decoration: none;">${u.url}</a>
@@ -501,8 +516,28 @@ window.inspectUrl = async function(encodedUrl) {
     const modal = document.getElementById("modal-inspect-url");
     document.getElementById("inspect-modal-title").innerText = `🔍 Inspection: ${d.title}`;
 
+    const refSitemapsHtml = (d.referencing_sitemaps && d.referencing_sitemaps.length > 0)
+      ? d.referencing_sitemaps.map(s => `<div>↳ <span style="font-family: var(--font-mono); color: #c084fc;">${s}</span></div>`).join("")
+      : `<div>↳ <span style="font-family: var(--font-mono); color: #cbd5e1;">${d.parent_sitemap || 'Primary Sitemap'}</span></div>`;
+
+    const redirectHtml = d.redirect_target
+      ? `<div style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); padding: 0.4rem 0.6rem; border-radius: 6px; margin-top: 0.4rem;">
+           <strong>301 Redirect Target Destination:</strong>
+           <div style="font-family: var(--font-mono); color: #fde68a;">${d.redirect_target} (Re-indexed Active)</div>
+         </div>`
+      : '';
+
+    const historyHtml = (d.change_history && d.change_history.length > 0)
+      ? d.change_history.map(h => `
+          <div style="font-size: 0.7rem; color: #94a3b8; border-left: 2px solid #38bdf8; padding-left: 0.5rem; margin-top: 0.3rem;">
+            <strong style="color: #cbd5e1;">[${h.timestamp}] ${h.change_type}</strong>: ${h.summary}
+          </div>
+        `).join("")
+      : `<div style="font-size: 0.7rem; color: #64748b;">No content modifications recorded.</div>`;
+
     document.getElementById("inspect-modal-body").innerHTML = `
       <div><strong>Full Target URL:</strong> <a href="${d.url}" target="_blank" style="color: #38bdf8; font-family: var(--font-mono);">${d.url}</a></div>
+      ${redirectHtml}
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.5rem;">
         <div><strong>HTTP Response Code:</strong> ${d.http_code}</div>
         <div><strong>Status:</strong> ${d.status}</div>
@@ -511,11 +546,19 @@ window.inspectUrl = async function(encodedUrl) {
         <div><strong>Quarantine Level:</strong> ${d.quarantine_level || 'None (Active)'}</div>
         <div><strong>Successfully Indexed:</strong> ${d.is_indexed ? '✅ YES' : '❌ NO'}</div>
         <div><strong>Human Approved:</strong> ${d.approved_by_human ? '✅ YES' : '❌ NO'}</div>
+        <div><strong>Content SHA-256 Hash:</strong> <span style="font-family: var(--font-mono);">${d.hash ? d.hash.slice(0, 14) + '...' : 'N/A'}</span></div>
         <div><strong>Discovered At:</strong> ${d.discovered_at || 'N/A'}</div>
         <div><strong>Last Checked:</strong> ${d.last_checked || 'N/A'}</div>
-        <div><strong>Screenshots Count:</strong> ${d.screenshots_count}</div>
       </div>
-      <div style="margin-top: 0.75rem;">
+      <div style="margin-top: 0.5rem; background: rgba(0,0,0,0.25); padding: 0.5rem; border-radius: 6px;">
+        <strong>Multi-Sitemap References:</strong>
+        ${refSitemapsHtml}
+      </div>
+      <div style="margin-top: 0.5rem; background: rgba(0,0,0,0.25); padding: 0.5rem; border-radius: 6px;">
+        <strong>Content Change History:</strong>
+        ${historyHtml}
+      </div>
+      <div style="margin-top: 0.5rem;">
         <strong>Content Summary / Preview:</strong>
         <p style="background: rgba(0,0,0,0.3); padding: 0.6rem; border-radius: 6px; color: #cbd5e1; margin-top: 0.3rem;">${d.summary}</p>
       </div>
@@ -523,6 +566,8 @@ window.inspectUrl = async function(encodedUrl) {
     modal.style.display = "flex";
   } catch (err) {
     alert("Inspect error: " + err.message);
+  }
+};
   }
 };
 
@@ -809,6 +854,226 @@ function setupModals() {
     document.getElementById("modal-inspect-url").style.display = "none";
   });
 }
+
+// =====================================================================
+// 8. Pre-Flight Sitemap Inspection & Confirmation (Requirement 3)
+// =====================================================================
+function setupPreFlightAndConfirmation() {
+  const openBtn = document.getElementById("btn-preflight-analyze");
+  const modal = document.getElementById("modal-preflight-summary");
+  const closeBtn = document.getElementById("btn-close-preflight-modal");
+  const cancelBtn = document.getElementById("btn-cancel-preflight");
+  const confirmBtn = document.getElementById("btn-confirm-ingestion");
+
+  const hideModal = () => { modal.style.display = "none"; };
+  if (closeBtn) closeBtn.addEventListener("click", hideModal);
+  if (cancelBtn) cancelBtn.addEventListener("click", hideModal);
+
+  if (openBtn) {
+    openBtn.addEventListener("click", async () => {
+      openBtn.disabled = true;
+      openBtn.innerText = "Analyzing...";
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/sitemaps/analyze`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ dashboard_id: activeDashboardId })
+        });
+        const d = await res.json();
+
+        document.getElementById("pf-total-sitemaps").innerText = d.total_sitemaps_found;
+        document.getElementById("pf-total-urls").innerText = d.total_urls_found;
+        document.getElementById("pf-first-url").innerText = d.first_url || "N/A";
+        document.getElementById("pf-last-url").innerText = d.last_url || "N/A";
+        document.getElementById("pf-expected-time").innerText = d.expected_completion_time_formatted;
+
+        const tbody = document.getElementById("pf-nested-table-body");
+        tbody.innerHTML = (d.nested_sitemaps || []).map(ns => `
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+            <td style="padding: 0.4rem; font-family: var(--font-mono); color: #38bdf8;">${ns.sitemap_url}</td>
+            <td style="padding: 0.4rem;"><span class="badge" style="font-size: 0.65rem;">${ns.is_index ? 'Index' : 'Part'}</span></td>
+            <td style="padding: 0.4rem; font-weight: 700; color: #f8fafc;">${ns.url_count}</td>
+            <td style="padding: 0.4rem; color: #34d399;">${ns.status}</td>
+          </tr>
+        `).join("");
+
+        // Reset progress bar
+        document.getElementById("pf-progress-container").style.display = "none";
+        document.getElementById("pf-progress-bar").style.width = "0%";
+        document.getElementById("pf-progress-pct").innerText = "0%";
+        confirmBtn.disabled = false;
+        confirmBtn.innerText = "✅ Confirm & Start Knowledge Base Creation";
+
+        modal.style.display = "flex";
+      } catch (e) {
+        alert("Pre-flight analysis error: " + e.message);
+      } finally {
+        openBtn.disabled = false;
+        openBtn.innerText = "🔍 Inspect & Pre-Analyze Sitemaps";
+      }
+    });
+  }
+
+  if (confirmBtn) {
+    confirmBtn.addEventListener("click", async () => {
+      confirmBtn.disabled = true;
+      confirmBtn.innerText = "Processing Ingestion...";
+      const progressContainer = document.getElementById("pf-progress-container");
+      const progressBar = document.getElementById("pf-progress-bar");
+      const progressPct = document.getElementById("pf-progress-pct");
+      const progressDetail = document.getElementById("pf-progress-detail");
+
+      progressContainer.style.display = "block";
+      progressBar.style.width = "30%";
+      progressPct.innerText = "30%";
+      progressDetail.innerText = "Connecting to sitemaps and discovering candidate URLs...";
+
+      try {
+        setTimeout(() => {
+          progressBar.style.width = "70%";
+          progressPct.innerText = "70%";
+          progressDetail.innerText = "Extracting multimodal screenshots and building hybrid BM25 + Vector chunks...";
+        }, 400);
+
+        const res = await fetch(`${API_BASE}/api/v1/sitemaps/confirm-ingest`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ dashboard_id: activeDashboardId, confirmed: true })
+        });
+        const data = await res.json();
+
+        progressBar.style.width = "100%";
+        progressPct.innerText = "100%";
+        progressDetail.innerText = `Ingestion complete! ${data.pages_indexed} indexed in ${data.elapsed_seconds}s.`;
+
+        setTimeout(() => {
+          hideModal();
+          alert(`🎉 Ingestion Confirmed & Completed!\n${data.message}`);
+          loadDashboardData();
+        }, 800);
+      } catch (err) {
+        alert("Ingestion error: " + err.message);
+        confirmBtn.disabled = false;
+        confirmBtn.innerText = "Retry Ingestion";
+      }
+    });
+  }
+}
+
+// =====================================================================
+// 9. Recheck Schedules & Retention Settings
+// =====================================================================
+function setupScheduleAndRetention() {
+  const saveScheduleBtn = document.getElementById("btn-save-schedule");
+  const saveRetentionBtn = document.getElementById("btn-save-retention");
+  const scheduleSelect = document.getElementById("select-recheck-schedule");
+  const retentionSelect = document.getElementById("select-retention-rule");
+
+  if (saveScheduleBtn) {
+    saveScheduleBtn.addEventListener("click", async () => {
+      const schedule = scheduleSelect.value;
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/settings/schedule`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ dashboard_id: activeDashboardId, schedule })
+        });
+        const data = await res.json();
+        alert(`✅ ${data.message}`);
+      } catch (e) {
+        alert("Error saving schedule: " + e.message);
+      }
+    });
+  }
+
+  if (saveRetentionBtn) {
+    saveRetentionBtn.addEventListener("click", async () => {
+      const rule = retentionSelect.value;
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/settings/retention`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ dashboard_id: activeDashboardId, retention_rule: rule })
+        });
+        const data = await res.json();
+        alert(`✅ ${data.message}`);
+        fetchArchivedUrls();
+      } catch (e) {
+        alert("Error saving retention rule: " + e.message);
+      }
+    });
+  }
+}
+
+// =====================================================================
+// 10. Archived Safe Store (Never Permanently Deleted!)
+// =====================================================================
+function setupArchivedSafeStore() {
+  // Event listeners if any
+}
+
+async function fetchArchivedUrls() {
+  try {
+    const res = await fetch(`${API_BASE}/api/v1/archived-urls`);
+    const data = await res.json();
+
+    const countBadge = document.getElementById("archived-count");
+    if (countBadge) countBadge.innerText = data.total_archived;
+
+    const policyLabel = document.getElementById("archived-policy-label");
+    if (policyLabel) policyLabel.innerText = data.retention_policy_active;
+
+    const container = document.getElementById("archived-urls-list");
+    if (!container) return;
+
+    if (!data.archived_urls || data.archived_urls.length === 0) {
+      container.innerHTML = `<p class="empty-state">No archived URLs in the safe repository. Active knowledge base is 100% clean.</p>`;
+      return;
+    }
+
+    container.innerHTML = data.archived_urls.map(item => `
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: 8px; padding: 0.75rem; margin-bottom: 0.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;">
+              <strong style="font-size: 0.82rem; color: #f8fafc;">${item.title}</strong>
+              <span class="badge" style="background: rgba(244, 63, 94, 0.2); color: #f43f5e; font-size: 0.65rem;">Archived Safe Store</span>
+              <span class="badge" style="font-size: 0.65rem;">${item.category}</span>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #f87171; margin: 0.2rem 0;">
+              <a href="${item.url}" target="_blank" style="color: #f87171; text-decoration: none;">${item.url}</a>
+            </div>
+            <div style="font-size: 0.72rem; color: #cbd5e1; margin: 0.2rem 0;">
+              📌 <strong>Reason:</strong> ${item.archived_reason} | <strong>Checks Missed:</strong> ${item.consecutive_checks_missed} | <strong>Archived:</strong> ${item.archived_at}
+            </div>
+            <p style="font-size: 0.7rem; color: #94a3b8; margin: 0.2rem 0;">${item.summary}</p>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="restoreArchivedUrl('${encodeURIComponent(item.url)}')">↩️ Restore to Active KB</button>
+        </div>
+      </div>
+    `).join("");
+  } catch (e) {
+    console.error("Error fetching archived URLs:", e);
+  }
+}
+
+window.restoreArchivedUrl = async function(encodedUrl) {
+  const url = decodeURIComponent(encodedUrl);
+  try {
+    const res = await fetch(`${API_BASE}/api/v1/archived-urls/restore`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ urls: [url] })
+    });
+    const data = await res.json();
+    alert(`✅ ${data.message}`);
+    await fetchArchivedUrls();
+    await fetchRefreshRunData();
+    await fetchReconciliationReport();
+  } catch (e) {
+    alert("Restore error: " + e.message);
+  }
+};
 
 function escapeHtml(text) {
   if (!text) return "";
