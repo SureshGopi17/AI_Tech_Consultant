@@ -62,18 +62,28 @@ def start_tunnel(port, captured_urls, tunnel_procs):
     )
     tunnel_procs.append((f"Tunnel-{port}", proc))
 
-    def reader():
+    def err_reader():
+        found = False
         while True:
             line = proc.stderr.readline()
             if not line:
                 break
-            m = re.search(r"https://[a-zA-Z0-9-]+\.trycloudflare\.com", line)
-            if m:
-                captured_urls[port] = m.group(0)
+            if not found:
+                m = re.search(r"https://[a-zA-Z0-9-]+\.trycloudflare\.com", line)
+                if m:
+                    captured_urls[port] = m.group(0)
+                    found = True
+
+    def out_reader():
+        while True:
+            line = proc.stdout.readline()
+            if not line:
                 break
 
-    t = threading.Thread(target=reader, daemon=True)
-    t.start()
+    t_err = threading.Thread(target=err_reader, daemon=True)
+    t_err.start()
+    t_out = threading.Thread(target=out_reader, daemon=True)
+    t_out.start()
 
 def main():
     print("\n" + "=" * 70)
