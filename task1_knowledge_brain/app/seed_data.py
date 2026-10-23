@@ -514,5 +514,35 @@ The GTM container and GA4 tracking will fire automatically across all public pag
         ],
         lastmod="2026-10-10T00:00:00Z",
         hash="hash_domain_018"
+    ),
+    Article(
+        id="art-platform-overview",
+        url="https://support.brilliantdirectories.com/support/solutions/articles/5000558500-how-the-product-works-platform-overview",
+        title="Overview: How Brilliant Directories Platform and Product Works",
+        category="Platform Architecture & Features",
+        folder="Getting Started",
+        content="""Brilliant Directories is a complete all-in-one SaaS platform for launching, managing, and monetizing searchable directory and marketplace websites.
+
+Here is how the product works across its core functional modules:
+1. Member Management Engine: Manage professional profiles, business listings, and tiered membership plans with self-service member portals.
+2. Search & Geolocation Engine: Visitors and members can search by keyword, business categories, location radius (in miles or kilometers), and custom filter fields.
+3. Monetization & Stripe Billing: Connect Stripe to collect setup fees and automatic recurring monthly/annual subscription renewals, with automated dunning and promo discount coupons.
+4. Automated Lead Distribution: Visitors submit project inquiries or quote requests, which the system automatically routes to matched members based on location and specialty.
+5. Content & Reviews Engine: Built-in community features including member review moderation, classifieds, digital events, and blog post publishing.
+6. Integrations & Developer Webhooks: Native webhooks connect to Zapier and external CRMs, with custom JavaScript header injection for Google Tag Manager and analytics.
+
+All settings and workflows are managed without writing code through the web-based Admin Dashboard.""",
+        summary="Comprehensive overview of how the Brilliant Directories platform and product works across member management, search, Stripe monetization, and lead distribution.",
+        images=[
+            ArticleImage(
+                url="https://support.brilliantdirectories.com/images/admin-dashboard-overview.png",
+                caption="Brilliant Directories Admin Dashboard Overview showing member search, revenue, and content modules",
+                alt_text="Brilliant Directories Dashboard Overview",
+                section="Getting Started",
+                visual_tags=["admin", "dashboard", "overview", "product", "platform"]
+            )
+        ],
+        lastmod="2026-10-15T00:00:00Z",
+        hash="hash_overview_019"
     )
 ]

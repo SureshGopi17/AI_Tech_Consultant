@@ -5,7 +5,7 @@
 **Author:** Suresh Gopi  
 **Date:** October 2026  
 **Status:** Completed & Production Verified (69/69 Automated Tests Passing)  
-**Live Public URL:** [https://publisher-frequencies-silver-sticker.trycloudflare.com](https://publisher-frequencies-silver-sticker.trycloudflare.com)  
+**Live Public URL:** [https://delicious-men-station-earning.trycloudflare.com](https://delicious-men-station-earning.trycloudflare.com)  
 **GitHub Repository:** [https://github.com/SureshGopi17/AI_Tech_Consultant](https://github.com/SureshGopi17/AI_Tech_Consultant)
 
 ---
