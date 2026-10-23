@@ -100,12 +100,53 @@ function setupAuth() {
   const authForm = document.getElementById("form-auth-login");
   const feedbackEl = document.getElementById("auth-feedback");
 
+  function updateJwtDisplay() {
+    const token = localStorage.getItem("kb_jwt_token");
+    const displayEl = document.getElementById("jwt-token-display");
+    if (displayEl) {
+      displayEl.innerText = token || "No active JWT token found.";
+    }
+  }
+
   authModalBtn.addEventListener("click", () => {
+    updateJwtDisplay();
     authModal.style.display = "flex";
   });
   closeAuthBtn.addEventListener("click", () => {
     authModal.style.display = "none";
   });
+
+  const copyJwtBtn = document.getElementById("btn-copy-jwt");
+  if (copyJwtBtn) {
+    copyJwtBtn.addEventListener("click", () => {
+      const token = localStorage.getItem("kb_jwt_token") || "";
+      navigator.clipboard.writeText(token);
+      copyJwtBtn.innerText = "✅ Copied!";
+      setTimeout(() => { copyJwtBtn.innerText = "📋 Copy Token"; }, 1500);
+    });
+  }
+
+  const verifyJwtBtn = document.getElementById("btn-verify-jwt-server");
+  if (verifyJwtBtn) {
+    verifyJwtBtn.addEventListener("click", async () => {
+      const statusEl = document.getElementById("jwt-verify-status");
+      statusEl.innerText = "Verifying with server...";
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/auth/verify-token`, { method: "POST" });
+        const data = await res.json();
+        if (data.valid) {
+          statusEl.innerText = `✅ Verified (Role: ${data.user.role})`;
+          statusEl.style.color = "#34d399";
+        } else {
+          statusEl.innerText = "❌ Invalid Token";
+          statusEl.style.color = "#f43f5e";
+        }
+      } catch (err) {
+        statusEl.innerText = "❌ " + err.message;
+        statusEl.style.color = "#f43f5e";
+      }
+    });
+  }
 
   oneClickDemoBtn.addEventListener("click", async () => {
     try {

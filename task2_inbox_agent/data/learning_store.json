@@ -2,6 +2,32 @@
   "prompt_version": 1,
   "feedbacks": [
     {
+      "id": "FB-MVKWGV35",
+      "email_id": "TEST-004",
+      "category": "refund",
+      "subject": "Test refund",
+      "original_draft": "Thanks for reaching out. We can fix this issue soon.",
+      "edited_reply": "Thanks for reaching out! We have escalated this issue to our senior engineers and will resolve it within 2 hours.",
+      "edit_distance": 67,
+      "similarity_ratio": 0.407,
+      "learned_rule": "State clearly that Stripe refunds process within 3-5 business days and provide the transaction reference ID.",
+      "created_at": "2026-10-23T11:42:00.545Z",
+      "active": false
+    },
+    {
+      "id": "FB-MVKWFE0X",
+      "email_id": "TEST-004",
+      "category": "refund",
+      "subject": "Test refund",
+      "original_draft": "Thanks for reaching out. We can fix this issue soon.",
+      "edited_reply": "Thanks for reaching out! We have escalated this issue to our senior engineers and will resolve it within 2 hours.",
+      "edit_distance": 67,
+      "similarity_ratio": 0.407,
+      "learned_rule": "State clearly that Stripe refunds process within 3-5 business days and provide the transaction reference ID.",
+      "created_at": "2026-10-23T11:40:51.777Z",
+      "active": false
+    },
+    {
       "id": "FB-MVKVVS2B",
       "email_id": "TEST-004",
       "category": "refund",
@@ -197,5 +223,5 @@
       "active": false
     }
   ],
-  "last_updated": "2026-10-23T11:25:36.852Z"
+  "last_updated": "2026-10-23T11:42:00.547Z"
 }

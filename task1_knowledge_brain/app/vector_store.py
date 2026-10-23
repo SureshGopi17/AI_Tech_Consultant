@@ -30,7 +30,10 @@ SYNONYM_CLUSTERS = [
     {"delete", "remove", "purge", "discard", "erase"},
     {"verify", "verification", "validate", "validation", "check", "checking", "audit"},
     {"outage", "down", "offline", "incident", "failure", "broken"},
-    {"refund", "cancellation", "cancel", "dispute", "reversal"}
+    {"refund", "cancellation", "cancel", "dispute", "reversal"},
+    {"sitemap", "sitemaps", "site map", "site maps", "sitemap.xml", "urls", "crawling", "ingest", "ingestion"},
+    {"login", "signin", "sign in", "auth", "authentication", "jwt", "token", "session", "credentials"},
+    {"missing", "archive", "archived", "quarantine", "retention", "restore"}
 ]
 
 # Map each word to its cluster canonical root
