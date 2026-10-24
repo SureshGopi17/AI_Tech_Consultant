@@ -1,0 +1,26 @@
+[
+  {
+    "id": "msg-197063",
+    "message_id": "msg-197063",
+    "from": "consultant.test@gmail.com",
+    "from_account": "consultant.test@gmail.com",
+    "to": "partner@techcorp.com",
+    "subject": "Confirmed SOW",
+    "body": "Here is our agreed statement of work.",
+    "attachments_count": 0,
+    "sent_at": "2026-10-24T03:39:57.063Z",
+    "status": "sent"
+  },
+  {
+    "id": "msg-736630",
+    "message_id": "msg-736630",
+    "from": "consultant.test@gmail.com",
+    "from_account": "consultant.test@gmail.com",
+    "to": "partner@techcorp.com",
+    "subject": "Confirmed SOW",
+    "body": "Here is our agreed statement of work.",
+    "attachments_count": 0,
+    "sent_at": "2026-10-24T03:15:36.631Z",
+    "status": "sent"
+  }
+]

@@ -7,6 +7,10 @@ let currentFolder = 'inbox';
 let activeCategoryFilter = null;
 let searchQuery = '';
 let autoSendThreshold = 3;
+let extraDrafts = [];
+let extraSent = [];
+let googleProfile = null;
+let composeAttachments = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   fetchThresholdSettings();
@@ -18,6 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
   setupSearch();
   setupActionHandlers();
   setupSettingsModal();
+  setupGoogleOAuth();
+  setupComposeWindow();
+  fetchDraftsAndSentCounts();
 });
 
 // =====================================================================
@@ -39,11 +46,52 @@ async function fetchEmails() {
   }
 }
 
+async function fetchDraftsAndSentCounts() {
+  try {
+    const [draftsRes, sentRes] = await Promise.all([
+      fetch(`${API_BASE}/api/v1/emails/drafts`),
+      fetch(`${API_BASE}/api/v1/emails/sent`)
+    ]);
+    const draftsData = await draftsRes.json();
+    const sentData = await sentRes.json();
+
+    extraDrafts = (draftsData.drafts || []).map(d => ({
+      id: `draft_${d.id}`,
+      customer_name: d.to || '(No Recipient)',
+      customer_email: d.to || '',
+      company_name: 'Gmail Draft',
+      subject: d.subject || '(Draft No Subject)',
+      body: d.body || '',
+      date: d.updated_at || d.created_at,
+      status: 'drafted',
+      is_gmail_draft: true,
+      raw_draft: d
+    }));
+
+    extraSent = (sentData.sent || []).map(s => ({
+      id: `sent_${s.id}`,
+      customer_name: `To: ${s.to}`,
+      customer_email: s.to,
+      company_name: s.from_account || 'Sent Message',
+      subject: s.subject || '(Sent No Subject)',
+      body: s.body || '',
+      date: s.sent_at,
+      status: 'sent',
+      is_gmail_sent: true,
+      raw_sent: s
+    }));
+
+    updateSidebarCounts();
+  } catch (err) {
+    console.error("Failed to fetch drafts/sent counts:", err);
+  }
+}
+
 function updateSidebarCounts() {
   const unread = emails.filter(e => e.status === 'unread' || e.status === 'drafted').length;
   const autoSent = emails.filter(e => e.status === 'auto_sent').length;
-  const drafts = emails.filter(e => e.status === 'drafted').length;
-  const sent = emails.filter(e => e.status === 'approved' || e.status === 'edited_and_sent' || e.status === 'custom_sent' || e.status === 'auto_sent').length;
+  const drafts = emails.filter(e => e.status === 'drafted').length + extraDrafts.length;
+  const sent = emails.filter(e => e.status === 'approved' || e.status === 'edited_and_sent' || e.status === 'custom_sent' || e.status === 'auto_sent').length + extraSent.length;
 
   const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
   setTxt("inbox-unread-count", unread);
@@ -67,6 +115,23 @@ function updateSidebarCounts() {
 }
 
 function getFilteredEmails() {
+  if (currentFolder === 'drafts') {
+    const list = [...emails.filter(e => e.status === 'drafted'), ...extraDrafts];
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      return list.filter(e => (e.subject || '').toLowerCase().includes(q) || (e.body || '').toLowerCase().includes(q) || (e.customer_name || '').toLowerCase().includes(q));
+    }
+    return list;
+  }
+  if (currentFolder === 'sent') {
+    const list = [...emails.filter(e => e.status === 'approved' || e.status === 'edited_and_sent' || e.status === 'custom_sent' || e.status === 'auto_sent'), ...extraSent];
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      return list.filter(e => (e.subject || '').toLowerCase().includes(q) || (e.body || '').toLowerCase().includes(q) || (e.customer_name || '').toLowerCase().includes(q));
+    }
+    return list;
+  }
+
   return emails.filter(e => {
     // Search query filter
     if (searchQuery) {
@@ -92,8 +157,6 @@ function getFilteredEmails() {
     if (currentFolder === 'inbox') return true;
     if (currentFolder === 'starred') return e.is_starred === true;
     if (currentFolder === 'auto_sent') return e.status === 'auto_sent';
-    if (currentFolder === 'drafts') return e.status === 'drafted';
-    if (currentFolder === 'sent') return e.status === 'approved' || e.status === 'edited_and_sent' || e.status === 'custom_sent' || e.status === 'auto_sent';
     if (currentFolder === 'spam') return e.folder === 'spam' || e.is_spam === true;
     if (currentFolder === 'trash') return e.folder === 'trash' || e.is_trash === true;
     return true;
@@ -118,9 +181,11 @@ function renderGmailTable() {
     const dateStr = formatDate(e.date);
 
     let categoryBadge = `<span class="row-badge" style="background: rgba(59, 130, 246, 0.15); color: #93c5fd;">${e.label_name || formatCategory(e.category)}</span>`;
-    if (e.category === 'refund') categoryBadge = `<span class="row-badge" style="background: rgba(139, 92, 246, 0.15); color: #c084fc;">${e.label_name || 'Refund'}</span>`;
-    if (e.category === 'complaint') categoryBadge = `<span class="row-badge" style="background: rgba(234, 67, 53, 0.15); color: #fca5a5;">${e.label_name || 'Outage'}</span>`;
-    if (e.category === 'new_project') categoryBadge = `<span class="row-badge" style="background: rgba(52, 168, 83, 0.15); color: #86efac;">${e.label_name || 'Project'}</span>`;
+    if (e.is_gmail_draft) categoryBadge = `<span class="row-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">Gmail Draft</span>`;
+    else if (e.is_gmail_sent) categoryBadge = `<span class="row-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">Sent via Gmail</span>`;
+    else if (e.category === 'refund') categoryBadge = `<span class="row-badge" style="background: rgba(139, 92, 246, 0.15); color: #c084fc;">${e.label_name || 'Refund'}</span>`;
+    else if (e.category === 'complaint') categoryBadge = `<span class="row-badge" style="background: rgba(234, 67, 53, 0.15); color: #fca5a5;">${e.label_name || 'Outage'}</span>`;
+    else if (e.category === 'new_project') categoryBadge = `<span class="row-badge" style="background: rgba(52, 168, 83, 0.15); color: #86efac;">${e.label_name || 'Project'}</span>`;
 
     let statusPill = '';
     if (e.status === 'auto_sent') {
@@ -161,6 +226,47 @@ window.toggleStar = function(event, id) {
 async function selectEmail(id) {
   selectedEmailId = id;
   renderGmailTable();
+
+  if (typeof id === 'string' && id.startsWith('draft_')) {
+    const draftItem = extraDrafts.find(d => d.id === id);
+    if (draftItem && draftItem.raw_draft) {
+      openComposeModal({
+        to: draftItem.raw_draft.to,
+        cc: draftItem.raw_draft.cc,
+        bcc: draftItem.raw_draft.bcc,
+        subject: draftItem.raw_draft.subject,
+        body: draftItem.raw_draft.body,
+        attachments: draftItem.raw_draft.attachments
+      });
+    }
+    return;
+  }
+
+  if (typeof id === 'string' && id.startsWith('sent_')) {
+    const sentItem = extraSent.find(s => s.id === id);
+    if (sentItem && sentItem.raw_sent) {
+      document.getElementById("empty-thread-state").style.display = "none";
+      document.getElementById("thread-content").style.display = "flex";
+      document.getElementById("thread-subject").innerText = sentItem.subject;
+      document.getElementById("thread-sender-name").innerText = sentItem.raw_sent.from_account || "Connected Google Account";
+      document.getElementById("thread-sender-email").innerText = `<${sentItem.customer_email}>`;
+      document.getElementById("thread-company-name").innerText = "Delivered via Gmail API";
+      document.getElementById("thread-urgency-badge").innerText = "SENT";
+      document.getElementById("thread-body-text").innerText = sentItem.body;
+      document.getElementById("thread-timestamp").innerText = formatDate(sentItem.date);
+      document.getElementById("thread-sender-avatar").innerText = "✉️";
+      document.getElementById("thread-parent-setting-badge").innerText = "Gmail Outbox";
+      document.getElementById("thread-category-badge").innerText = "Sent Delivery";
+      document.getElementById("diff-learning-card").style.display = "none";
+      document.getElementById("draft-reply-textarea").value = "Delivered message text:\n\n" + sentItem.body;
+      document.getElementById("draft-confidence-badge").innerText = "Dispatched 100%";
+      document.getElementById("draft-citations-box").innerHTML = `
+        <span style="color: #34d399;">✓ Delivered through Google OAuth API</span>
+        <div style="font-size: 0.72rem; color: #94a3b8; margin-top: 4px;">Recipient: ${escapeHtml(sentItem.customer_email)} | Sent: ${new Date(sentItem.date).toLocaleString()}</div>
+      `;
+    }
+    return;
+  }
 
   const email = emails.find(e => e.id === id);
   if (!email) return;
@@ -637,4 +743,568 @@ function formatCategory(cat) {
     follow_up: 'Work Follow-Up'
   };
   return map[cat] || cat;
+}
+
+// =====================================================================
+// 6. Google Account Authentication & OAuth 2.0 Management
+// =====================================================================
+async function checkGoogleAuthStatus() {
+  try {
+    const res = await fetch(`${API_BASE}/api/v1/auth/google/profile`);
+    const status = await res.json();
+    renderGoogleAuthUI(status);
+  } catch (err) {
+    console.error("Failed to check Google auth status:", err);
+  }
+}
+
+function renderGoogleAuthUI(status) {
+  const signinBtn = document.getElementById("btn-google-signin");
+  const profileBadge = document.getElementById("google-profile-badge");
+  const syncBadgeText = document.getElementById("sync-status-text");
+
+  if (status && status.is_connected && status.user_profile) {
+    googleProfile = status.user_profile;
+    if (signinBtn) signinBtn.style.display = "none";
+    if (profileBadge) profileBadge.style.display = "flex";
+
+    const emailEl = document.getElementById("google-user-email");
+    const avatarEl = document.getElementById("google-user-avatar");
+    const dropAvatar = document.getElementById("dropdown-avatar");
+    const dropName = document.getElementById("dropdown-name");
+    const dropEmail = document.getElementById("dropdown-email");
+
+    if (emailEl) emailEl.innerText = googleProfile.email;
+    if (dropName) dropName.innerText = googleProfile.name || 'Google User';
+    if (dropEmail) dropEmail.innerText = googleProfile.email;
+
+    const initial = (googleProfile.name || googleProfile.email || 'G')[0].toUpperCase();
+    if (avatarEl) avatarEl.innerText = initial;
+    if (dropAvatar) dropAvatar.innerText = initial;
+
+    if (syncBadgeText) {
+      syncBadgeText.innerText = status.auth_type === 'demo' ? 'Gmail Demo Sandbox' : 'Gmail Live Connected';
+    }
+  } else {
+    googleProfile = null;
+    if (signinBtn) signinBtn.style.display = "flex";
+    if (profileBadge) profileBadge.style.display = "none";
+    if (syncBadgeText) syncBadgeText.innerText = "Gmail Disconnected";
+  }
+}
+
+function setupGoogleOAuth() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get("google_auth") === "success") {
+    const account = urlParams.get("account") || "your Google Account";
+    alert(`🎉 Successfully signed in with Google!\nConnected Gmail account: ${account}`);
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+
+  checkGoogleAuthStatus();
+
+  const signinBtn = document.getElementById("btn-google-signin");
+  const authModal = document.getElementById("modal-google-auth");
+  const closeAuthBtn = document.getElementById("btn-close-google-auth-modal");
+  const triggerOAuthBtn = document.getElementById("btn-oauth-popup-trigger");
+  const quickDemoBtn = document.getElementById("btn-quick-demo-connect");
+  const profileBadge = document.getElementById("google-profile-badge");
+  const accountDropdown = document.getElementById("account-dropdown");
+  const switchAccountBtn = document.getElementById("btn-switch-google-account");
+  const disconnectBtn = document.getElementById("btn-disconnect-google-account");
+  const formCustomOAuth = document.getElementById("form-custom-oauth");
+
+  if (signinBtn) {
+    signinBtn.addEventListener("click", () => {
+      authModal.style.display = "flex";
+      prepareOAuthUrl();
+    });
+  }
+
+  if (closeAuthBtn) {
+    closeAuthBtn.addEventListener("click", () => {
+      authModal.style.display = "none";
+    });
+  }
+
+  if (profileBadge) {
+    profileBadge.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const current = accountDropdown.style.display;
+      accountDropdown.style.display = current === "flex" ? "none" : "flex";
+    });
+  }
+
+  document.addEventListener("click", (e) => {
+    if (accountDropdown && !accountDropdown.contains(e.target) && e.target !== profileBadge) {
+      accountDropdown.style.display = "none";
+    }
+  });
+
+  if (switchAccountBtn) {
+    switchAccountBtn.addEventListener("click", async () => {
+      accountDropdown.style.display = "none";
+      await fetch(`${API_BASE}/api/v1/auth/google/disconnect`, { method: "POST" });
+      checkGoogleAuthStatus();
+      authModal.style.display = "flex";
+      prepareOAuthUrl();
+    });
+  }
+
+  if (disconnectBtn) {
+    disconnectBtn.addEventListener("click", async () => {
+      if (!confirm("Are you sure you want to disconnect your Google account?")) return;
+      accountDropdown.style.display = "none";
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/auth/google/disconnect`, { method: "POST" });
+        const data = await res.json();
+        alert(data.message || "Disconnected from Google account.");
+        checkGoogleAuthStatus();
+        fetchEmails();
+      } catch (err) {
+        alert("Disconnect failed: " + err.message);
+      }
+    });
+  }
+
+  async function prepareOAuthUrl() {
+    const feedback = document.getElementById("oauth-url-feedback");
+    try {
+      const res = await fetch(`${API_BASE}/api/v1/auth/google/url`);
+      const data = await res.json();
+      if (data.configured && data.auth_url) {
+        feedback.innerHTML = `<span style="color: #34d399;">✓ Google Cloud Client ID configured. Ready for OAuth 2.0 authorization.</span>`;
+      } else {
+        feedback.innerHTML = `<span style="color: #fbbf24;">ℹ️ Server Client ID/Secret not set yet. Enter them below or click "⚡ Connect Demo Google Account" to evaluate immediately.</span>`;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  if (triggerOAuthBtn) {
+    triggerOAuthBtn.addEventListener("click", async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/auth/google/url`);
+        const data = await res.json();
+        if (data.configured && data.auth_url) {
+          window.location.href = data.auth_url;
+        } else {
+          alert("Google Cloud OAuth credentials (Client ID and Secret) are not yet configured on the server.\n\nYou can enter them in the 'Custom Google Cloud Client ID & Secret' section below, or click 'Connect Demo Google Account' for instant evaluation!");
+        }
+      } catch (err) {
+        alert("OAuth error: " + err.message);
+      }
+    });
+  }
+
+  if (quickDemoBtn) {
+    quickDemoBtn.addEventListener("click", async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/auth/google/demo`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: "suresh.gopi@consultant.ai", name: "Suresh Gopi" })
+        });
+        const data = await res.json();
+        alert(`✅ ${data.message}\nYou can now compose emails and send them with real approval!`);
+        authModal.style.display = "none";
+        checkGoogleAuthStatus();
+        fetchEmails();
+      } catch (err) {
+        alert("Demo connect error: " + err.message);
+      }
+    });
+  }
+
+  if (formCustomOAuth) {
+    formCustomOAuth.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const clientId = document.getElementById("input-oauth-client-id").value.trim();
+      const clientSecret = document.getElementById("input-oauth-client-secret").value.trim();
+      const redirectUri = document.getElementById("input-oauth-redirect-uri").value.trim();
+
+      if (!clientId || !clientSecret) {
+        alert("Please enter both Google Client ID and Google Client Secret.");
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/auth/google/credentials`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ client_id: clientId, client_secret: clientSecret, redirect_uri: redirectUri })
+        });
+        const data = await res.json();
+        alert("✅ Google OAuth credentials saved successfully!");
+        prepareOAuthUrl();
+      } catch (err) {
+        alert("Failed to save credentials: " + err.message);
+      }
+    });
+  }
+}
+
+// =====================================================================
+// 7. Email Composition, AI Assistant & User Approval Invariant
+// =====================================================================
+window.setComposePrompt = function(instruction) {
+  const input = document.getElementById("compose-ai-instruction");
+  if (input) {
+    input.value = instruction;
+    input.focus();
+  }
+};
+
+function openComposeModal(initialData = {}) {
+  const modal = document.getElementById("modal-compose");
+  const win = modal.querySelector(".compose-window");
+  win.classList.remove("minimized");
+  modal.style.display = "block";
+
+  if (initialData.to !== undefined) document.getElementById("compose-to").value = initialData.to;
+  if (initialData.cc !== undefined) {
+    document.getElementById("compose-cc").value = initialData.cc;
+    if (initialData.cc) document.getElementById("row-compose-cc").style.display = "flex";
+  }
+  if (initialData.bcc !== undefined) {
+    document.getElementById("compose-bcc").value = initialData.bcc;
+    if (initialData.bcc) document.getElementById("row-compose-bcc").style.display = "flex";
+  }
+  if (initialData.subject !== undefined) document.getElementById("compose-subject").value = initialData.subject;
+  if (initialData.body !== undefined) document.getElementById("compose-body").value = initialData.body;
+  if (initialData.attachments) {
+    composeAttachments = [...initialData.attachments];
+    renderComposeAttachments();
+  }
+}
+
+function resetComposeForm() {
+  document.getElementById("compose-to").value = "";
+  document.getElementById("compose-cc").value = "";
+  document.getElementById("compose-bcc").value = "";
+  document.getElementById("compose-subject").value = "";
+  document.getElementById("compose-body").value = "";
+  document.getElementById("compose-ai-instruction").value = "";
+  document.getElementById("compose-refine-toolbar").style.display = "none";
+  document.getElementById("compose-ai-reasoning").innerText = "";
+  document.getElementById("compose-status-indicator").innerText = "";
+  composeAttachments = [];
+  renderComposeAttachments();
+}
+
+function renderComposeAttachments() {
+  const container = document.getElementById("compose-attachments-list");
+  if (!container) return;
+  if (composeAttachments.length === 0) {
+    container.innerHTML = "";
+    return;
+  }
+
+  container.innerHTML = composeAttachments.map((att, idx) => `
+    <div class="attachment-chip">
+      <span>📎 ${escapeHtml(att.filename)} (${Math.round((att.size_bytes || 0) / 1024)} KB)</span>
+      <span class="remove-att" onclick="removeComposeAttachment(${idx})" title="Remove attachment">✕</span>
+    </div>
+  `).join("");
+}
+
+window.removeComposeAttachment = function(idx) {
+  composeAttachments.splice(idx, 1);
+  renderComposeAttachments();
+};
+
+function setupComposeWindow() {
+  const modal = document.getElementById("modal-compose");
+  const win = modal.querySelector(".compose-window");
+  const btnCompose = document.getElementById("btn-compose");
+  const btnClose = document.getElementById("btn-close-compose");
+  const btnMinimize = document.getElementById("btn-minimize-compose");
+  const btnDiscard = document.getElementById("btn-discard-composed");
+  const btnToggleCc = document.getElementById("btn-toggle-cc");
+  const btnToggleBcc = document.getElementById("btn-toggle-bcc");
+  const rowCc = document.getElementById("row-compose-cc");
+  const rowBcc = document.getElementById("row-compose-bcc");
+  const btnGenerateAI = document.getElementById("btn-compose-ai-generate");
+  const toneSelect = document.getElementById("compose-ai-tone");
+  const refineToolbar = document.getElementById("compose-refine-toolbar");
+  const btnShorten = document.getElementById("btn-refine-shorten");
+  const btnExpand = document.getElementById("btn-refine-expand");
+  const btnGrammar = document.getElementById("btn-refine-grammar");
+  const btnRegenerate = document.getElementById("btn-refine-regenerate");
+  const btnAttach = document.getElementById("btn-attach-files");
+  const fileInput = document.getElementById("compose-file-input");
+  const btnSaveDraft = document.getElementById("btn-save-draft");
+  const btnSend = document.getElementById("btn-send-composed");
+  const statusIndicator = document.getElementById("compose-status-indicator");
+
+  // Open Compose
+  btnCompose.addEventListener("click", () => {
+    openComposeModal();
+  });
+
+  // Minimize
+  btnMinimize.addEventListener("click", () => {
+    win.classList.toggle("minimized");
+  });
+
+  // Close / Discard
+  const tryClose = () => {
+    const hasContent = document.getElementById("compose-to").value ||
+                       document.getElementById("compose-subject").value ||
+                       document.getElementById("compose-body").value;
+    if (hasContent) {
+      if (confirm("Discard this composed draft?")) {
+        resetComposeForm();
+        modal.style.display = "none";
+      }
+    } else {
+      modal.style.display = "none";
+    }
+  };
+
+  btnClose.addEventListener("click", tryClose);
+  btnDiscard.addEventListener("click", tryClose);
+
+  // Cc / Bcc Toggles
+  btnToggleCc.addEventListener("click", () => {
+    rowCc.style.display = rowCc.style.display === "none" ? "flex" : "none";
+  });
+  btnToggleBcc.addEventListener("click", () => {
+    rowBcc.style.display = rowBcc.style.display === "none" ? "flex" : "none";
+  });
+
+  // AI Generation
+  btnGenerateAI.addEventListener("click", async () => {
+    const instruction = document.getElementById("compose-ai-instruction").value.trim();
+    if (!instruction) {
+      alert("Please enter a natural-language instruction (e.g. 'Write a professional email requesting leave for tomorrow') or click a quick prompt chip.");
+      return;
+    }
+
+    const tone = toneSelect.value;
+    btnGenerateAI.disabled = true;
+    btnGenerateAI.innerHTML = `<span>⏳</span><span>Synthesizing...</span>`;
+
+    let emailContext = undefined;
+    if (selectedEmailId) {
+      const email = emails.find(e => e.id === selectedEmailId);
+      if (email) {
+        emailContext = {
+          subject: email.subject,
+          body: email.body,
+          customer_name: email.customer_name
+        };
+      }
+    }
+
+    try {
+      const res = await fetch(`${API_BASE}/api/v1/ai/compose`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          instruction,
+          tone,
+          current_draft: document.getElementById("compose-body").value,
+          email_context: emailContext
+        })
+      });
+      const data = await res.json();
+      if (data.subject && !document.getElementById("compose-subject").value) {
+        document.getElementById("compose-subject").value = data.subject;
+      }
+      document.getElementById("compose-body").value = data.body;
+      refineToolbar.style.display = "flex";
+      document.getElementById("compose-ai-reasoning").innerText = data.reasoning || `Draft synthesized (${data.tone} style)`;
+    } catch (err) {
+      alert("AI Generation failed: " + err.message);
+    } finally {
+      btnGenerateAI.disabled = false;
+      btnGenerateAI.innerHTML = `<span>✨</span><span>Generate with AI</span>`;
+    }
+  });
+
+  // Refine actions
+  async function performRefine(action) {
+    const currentDraft = document.getElementById("compose-body").value;
+    const instruction = document.getElementById("compose-ai-instruction").value.trim();
+    const tone = toneSelect.value;
+
+    statusIndicator.innerText = `Refining (${action})...`;
+    try {
+      const res = await fetch(`${API_BASE}/api/v1/ai/compose`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action,
+          instruction: instruction || 'Refine email',
+          current_draft: currentDraft,
+          tone
+        })
+      });
+      const data = await res.json();
+      document.getElementById("compose-body").value = data.body;
+      if (data.subject) document.getElementById("compose-subject").value = data.subject;
+      document.getElementById("compose-ai-reasoning").innerText = data.reasoning || `Refined: ${action}`;
+      statusIndicator.innerText = "";
+    } catch (err) {
+      statusIndicator.innerText = "";
+      alert("Refine failed: " + err.message);
+    }
+  }
+
+  btnShorten.addEventListener("click", () => performRefine("shorten"));
+  btnExpand.addEventListener("click", () => performRefine("expand"));
+  btnGrammar.addEventListener("click", () => performRefine("fix_grammar"));
+  btnRegenerate.addEventListener("click", () => performRefine("regenerate"));
+
+  toneSelect.addEventListener("change", () => {
+    const currentDraft = document.getElementById("compose-body").value.trim();
+    if (currentDraft) {
+      performRefine("change_tone");
+    }
+  });
+
+  // Attachments
+  btnAttach.addEventListener("click", () => fileInput.click());
+  fileInput.addEventListener("change", async (e) => {
+    const files = Array.from(e.target.files || []);
+    for (const file of files) {
+      const base64Data = await readFileAsBase64(file);
+      composeAttachments.push({
+        filename: file.name,
+        mime_type: file.type || 'application/octet-stream',
+        content_base64: base64Data,
+        size_bytes: file.size
+      });
+    }
+    fileInput.value = "";
+    renderComposeAttachments();
+  });
+
+  // Save Draft
+  btnSaveDraft.addEventListener("click", async () => {
+    const to = document.getElementById("compose-to").value.trim();
+    const cc = document.getElementById("compose-cc").value.trim();
+    const bcc = document.getElementById("compose-bcc").value.trim();
+    const subject = document.getElementById("compose-subject").value.trim();
+    const body = document.getElementById("compose-body").value.trim();
+
+    if (!to && !subject && !body) {
+      alert("Please enter a recipient, subject, or message body to save a draft.");
+      return;
+    }
+
+    statusIndicator.innerText = "Saving draft to Gmail...";
+    try {
+      const res = await fetch(`${API_BASE}/api/v1/emails/drafts`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          to, cc, bcc, subject, body, attachments: composeAttachments
+        })
+      });
+      const data = await res.json();
+      statusIndicator.innerText = "Draft saved.";
+      setTimeout(() => { statusIndicator.innerText = ""; }, 2500);
+      alert("💾 Draft saved to Gmail Drafts successfully!");
+      fetchDraftsAndSentCounts();
+    } catch (err) {
+      statusIndicator.innerText = "";
+      alert("Failed to save draft: " + err.message);
+    }
+  });
+
+  // Send Composed Email (Strict User Approval Invariant)
+  btnSend.addEventListener("click", async () => {
+    const to = document.getElementById("compose-to").value.trim();
+    const cc = document.getElementById("compose-cc").value.trim();
+    const bcc = document.getElementById("compose-bcc").value.trim();
+    const subject = document.getElementById("compose-subject").value.trim();
+    const body = document.getElementById("compose-body").value.trim();
+
+    if (!to) {
+      alert("Please specify a recipient email address in the 'To' field.");
+      document.getElementById("compose-to").focus();
+      return;
+    }
+    if (!subject) {
+      alert("Please provide an email subject.");
+      document.getElementById("compose-subject").focus();
+      return;
+    }
+    if (!body) {
+      alert("Please enter or generate the email body message.");
+      document.getElementById("compose-body").focus();
+      return;
+    }
+
+    // MANDATORY USER REVIEW & EXPLICIT AUTHORIZATION
+    const confirmMsg = 
+      "═════════════════════════════════════════════════\n" +
+      "EXPLICIT AUTHORIZATION REQUIRED BEFORE SENDING\n" +
+      "═════════════════════════════════════════════════\n\n" +
+      "Connected Gmail Account: " + (googleProfile ? googleProfile.email : "Default Account") + "\n" +
+      "To: " + to + "\n" +
+      (cc ? "Cc: " + cc + "\n" : "") +
+      (bcc ? "Bcc: " + bcc + "\n" : "") +
+      "Subject: " + subject + "\n" +
+      "Attachments: " + composeAttachments.length + " attached file(s)\n\n" +
+      "Message Preview:\n" +
+      "\"" + (body.length > 250 ? body.slice(0, 250) + "..." : body) + "\"\n\n" +
+      "Do you explicitly authorize dispatching this email through your Gmail account?";
+
+    if (!confirm(confirmMsg)) {
+      statusIndicator.innerText = "Send cancelled by user.";
+      setTimeout(() => { statusIndicator.innerText = ""; }, 3000);
+      return;
+    }
+
+    btnSend.disabled = true;
+    btnSend.innerHTML = `<span>⏳ Sending via Gmail...</span>`;
+    statusIndicator.innerText = "Dispatching via Gmail API...";
+
+    try {
+      const res = await fetch(`${API_BASE}/api/v1/emails/compose`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          to, cc, bcc, subject, body, attachments: composeAttachments
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to send email");
+      }
+
+      alert(`✅ Email dispatched successfully!\n\nMessage ID: ${data.message_id || 'gmail-msg'}\nStatus: Delivered to ${to}\nAppears in your Gmail Sent folder.`);
+      resetComposeForm();
+      modal.style.display = "none";
+      fetchEmails();
+      fetchDraftsAndSentCounts();
+    } catch (err) {
+      alert("Failed to send email: " + err.message);
+    } finally {
+      btnSend.disabled = false;
+      btnSend.innerHTML = `<span>🚀 Send Email</span>`;
+      statusIndicator.innerText = "";
+    }
+  });
+}
+
+function readFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result;
+      const commaIndex = result.indexOf(",");
+      if (commaIndex !== -1) {
+        resolve(result.substring(commaIndex + 1));
+      } else {
+        resolve(result);
+      }
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }

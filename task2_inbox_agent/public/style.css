@@ -799,3 +799,419 @@ body.gmail-body {
 .settings-tab-content.active {
   display: block;
 }
+
+/* =====================================================================
+   Google Sign-In Button & Profile Pill
+===================================================================== */
+.google-sign-in-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #ffffff;
+  color: #3c4043;
+  border: 1px solid #dadce0;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.google-sign-in-btn:hover {
+  background-color: #f8fafc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  border-color: #4285f4;
+}
+
+.google-connected-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(66, 133, 244, 0.4);
+  border-radius: 20px;
+  padding: 4px 10px 4px 4px;
+  font-size: 0.75rem;
+  color: #f8fafc;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.google-connected-badge:hover {
+  background: rgba(51, 65, 85, 0.9);
+}
+
+.google-user-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #4285f4;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* =====================================================================
+   Gmail Floating Compose Modal
+===================================================================== */
+.compose-modal-backdrop {
+  position: fixed;
+  bottom: 0;
+  right: 60px;
+  z-index: 1050;
+  display: none;
+}
+
+.compose-window {
+  width: 620px;
+  max-width: 95vw;
+  height: 640px;
+  max-height: 85vh;
+  background: #1e293b;
+  border: 1px solid var(--border-color);
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  color: #f8fafc;
+  overflow: hidden;
+  transition: height 0.2s ease-in-out;
+}
+
+.compose-window.minimized {
+  height: 44px !important;
+}
+
+.compose-window.minimized .compose-fields-container,
+.compose-window.minimized .compose-ai-assistant,
+.compose-window.minimized .compose-body-container,
+.compose-window.minimized .compose-attachments-list,
+.compose-window.minimized .compose-footer {
+  display: none !important;
+}
+
+.compose-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: #0f172a;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.compose-header-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.compose-header-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.compose-header-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.compose-fields-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.compose-field-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  gap: 8px;
+}
+
+.compose-field-label {
+  color: var(--text-muted);
+  width: 55px;
+  font-weight: 500;
+}
+
+.compose-field-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #f8fafc;
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  outline: none;
+}
+
+.compose-field-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.compose-toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.compose-toggle-btn:hover {
+  color: #93c5fd;
+  text-decoration: underline;
+}
+
+/* AI Assistant in Compose */
+.compose-ai-assistant {
+  background: linear-gradient(135deg, rgba(66, 133, 244, 0.12), rgba(168, 85, 247, 0.12));
+  border-bottom: 1px solid rgba(66, 133, 244, 0.3);
+  padding: 10px 14px;
+}
+
+.ai-assistant-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ai-assistant-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #93c5fd;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ai-tone-selector {
+  background: #0f172a;
+  border: 1px solid rgba(66, 133, 244, 0.4);
+  color: #93c5fd;
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 0.72rem;
+  outline: none;
+}
+
+.ai-instruction-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.ai-instruction-input {
+  flex: 1;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(66, 133, 244, 0.4);
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: #fff;
+  font-size: 0.78rem;
+  font-family: var(--font-sans);
+  outline: none;
+}
+
+.ai-instruction-input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 1px #38bdf8;
+}
+
+.ai-generate-btn {
+  background: linear-gradient(135deg, #4285f4, #8b5cf6);
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ai-generate-btn:hover {
+  opacity: 0.95;
+}
+
+.ai-prompt-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.ai-chip {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 0.68rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ai-chip:hover {
+  background: rgba(66, 133, 244, 0.25);
+  border-color: #93c5fd;
+  color: #fff;
+}
+
+.ai-refine-toolbar {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(66, 133, 244, 0.3);
+  flex-wrap: wrap;
+}
+
+.ai-refine-btn {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #93c5fd;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.ai-refine-btn:hover {
+  background: rgba(66, 133, 244, 0.3);
+  color: #fff;
+}
+
+/* Compose Body */
+.compose-body-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 14px;
+}
+
+.compose-textarea {
+  flex: 1;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #f8fafc;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+}
+
+/* Attachments */
+.compose-attachments-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 14px 8px 14px;
+}
+
+.attachment-chip {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  color: #93c5fd;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.attachment-chip .remove-att {
+  cursor: pointer;
+  color: #94a3b8;
+  font-weight: 700;
+}
+
+.attachment-chip .remove-att:hover {
+  color: #f43f5e;
+}
+
+/* Compose Footer */
+.compose-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #0f172a;
+  border-top: 1px solid var(--border-color);
+}
+
+.compose-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.compose-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Account Dropdown */
+.account-dropdown-menu {
+  position: absolute;
+  top: 55px;
+  right: 16px;
+  width: 310px;
+  background: #1e293b;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+  padding: 14px;
+  z-index: 1100;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  color: #f8fafc;
+}
+
+.account-dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+.account-dropdown-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #4285f4;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+}

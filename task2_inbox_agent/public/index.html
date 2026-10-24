@@ -41,16 +41,52 @@
         </div>
       </div>
 
-      <!-- Header Right: Quick Indicators & Settings Cog -->
+      <!-- Header Right: Quick Indicators & Google Account Sign-In / Profile -->
       <div class="header-right">
-        <div class="sync-status-badge" id="gmail-sync-badge" title="Gmail Live Connection Status">
+        <div class="sync-status-badge" id="gmail-sync-badge" title="Gmail Connection Status">
           <span class="sync-dot"></span>
           <span id="sync-status-text">Gmail Live Sync</span>
         </div>
+        
+        <!-- Google Sign-In Button (When Disconnected) -->
+        <button id="btn-google-signin" class="google-sign-in-btn" title="Sign in with any Google account">
+          <svg width="18" height="18" viewBox="0 0 18 18">
+            <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/>
+            <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
+            <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.173 0 7.548 0 9s.347 2.827.957 4.039l3.007-2.332z"/>
+            <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/>
+          </svg>
+          <span>Sign in with Google</span>
+        </button>
+
+        <!-- Connected Google Account Badge (When Connected) -->
+        <div id="google-profile-badge" class="google-connected-badge" style="display: none;" title="Google Account details & switch account">
+          <div class="google-user-avatar" id="google-user-avatar">G</div>
+          <span id="google-user-email" style="font-weight: 500;">user@gmail.com</span>
+          <span style="font-size: 0.65rem; color: #94a3b8;">▼</span>
+        </div>
+
+        <!-- Account Dropdown Menu -->
+        <div id="account-dropdown" class="account-dropdown-menu">
+          <div class="account-dropdown-header">
+            <div class="account-dropdown-avatar" id="dropdown-avatar">G</div>
+            <div>
+              <div id="dropdown-name" style="font-weight: 700; font-size: 0.9rem;">Google User</div>
+              <div id="dropdown-email" style="font-size: 0.75rem; color: #94a3b8;">user@gmail.com</div>
+              <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 0.65rem; margin-top: 4px; display: inline-block;">✓ Official Google OAuth 2.0</span>
+            </div>
+          </div>
+          <div style="font-size: 0.72rem; color: #cbd5e1; line-height: 1.4;">
+            Your actual Gmail inbox and sent items are connected securely. Passwords are never stored.
+          </div>
+          <div style="display: flex; gap: 6px; margin-top: 4px;">
+            <button id="btn-switch-google-account" class="btn btn-secondary btn-sm" style="flex: 1; font-size: 0.72rem;">🔄 Switch Account</button>
+            <button id="btn-disconnect-google-account" class="btn btn-danger btn-sm" style="flex: 1; font-size: 0.72rem; background: rgba(244, 63, 94, 0.2); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.4);">Disconnect</button>
+          </div>
+        </div>
+
         <button id="btn-open-settings" class="icon-btn-round" title="Inbox & Auto-Send Settings">⚙️</button>
         <button id="btn-open-analytics" class="icon-btn-round" title="Learning Performance Dashboard">📊</button>
-        <div class="google-apps-icon" title="Google apps">⠿</div>
-        <div class="user-avatar-circle" title="Suresh Gopi (consultant.demo@gmail.com)">SG</div>
       </div>
     </header>
 
@@ -399,6 +435,201 @@
       <div id="analytics-rules-list" style="max-height: 250px; overflow-y: auto;">
         <!-- Rendered dynamically -->
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Floating Gmail-Style Compose Window with AI Assistant -->
+  <div id="modal-compose" class="compose-modal-backdrop">
+    <div class="compose-window">
+      <!-- Window Header -->
+      <div class="compose-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span>✉️ New Message</span>
+          <span id="compose-mode-badge" class="badge" style="background: rgba(66, 133, 244, 0.2); color: #93c5fd; font-size: 0.68rem;">Gmail API Direct</span>
+        </div>
+        <div class="compose-header-controls">
+          <button id="btn-minimize-compose" class="compose-header-btn" title="Minimize">−</button>
+          <button id="btn-close-compose" class="compose-header-btn" title="Close & Discard">✕</button>
+        </div>
+      </div>
+
+      <!-- Recipient & Subject Fields -->
+      <div class="compose-fields-container">
+        <!-- To Field -->
+        <div class="compose-field-row">
+          <span class="compose-field-label">To</span>
+          <input type="email" id="compose-to" class="compose-field-input" placeholder="Recipient email address (e.g. client@company.com)" required />
+          <div class="compose-field-actions">
+            <button type="button" id="btn-toggle-cc" class="compose-toggle-btn">Cc</button>
+            <button type="button" id="btn-toggle-bcc" class="compose-toggle-btn">Bcc</button>
+          </div>
+        </div>
+
+        <!-- Optional Cc Field -->
+        <div class="compose-field-row" id="row-compose-cc" style="display: none;">
+          <span class="compose-field-label">Cc</span>
+          <input type="email" id="compose-cc" class="compose-field-input" placeholder="Optional Cc recipients" />
+        </div>
+
+        <!-- Optional Bcc Field -->
+        <div class="compose-field-row" id="row-compose-bcc" style="display: none;">
+          <span class="compose-field-label">Bcc</span>
+          <input type="email" id="compose-bcc" class="compose-field-input" placeholder="Optional Bcc recipients" />
+        </div>
+
+        <!-- Subject Field -->
+        <div class="compose-field-row">
+          <span class="compose-field-label">Subject</span>
+          <input type="text" id="compose-subject" class="compose-field-input" placeholder="Subject" />
+        </div>
+      </div>
+
+      <!-- AI Email Assistant Bar -->
+      <div class="compose-ai-assistant">
+        <div class="ai-assistant-top">
+          <div class="ai-assistant-title">
+            <span>✨</span>
+            <span>AI Email Assistant</span>
+            <span style="font-size: 0.65rem; color: #94a3b8; font-weight: 400;">(Natural Language to Client-Ready Email)</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <label style="font-size: 0.7rem; color: #94a3b8;">Tone:</label>
+            <select id="compose-ai-tone" class="ai-tone-selector">
+              <option value="Professional" selected>Professional</option>
+              <option value="Formal">Formal</option>
+              <option value="Friendly">Friendly</option>
+              <option value="Polite">Polite</option>
+              <option value="Concise">Concise</option>
+              <option value="Persuasive">Persuasive</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Instruction Input & Button -->
+        <div class="ai-instruction-row">
+          <input type="text" id="compose-ai-instruction" class="ai-instruction-input" placeholder="What do you want to communicate? e.g. Write a professional email requesting leave for tomorrow..." />
+          <button type="button" id="btn-compose-ai-generate" class="ai-generate-btn">
+            <span>✨</span>
+            <span>Generate with AI</span>
+          </button>
+        </div>
+
+        <!-- Suggestion Chips -->
+        <div class="ai-prompt-chips">
+          <span class="ai-chip" onclick="setComposePrompt('Write a professional email requesting leave for tomorrow.')">🌴 Request Leave</span>
+          <span class="ai-chip" onclick="setComposePrompt('Compose an email inviting students to an AI workshop on modern LLM agents.')">🎓 AI Workshop Invite</span>
+          <span class="ai-chip" onclick="setComposePrompt('Draft a follow-up email after an interview expressing gratitude and interest.')">🤝 Interview Follow-Up</span>
+          <span class="ai-chip" onclick="setComposePrompt('Write a polite reply to a customer complaint offering a quick resolution.')">🛠️ Customer Complaint Reply</span>
+          <span class="ai-chip" onclick="setComposePrompt('Write an update email summarizing project milestone completion.')">📈 Project Progress</span>
+        </div>
+
+        <!-- AI Quick Refine Toolbar (Shown After Generation) -->
+        <div id="compose-refine-toolbar" class="ai-refine-toolbar" style="display: none;">
+          <span style="font-size: 0.68rem; color: #94a3b8; align-self: center;">Refine Draft:</span>
+          <button type="button" id="btn-refine-shorten" class="ai-refine-btn">⚡ Shorten</button>
+          <button type="button" id="btn-refine-expand" class="ai-refine-btn">📝 Expand</button>
+          <button type="button" id="btn-refine-grammar" class="ai-refine-btn">✍️ Fix Grammar</button>
+          <button type="button" id="btn-refine-regenerate" class="ai-refine-btn">🔄 Regenerate</button>
+          <span id="compose-ai-reasoning" style="font-size: 0.68rem; color: #34d399; margin-left: auto; align-self: center;"></span>
+        </div>
+      </div>
+
+      <!-- Email Message Body Editor -->
+      <div class="compose-body-container">
+        <textarea id="compose-body" class="compose-textarea" placeholder="Compose your email or generate with AI above. You can freely edit any part before sending..."></textarea>
+      </div>
+
+      <!-- Attachments Display Area -->
+      <div id="compose-attachments-list" class="compose-attachments-list"></div>
+      <input type="file" id="compose-file-input" multiple style="display: none;" />
+
+      <!-- Footer Action Toolbar -->
+      <div class="compose-footer">
+        <div class="compose-footer-left">
+          <button type="button" id="btn-send-composed" class="btn btn-primary" style="font-weight: 600; padding: 6px 16px;">
+            <span>🚀 Send Email</span>
+          </button>
+          <button type="button" id="btn-save-draft" class="btn btn-secondary btn-sm" title="Save draft in Gmail">
+            <span>💾 Save Draft</span>
+          </button>
+          <button type="button" id="btn-attach-files" class="icon-action-btn" title="Attach files">
+            <span>📎</span>
+          </button>
+        </div>
+        <div class="compose-footer-right">
+          <span id="compose-status-indicator" style="font-size: 0.72rem; color: #94a3b8;"></span>
+          <button type="button" id="btn-discard-composed" class="icon-action-btn" title="Discard message">
+            <span>🗑️</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Google Account OAuth Login & Cloud Setup -->
+  <div id="modal-google-auth" class="modal-backdrop" style="display: none;">
+    <div class="settings-modal-card" style="max-width: 580px;">
+      <div class="settings-modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg width="22" height="22" viewBox="0 0 18 18">
+            <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/>
+            <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
+            <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.173 0 7.548 0 9s.347 2.827.957 4.039l3.007-2.332z"/>
+            <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/>
+          </svg>
+          <h3 style="margin: 0; font-size: 1.05rem;">Sign In with Any Google Account</h3>
+        </div>
+        <button id="btn-close-google-auth-modal" class="modal-close-btn">✕</button>
+      </div>
+
+      <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 0.85rem; margin-bottom: 1rem; font-size: 0.78rem;">
+        <strong style="color: #93c5fd;">Official Google OAuth 2.0 Security:</strong>
+        <p style="margin: 0.3rem 0; color: #cbd5e1; line-height: 1.4;">
+          Authenticate securely using your real Google account. You grant permission to view your inbox, compose messages, save drafts, and send approved emails. Your password is never asked for or stored.
+        </p>
+      </div>
+
+      <!-- Sign In Button Action Box -->
+      <div style="text-align: center; padding: 1rem; background: rgba(15, 23, 42, 0.6); border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
+        <button id="btn-oauth-popup-trigger" class="google-sign-in-btn" style="padding: 10px 20px; font-size: 0.95rem; font-weight: 600;">
+          <svg width="20" height="20" viewBox="0 0 18 18">
+            <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/>
+            <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
+            <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.173 0 7.548 0 9s.347 2.827.957 4.039l3.007-2.332z"/>
+            <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/>
+          </svg>
+          <span>Continue with Google Account</span>
+        </button>
+        <div id="oauth-url-feedback" style="margin-top: 0.5rem; font-size: 0.72rem; color: #94a3b8;"></div>
+
+        <div style="margin: 0.75rem 0 0.5rem 0; font-size: 0.72rem; color: #64748b;">— OR FOR INSTANT DEMO TESTING —</div>
+        <button id="btn-quick-demo-connect" class="btn btn-secondary btn-sm" style="font-size: 0.75rem;">
+          ⚡ Connect Demo Google Account (Suresh Gopi)
+        </button>
+      </div>
+
+      <!-- Google Cloud OAuth Credentials Setup (Optional Custom Credentials) -->
+      <details style="background: rgba(0,0,0,0.25); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem; font-size: 0.78rem;">
+        <summary style="cursor: pointer; font-weight: 600; color: #93c5fd;">⚙️ Custom Google Cloud Client ID & Secret Configuration</summary>
+        <p style="margin: 0.4rem 0; color: #94a3b8;">
+          To connect your own Google Cloud project, enable the <strong>Gmail API</strong> in the Google Cloud Console and paste your OAuth credentials below:
+        </p>
+        <form id="form-custom-oauth" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+          <div>
+            <label style="display: block; font-size: 0.72rem; color: #94a3b8; margin-bottom: 0.2rem;">Google Client ID:</label>
+            <input type="text" id="input-oauth-client-id" placeholder="e.g. 123456789-abcdef.apps.googleusercontent.com" style="width: 100%; background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 0.35rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.72rem;" />
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.72rem; color: #94a3b8; margin-bottom: 0.2rem;">Google Client Secret:</label>
+            <input type="password" id="input-oauth-client-secret" placeholder="GOCSPX-••••••••••••••••" style="width: 100%; background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 0.35rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.72rem;" />
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.72rem; color: #94a3b8; margin-bottom: 0.2rem;">Authorized Redirect URI:</label>
+            <input type="text" id="input-oauth-redirect-uri" value="http://localhost:8002/api/v1/auth/google/callback" readonly style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); color: #94a3b8; padding: 0.35rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.72rem;" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 0.3rem;">Save OAuth Credentials</button>
+        </form>
+      </details>
     </div>
   </div>
 

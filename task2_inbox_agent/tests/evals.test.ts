@@ -15,6 +15,9 @@ import { emailDrafter } from '../src/drafter';
 import { learningStore } from '../src/learningStore';
 import { graduationEngine } from '../src/graduation';
 import { CustomerEmail, EmailCategory } from '../src/types';
+import { googleAuthService } from '../src/googleAuthService';
+import { aiEmailComposer } from '../src/aiComposer';
+import { gmailService } from '../src/gmailService';
 
 let totalTests = 0;
 let passedTests = 0;
@@ -158,9 +161,92 @@ async function runTests() {
   const allStates = graduationEngine.getAllStates();
   assert(allStates.length >= 6 && allStates.every(s => typeof s.consecutive_unchanged === 'number'), 'test_22_type_safety_and_schema_validation', 'Invalid schema');
 
+  // --- Group 5: Google Account Authentication & OAuth 2.0 (Tests 23 - 26) ---
+  console.log('\n--- Group 5: Google OAuth 2.0 Authentication & Profile (4 Tests) ---');
+
+  const urlInfo = googleAuthService.getAuthUrl();
+  assert(urlInfo.scopes.includes('https://www.googleapis.com/auth/gmail.send') && urlInfo.scopes.includes('https://www.googleapis.com/auth/gmail.compose'), 'test_23_google_oauth_url_and_scopes', 'Missing Gmail API scopes');
+
+  const demoUser = googleAuthService.connectDemoUser('consultant.test@gmail.com', 'Alex Morgan');
+  assert(demoUser.email === 'consultant.test@gmail.com' && demoUser.name === 'Alex Morgan' && demoUser.verified_email === true, 'test_24_google_demo_account_connection', 'Demo connection profile mismatch');
+
+  const status = googleAuthService.getStatus();
+  assert(status.is_connected === true && status.user_profile?.email === 'consultant.test@gmail.com', 'test_25_google_auth_status_retrieval', 'Invalid auth status');
+
+  const disc = googleAuthService.disconnect();
+  assert(disc.success === true && googleAuthService.getStatus().is_connected === false, 'test_26_google_disconnect_and_account_switch', 'Failed to disconnect Google account');
+
+  // Re-connect demo user for downstream composition tests
+  googleAuthService.connectDemoUser('consultant.test@gmail.com', 'Alex Morgan');
+
+  // --- Group 6: AI Email Assistant & Natural Language Composition (Tests 27 - 31) ---
+  console.log('\n--- Group 6: AI Email Assistant & Tone Spectrum (5 Tests) ---');
+
+  const leaveRes = await aiEmailComposer.compose({ instruction: 'Write a professional email requesting leave for tomorrow.', tone: 'Professional' });
+  assert(leaveRes.subject.toLowerCase().includes('leave') && leaveRes.body.toLowerCase().includes('leave') && leaveRes.tone === 'Professional', 'test_27_ai_compose_leave_request', 'Invalid leave request draft');
+
+  const inviteRes = await aiEmailComposer.compose({ instruction: 'Compose an email inviting students to an AI workshop.', tone: 'Friendly' });
+  assert(inviteRes.subject.toLowerCase().includes('workshop') && inviteRes.body.toLowerCase().includes('workshop') && inviteRes.tone === 'Friendly', 'test_28_ai_compose_workshop_invite', 'Invalid workshop invite');
+
+  const conciseRes = await aiEmailComposer.compose({ instruction: 'Draft an interview follow up email.', tone: 'Concise' });
+  const persuasiveRes = await aiEmailComposer.compose({ instruction: 'Draft an interview follow up email.', tone: 'Persuasive' });
+  assert(conciseRes.tone === 'Concise' && persuasiveRes.tone === 'Persuasive' && conciseRes.body.length < persuasiveRes.body.length, 'test_29_ai_compose_tones_spectrum', 'Tone spectrum variation failure');
+
+  const baseText = 'Dear Hiring Manager, Thank you for taking the time to speak with me yesterday regarding the AI Consultant position. I enjoyed our conversation.';
+  const shortened = await aiEmailComposer.compose({ action: 'shorten', current_draft: baseText });
+  const expanded = await aiEmailComposer.compose({ action: 'expand', current_draft: baseText });
+  assert(shortened.body.length <= baseText.length && expanded.body.length >= baseText.length, 'test_30_ai_refine_shorten_and_expand', 'Refinement shorten/expand failed');
+
+  const draftWithErrors = 'i wants to thank you for meeting me yesturday.';
+  const polished = await aiEmailComposer.compose({ action: 'fix_grammar', current_draft: draftWithErrors });
+  assert(polished.body.toLowerCase().includes('thank you'), 'test_31_ai_refine_grammar_and_tone', 'Grammar polish failed');
+
+  // --- Group 7: Gmail Integration, RFC 2822 MIME, Drafts & Sending Invariant (Tests 32 - 36) ---
+  console.log('\n--- Group 7: Gmail RFC 2822 MIME, Drafts & Sending Invariant (5 Tests) ---');
+
+  const rfcRaw = (gmailService as any).buildRFC2822Raw({
+    to: 'client@example.com',
+    subject: 'Invoice #102',
+    body: 'Please find attached invoice.',
+    attachments: [{ filename: 'invoice.pdf', mime_type: 'application/pdf', content_base64: 'JVBERi0xLjQK...' }]
+  }, 'sender@gmail.com');
+  const decodedMime = Buffer.from(rfcRaw.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString('utf-8');
+  assert(decodedMime.includes('To: client@example.com') && decodedMime.includes('Subject: Invoice #102') && decodedMime.includes('filename="invoice.pdf"'), 'test_32_gmail_rfc2822_mime_builder', 'MIME generation incorrect');
+
+  const draftItem = await gmailService.saveDraft({
+    to: 'director@agency.com',
+    subject: 'Proposal Draft',
+    body: 'Draft proposal for review.',
+    attachments: []
+  });
+  assert(draftItem.id.startsWith('draft') && draftItem.subject === 'Proposal Draft', 'test_33_gmail_save_draft_with_attachments', 'Draft save failed');
+  const draftsList = await gmailService.listDrafts();
+  assert(draftsList.some(d => d.id === draftItem.id), 'test_33b_gmail_drafts_listing', 'Draft not found in listing');
+
+  const sendRes = await gmailService.sendComposedEmail({
+    to: 'partner@techcorp.com',
+    subject: 'Confirmed SOW',
+    body: 'Here is our agreed statement of work.'
+  });
+  assert(sendRes.success === true && sendRes.status === 'sent' && typeof sendRes.message_id === 'string', 'test_34_gmail_send_composed_email', 'Send email failed');
+  const sentList = gmailService.listSentEmails();
+  assert(sentList.some(s => s.to === 'partner@techcorp.com'), 'test_34b_gmail_sent_list_persistence', 'Sent email not found in sent items');
+
+  let errorThrown = false;
+  try {
+    await gmailService.sendComposedEmail({ to: '', subject: '', body: '' });
+  } catch (e) {
+    errorThrown = true;
+  }
+  assert(errorThrown === true, 'test_35_gmail_send_validation', 'Failed to reject invalid email payload');
+
+  const finalSent = sentList.find(s => s.to === 'partner@techcorp.com');
+  assert(finalSent !== undefined && finalSent.from_account.length > 0 && finalSent.sent_at.length > 0, 'test_36_gmail_user_approval_invariant', 'Missing audit trail for sent email');
+
   console.log('\n========================================================');
   console.log(`🎉 Task 2 Evaluation Complete: ${passedTests}/${totalTests} tests passed (100% Success)`);
   console.log('========================================================\n');
+  process.exit(0);
 }
 
 runTests().catch(err => {

@@ -125,8 +125,96 @@ export interface GmailConfig {
   app_password?: string;
   client_id?: string;
   client_secret?: string;
+  redirect_uri?: string;
   imap_host: string;
   smtp_host: string;
   is_connected: boolean;
   last_sync: string;
+  user_profile?: GoogleUserProfile;
+}
+
+export interface GoogleUserProfile {
+  id?: string;
+  email: string;
+  name: string;
+  given_name?: string;
+  family_name?: string;
+  picture?: string;
+  locale?: string;
+  verified_email?: boolean;
+  connected_at?: string;
+}
+
+export interface GoogleAuthStatus {
+  is_connected: boolean;
+  user?: GoogleUserProfile;
+  user_profile?: GoogleUserProfile;
+  auth_type: 'oauth2' | 'demo';
+  has_client_credentials: boolean;
+  client_id_preview?: string;
+  scopes: string[];
+  message?: string;
+}
+
+export type EmailTone = 
+  | 'Professional'
+  | 'Formal'
+  | 'Friendly'
+  | 'Polite'
+  | 'Concise'
+  | 'Persuasive';
+
+export interface EmailAttachment {
+  filename: string;
+  mimeType: string;
+  size: number;
+  contentBase64: string;
+}
+
+export interface ComposeEmailRequest {
+  to: string;
+  cc?: string;
+  bcc?: string;
+  subject: string;
+  body: string;
+  attachments?: EmailAttachment[];
+  threadId?: string;
+  inReplyTo?: string;
+}
+
+export interface AIComposeRequest {
+  instruction?: string;
+  recipient?: string;
+  contextSubject?: string;
+  contextBody?: string;
+  tone?: EmailTone;
+  action?: 'compose' | 'shorten' | 'expand' | 'change_tone' | 'fix_grammar' | 'regenerate';
+  currentDraft?: string;
+  current_draft?: string;
+  email_context?: {
+    subject?: string;
+    body?: string;
+    customer_name?: string;
+  };
+}
+
+export interface AIComposeResponse {
+  subject: string;
+  greeting: string;
+  body: string;
+  closing: string;
+  fullEmail: string;
+  tone: EmailTone;
+  reasoning: string;
+  clarificationNeeded?: string;
+}
+
+export interface GmailDraftItem {
+  id: string;
+  messageId?: string;
+  to: string;
+  subject: string;
+  snippet: string;
+  body: string;
+  updatedAt: string;
 }

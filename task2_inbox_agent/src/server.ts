@@ -15,6 +15,9 @@ import { emailDrafter } from './drafter';
 import { learningStore } from './learningStore';
 import { graduationEngine } from './graduation';
 import { gmailService } from './gmailService';
+import { googleAuthService } from './googleAuthService';
+import { aiEmailComposer } from './aiComposer';
+import { ComposeEmailRequest, AIComposeRequest } from './types';
 
 dotenv.config();
 
@@ -386,6 +389,138 @@ app.post('/api/v1/gmail/sync', async (_req: Request, res: Response) => {
     auto_sent_count: result.auto_sent_count,
     total_emails: emails.length,
     message: result.message
+  });
+});
+
+/**
+ * =====================================================================
+ * Google OAuth 2.0 Account Authentication Endpoints
+ * =====================================================================
+ */
+app.get('/api/v1/auth/google/url', (req: Request, res: Response) => {
+  const customRedirect = req.query.redirect_uri as string | undefined;
+  const authUrlInfo = googleAuthService.getAuthUrl(customRedirect);
+  res.json({
+    configured: authUrlInfo.has_credentials,
+    has_credentials: authUrlInfo.has_credentials,
+    auth_url: authUrlInfo.url,
+    url: authUrlInfo.url,
+    scopes: authUrlInfo.scopes,
+    message: authUrlInfo.message
+  });
+});
+
+app.get('/api/v1/auth/google/callback', async (req: Request, res: Response) => {
+  const code = req.query.code as string;
+  if (!code) {
+    res.status(400).send('<h1>OAuth Error: Missing authorization code</h1><a href="/">Return to Gmail Agent</a>');
+    return;
+  }
+  try {
+    const profile = await googleAuthService.handleCallback(code);
+    res.redirect('/?google_auth=success&account=' + encodeURIComponent(profile.email));
+  } catch (err: any) {
+    console.error('[OAuth Callback] Error:', err);
+    res.status(500).send(`<h1>OAuth Authentication Failed</h1><p>${err.message}</p><a href="/">Return to Gmail Agent</a>`);
+  }
+});
+
+app.get('/api/v1/auth/google/profile', (_req: Request, res: Response) => {
+  const status = googleAuthService.getStatus();
+  res.json(status);
+});
+
+app.post('/api/v1/auth/google/demo', (req: Request, res: Response) => {
+  const { email, name } = req.body;
+  const profile = googleAuthService.connectDemoUser(email, name);
+  res.json({
+    success: true,
+    user: profile,
+    message: `Connected to demo Google account: ${profile.email}`
+  });
+});
+
+app.post('/api/v1/auth/google/disconnect', (_req: Request, res: Response) => {
+  const result = googleAuthService.disconnect();
+  res.json(result);
+});
+
+app.post('/api/v1/auth/google/credentials', (req: Request, res: Response) => {
+  const { client_id, client_secret, redirect_uri } = req.body;
+  if (!client_id || !client_secret) {
+    res.status(400).json({ error: 'client_id and client_secret are required' });
+    return;
+  }
+  const result = googleAuthService.saveOAuthCredentials(client_id, client_secret, redirect_uri);
+  res.json(result);
+});
+
+/**
+ * =====================================================================
+ * AI Email Assistant & Natural Language Composition Endpoints
+ * =====================================================================
+ */
+app.post('/api/v1/ai/compose', async (req: Request, res: Response) => {
+  const payload: AIComposeRequest = req.body;
+  if (!payload.instruction && !payload.action) {
+    res.status(400).json({ error: 'instruction string is required' });
+    return;
+  }
+  try {
+    const result = await aiEmailComposer.compose(payload);
+    res.json(result);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * =====================================================================
+ * Email Compose, Save Drafts, and Sent Endpoints (Direct Gmail API)
+ * =====================================================================
+ */
+app.post('/api/v1/emails/compose', async (req: Request, res: Response) => {
+  const payload: ComposeEmailRequest = req.body;
+  if (!payload.to || !payload.subject || !payload.body) {
+    res.status(400).json({ error: 'to, subject, and body are required to send an email' });
+    return;
+  }
+
+  try {
+    const result = await gmailService.sendComposedEmail(payload);
+    res.json(result);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/v1/emails/drafts', async (req: Request, res: Response) => {
+  const payload: ComposeEmailRequest = req.body;
+  try {
+    const draft = await gmailService.saveDraft(payload);
+    res.json({
+      success: true,
+      draft,
+      message: 'Draft saved successfully to Gmail drafts.'
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/v1/emails/drafts', async (_req: Request, res: Response) => {
+  const drafts = await gmailService.listDrafts();
+  res.json({
+    drafts,
+    total: drafts.length
+  });
+});
+
+app.get('/api/v1/emails/sent', (_req: Request, res: Response) => {
+  const sent = gmailService.listSentEmails();
+  res.json({
+    sent,
+    total: sent.length
   });
 });
 

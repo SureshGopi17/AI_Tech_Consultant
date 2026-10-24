@@ -1,10 +1,20 @@
 {
   "mode": "demo",
-  "gmail_address": "consultant.demo@gmail.com",
-  "auth_type": "app_password",
+  "gmail_address": "consultant.test@gmail.com",
+  "auth_type": "oauth",
   "app_password": "••••••••••••••••",
   "imap_host": "imap.gmail.com:993",
   "smtp_host": "smtp.gmail.com:587",
   "is_connected": true,
-  "last_sync": "2026-10-23T13:22:26.327Z"
+  "last_sync": "2026-10-24T03:39:56.883Z",
+  "user_profile": {
+    "id": "demo-google-user-01",
+    "email": "consultant.test@gmail.com",
+    "name": "Alex Morgan",
+    "given_name": "Alex",
+    "family_name": "Morgan",
+    "picture": "https://lh3.googleusercontent.com/a/default-user",
+    "verified_email": true,
+    "connected_at": "2026-10-24T03:39:56.841Z"
+  }
 }

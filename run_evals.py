@@ -51,8 +51,15 @@ def run_task2():
         errors="replace"
     )
     elapsed = time.time() - start
-    passed = "25/25 tests passed" in res.stdout
-    return {"task": "Task 2: The Inbox Agent", "lang": "TypeScript", "tests": 25, "passed": 25 if passed else 0, "time_s": round(elapsed, 2), "output": res.stdout}
+    import re
+    match = re.search(r'(\d+)/(\d+)\s+tests passed', res.stdout)
+    if match:
+        passed_cnt = int(match.group(1))
+        total_cnt = int(match.group(2))
+    else:
+        passed_cnt = 0
+        total_cnt = 38
+    return {"task": "Task 2: The Inbox Agent", "lang": "TypeScript", "tests": total_cnt, "passed": passed_cnt, "time_s": round(elapsed, 2), "output": res.stdout}
 
 def run_task3():
     print("\n▶ [3/3] Running Task 3 Python Evaluation Suite (Meeting to SOW)...")

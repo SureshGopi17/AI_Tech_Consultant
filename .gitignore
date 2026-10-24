@@ -20,6 +20,9 @@ out/
 .coverage
 htmlcov/
 
+# Sensitive OAuth Tokens
+*google_tokens.json
+
 # Logs & temp
 *.log
 .DS_Store
