@@ -1,5 +1,17 @@
 [
   {
+    "id": "msg-168719",
+    "message_id": "msg-168719",
+    "from": "consultant.test@gmail.com",
+    "from_account": "consultant.test@gmail.com",
+    "to": "client@firm.com",
+    "subject": "Tech Review SOW",
+    "body": "Delivering final SOW document.",
+    "attachments_count": 0,
+    "sent_at": "2026-10-24T03:56:08.719Z",
+    "status": "sent"
+  },
+  {
     "id": "msg-197063",
     "message_id": "msg-197063",
     "from": "consultant.test@gmail.com",

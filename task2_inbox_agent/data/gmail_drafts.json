@@ -1,5 +1,13 @@
 [
   {
+    "id": "draft-160396",
+    "to": "partner@agency.com",
+    "subject": "Consulting Proposal",
+    "snippet": "Attached proposal for review.",
+    "body": "Attached proposal for review.",
+    "updatedAt": "2026-10-24T03:56:00.398Z"
+  },
+  {
     "id": "draft-197020",
     "to": "director@agency.com",
     "subject": "Proposal Draft",

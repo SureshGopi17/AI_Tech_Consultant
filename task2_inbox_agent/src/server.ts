@@ -76,6 +76,57 @@ app.get('/api/v1/emails', (req: Request, res: Response) => {
 });
 
 /**
+ * =====================================================================
+ * Email Compose, Save Drafts, and Sent Endpoints (Direct Gmail API)
+ * Note: Must be declared before /api/v1/emails/:id to avoid Express param masking
+ * =====================================================================
+ */
+app.post('/api/v1/emails/compose', async (req: Request, res: Response) => {
+  const payload: ComposeEmailRequest = req.body;
+  if (!payload.to || !payload.subject || !payload.body) {
+    res.status(400).json({ error: 'to, subject, and body are required to send an email' });
+    return;
+  }
+
+  try {
+    const result = await gmailService.sendComposedEmail(payload);
+    res.json(result);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/v1/emails/drafts', async (req: Request, res: Response) => {
+  const payload: ComposeEmailRequest = req.body;
+  try {
+    const draft = await gmailService.saveDraft(payload);
+    res.json({
+      success: true,
+      draft,
+      message: 'Draft saved successfully to Gmail drafts.'
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/v1/emails/drafts', async (_req: Request, res: Response) => {
+  const drafts = await gmailService.listDrafts();
+  res.json({
+    drafts,
+    total: drafts.length
+  });
+});
+
+app.get('/api/v1/emails/sent', (_req: Request, res: Response) => {
+  const sent = gmailService.listSentEmails();
+  res.json({
+    sent,
+    total: sent.length
+  });
+});
+
+/**
  * Get email details
  */
 app.get('/api/v1/emails/:id', (req: Request, res: Response) => {
@@ -472,56 +523,6 @@ app.post('/api/v1/ai/compose', async (req: Request, res: Response) => {
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
-});
-
-/**
- * =====================================================================
- * Email Compose, Save Drafts, and Sent Endpoints (Direct Gmail API)
- * =====================================================================
- */
-app.post('/api/v1/emails/compose', async (req: Request, res: Response) => {
-  const payload: ComposeEmailRequest = req.body;
-  if (!payload.to || !payload.subject || !payload.body) {
-    res.status(400).json({ error: 'to, subject, and body are required to send an email' });
-    return;
-  }
-
-  try {
-    const result = await gmailService.sendComposedEmail(payload);
-    res.json(result);
-  } catch (err: any) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.post('/api/v1/emails/drafts', async (req: Request, res: Response) => {
-  const payload: ComposeEmailRequest = req.body;
-  try {
-    const draft = await gmailService.saveDraft(payload);
-    res.json({
-      success: true,
-      draft,
-      message: 'Draft saved successfully to Gmail drafts.'
-    });
-  } catch (err: any) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.get('/api/v1/emails/drafts', async (_req: Request, res: Response) => {
-  const drafts = await gmailService.listDrafts();
-  res.json({
-    drafts,
-    total: drafts.length
-  });
-});
-
-app.get('/api/v1/emails/sent', (_req: Request, res: Response) => {
-  const sent = gmailService.listSentEmails();
-  res.json({
-    sent,
-    total: sent.length
-  });
 });
 
 app.listen(PORT, '0.0.0.0', () => {
